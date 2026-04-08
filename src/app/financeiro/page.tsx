@@ -1,26 +1,158 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useApp } from '@/lib/AppContext';
+
+type PaymentFilter = 'todos' | 'pagos' | 'pendentes' | 'atrasados';
 
 export default function FinanceiroPage() {
-  const [activeNav, setActiveNav] = useState('training');
+  const { patients, payments, getOverduePayments } = useApp();
+  const pathname = usePathname();
+  const [activeFilter, setActiveFilter] = useState<PaymentFilter>('todos');
+
+  // Format money to Brazilian format
+  const formatMoney = (value: number): string => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(value);
+  };
+
+  // Format date to DD/MM/YYYY
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('pt-BR');
+  };
+
+  // Get current month payments
+  const currentMonthPayments = useMemo(() => {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    return payments.filter((p) => {
+      const paymentDate = new Date(p.paidDate || p.dueDate);
+      return paymentDate.getMonth() === currentMonth && paymentDate.getFullYear() === currentYear;
+    });
+  }, [payments]);
+
+  // Calculate hero stats
+  const monthlyRevenue = useMemo(() => {
+    return currentMonthPayments
+      .filter((p) => p.status === 'paid')
+      .reduce((sum, p) => sum + p.amount, 0);
+  }, [currentMonthPayments]);
+
+  const paidCount = useMemo(() => {
+    return currentMonthPayments.filter((p) => p.status === 'paid').length;
+  }, [currentMonthPayments]);
+
+  const overduePayments = useMemo(() => {
+    return getOverduePayments();
+  }, [getOverduePayments]);
+
+  // Calculate monthly trend (simplified: comparing last month)
+  const lastMonthRevenue = useMemo(() => {
+    const now = new Date();
+    const lastMonth = now.getMonth() - 1;
+    const lastYear = lastMonth < 0 ? now.getFullYear() - 1 : now.getFullYear();
+    const adjustedMonth = lastMonth < 0 ? 11 : lastMonth;
+
+    return payments
+      .filter((p) => {
+        const paymentDate = new Date(p.paidDate || p.dueDate);
+        return (
+          p.status === 'paid' &&
+          paymentDate.getMonth() === adjustedMonth &&
+          paymentDate.getFullYear() === lastYear
+        );
+      })
+      .reduce((sum, p) => sum + p.amount, 0);
+  }, [payments]);
+
+  const trendPercent = useMemo(() => {
+    if (lastMonthRevenue === 0) return 0;
+    return (((monthlyRevenue - lastMonthRevenue) / lastMonthRevenue) * 100).toFixed(1);
+  }, [monthlyRevenue, lastMonthRevenue]);
+
+  // Filter payments based on active filter
+  const filteredPayments = useMemo(() => {
+    switch (activeFilter) {
+      case 'pagos':
+        return payments.filter((p) => p.status === 'paid');
+      case 'pendentes':
+        return payments.filter((p) => p.status === 'pending');
+      case 'atrasados':
+        return overduePayments;
+      case 'todos':
+      default:
+        return payments;
+    }
+  }, [activeFilter, payments, overduePayments]);
+
+  // Get avatar for patient
+  const getPatientAvatar = (patientId: string): string => {
+    const patient = patients.find((p) => p.id === patientId);
+    return patient?.avatar || 'N/A';
+  };
+
+  // Get status badge color
+  const getStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case 'paid':
+        return 'bg-primary/20 text-primary';
+      case 'pending':
+        return 'bg-surface-high text-on-surface-variant';
+      case 'overdue':
+        return 'bg-error/20 text-error';
+      default:
+        return 'bg-surface-high text-on-surface';
+    }
+  };
+
+  // Get card border class
+  const getCardBorderClass = (status: string) => {
+    switch (status) {
+      case 'paid':
+        return 'border-primary/30';
+      case 'overdue':
+        return 'border-error/30';
+      default:
+        return 'border-on-surface-variant/20';
+    }
+  };
+
+  // Get status label
+  const getStatusLabel = (status: string): string => {
+    switch (status) {
+      case 'paid':
+        return 'Pago';
+      case 'pending':
+        return 'Pendente';
+      case 'overdue':
+        return 'Atrasado';
+      default:
+        return status;
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-background text-on-surface flex flex-col">
+    <div className="min-h-screen bg-[#131313] text-[#E5E2E1] flex flex-col">
       {/* Fixed Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-on-surface-variant/10">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#131313]/80 backdrop-blur-md border-b border-[#C4C9AC]/10">
         <div className="px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center">
-              <span className="text-on-primary font-bold text-sm">VH</span>
+            <div className="w-10 h-10 rounded-full bg-[#CCFF00]/20 border border-[#CCFF00]/40 flex items-center justify-center">
+              <span className="font-bold text-sm text-[#131313]">KO</span>
             </div>
-            <h1 className="text-xl font-headline font-bold text-primary">
+            <h1 className="text-xl font-headline font-bold text-[#CCFF00]">
               KINĒTIC ONYX
             </h1>
           </div>
           <div className="flex items-center gap-4">
-            <span className="material-symbols-outlined text-2xl cursor-pointer hover:text-primary transition-colors">
+            <span className="material-symbols-outlined text-2xl cursor-pointer hover:text-[#CCFF00] transition-colors">
               notifications
             </span>
           </div>
@@ -31,48 +163,81 @@ export default function FinanceiroPage() {
       <main className="flex-1 pt-24 pb-28 px-6 flex justify-center">
         <div className="w-full max-w-md">
           {/* Page Title */}
-          <h1 className="text-3xl font-headline font-bold text-primary mb-2">
+          <h1 className="text-3xl font-headline font-bold text-[#CCFF00] mb-2">
             Controle Financeiro
           </h1>
-          <p className="text-on-surface-variant text-sm mb-8">
+          <p className="text-[#C4C9AC] text-sm mb-8">
             Performance e Fluxo de Caixa
           </p>
 
-          {/* Hero Card */}
-          <div className="glass-card rounded-2xl p-8 mb-8 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
-            <div className="relative z-10">
-              <span className="text-sm text-on-surface-variant font-bold uppercase tracking-wider">
-                Total Monthly Billing
-              </span>
-              <div className="text-4xl font-headline font-bold text-primary mt-3">
-                R$ 12.450,00
+          {/* Hero Stats Row */}
+          <div className="grid grid-cols-3 gap-3 mb-8">
+            {/* Faturamento Mensal */}
+            <div className="glass-card rounded-xl p-4 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#CCFF00]/5 rounded-full blur-3xl -mr-10 -mt-10"></div>
+              <div className="relative z-10">
+                <p className="text-xs text-[#C4C9AC] font-bold uppercase tracking-wider mb-2">
+                  Faturamento
+                </p>
+                <h3 className="text-lg font-headline font-bold text-[#CCFF00] mb-1">
+                  {formatMoney(monthlyRevenue)}
+                </h3>
+                <div className="flex items-center gap-1">
+                  <span className="material-symbols-outlined text-xs text-[#CCFF00]">
+                    trending_up
+                  </span>
+                  <span className="text-xs font-bold text-[#CCFF00]">
+                    +{trendPercent}%
+                  </span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 mt-4">
-                <span className="material-symbols-outlined text-sm text-primary">
-                  trending_up
-                </span>
-                <span className="text-sm font-bold text-primary">
-                  +12.5%
-                </span>
+            </div>
+
+            {/* Recebidos */}
+            <div className="glass-card rounded-xl p-4 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#CCFF00]/5 rounded-full blur-3xl -mr-10 -mt-10"></div>
+              <div className="relative z-10">
+                <p className="text-xs text-[#C4C9AC] font-bold uppercase tracking-wider mb-2">
+                  Recebidos
+                </p>
+                <h3 className="text-lg font-headline font-bold text-[#CCFF00] mb-1">
+                  {paidCount}
+                </h3>
+                <p className="text-xs text-[#C4C9AC]">
+                  pagamentos
+                </p>
+              </div>
+            </div>
+
+            {/* Inadimplentes */}
+            <div className="glass-card rounded-xl p-4 relative overflow-hidden border border-[#FFB4AB]/30">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#FFB4AB]/5 rounded-full blur-3xl -mr-10 -mt-10"></div>
+              <div className="relative z-10">
+                <p className="text-xs text-[#FFB4AB] font-bold uppercase tracking-wider mb-2">
+                  Atrasados
+                </p>
+                <h3 className="text-lg font-headline font-bold text-[#FFB4AB] mb-1">
+                  {overduePayments.length}
+                </h3>
+                <p className="text-xs text-[#FFB4AB]">
+                  pagamentos
+                </p>
               </div>
             </div>
           </div>
 
           {/* Monthly Revenue Chart */}
           <div className="glass-card rounded-2xl p-6 mb-8">
-            <h2 className="text-sm font-headline font-bold text-on-surface mb-6">
-              Monthly Revenue
+            <h2 className="text-sm font-headline font-bold text-[#E5E2E1] mb-6">
+              Receita Mensal
             </h2>
             <svg className="w-full h-32" viewBox="0 0 300 100">
-              {/* Gradient fill area */}
               <defs>
                 <linearGradient id="revenueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                   <stop offset="0%" stopColor="#CCFF00" stopOpacity="0.3" />
                   <stop offset="100%" stopColor="#CCFF00" stopOpacity="0" />
                 </linearGradient>
               </defs>
-              {/* Line */}
               <polyline
                 points="10,70 50,50 90,40 130,45 170,35 210,30 250,25 290,20"
                 fill="none"
@@ -80,135 +245,164 @@ export default function FinanceiroPage() {
                 strokeWidth="2"
                 vectorEffect="non-scaling-stroke"
               />
-              {/* Filled area */}
               <polygon
                 points="10,70 50,50 90,40 130,45 170,35 210,30 250,25 290,20 290,100 10,100"
                 fill="url(#revenueGradient)"
               />
             </svg>
-            <div className="flex justify-between text-xs text-on-surface-variant mt-4 px-2">
+            <div className="flex justify-between text-xs text-[#C4C9AC] mt-4 px-2">
               <span>Jan</span>
-              <span>Feb</span>
+              <span>Fev</span>
               <span>Mar</span>
-              <span>Apr</span>
-              <span>May</span>
+              <span>Abr</span>
+              <span>Mai</span>
               <span>Jun</span>
             </div>
           </div>
 
           {/* Quick Actions */}
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <button className="py-3 bg-primary text-on-primary font-bold rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+          <div className="grid grid-cols-2 gap-3 mb-8">
+            <button className="py-3 bg-[#CCFF00] text-[#131313] font-bold rounded-lg hover:bg-[#CCFF00]/90 transition-colors flex items-center justify-center gap-2">
               <span className="material-symbols-outlined text-lg">
                 mail
               </span>
-              <span className="text-sm">Send Invoice</span>
+              <span className="text-sm">Enviar Cobrança</span>
             </button>
-            <button className="py-3 bg-surface-high text-on-surface font-bold rounded-lg hover:bg-surface-highest transition-colors flex items-center justify-center gap-2 border border-on-surface-variant/20">
+            <button className="py-3 bg-[#2A2A2A] text-[#E5E2E1] font-bold rounded-lg hover:bg-[#353534] transition-colors flex items-center justify-center gap-2 border border-[#C4C9AC]/20">
               <span className="material-symbols-outlined text-lg">
-                manage_accounts
+                assessment
               </span>
-              <span className="text-sm">Subscriptions</span>
+              <span className="text-sm">Gerar Relatório</span>
             </button>
           </div>
 
-          {/* Patient Payment Status */}
-          <div className="space-y-3">
-            <h2 className="text-sm font-headline font-bold text-on-surface mb-4">
-              Patient Payment Status
+          {/* Payment Filters */}
+          <div className="flex gap-2 mb-6 overflow-x-auto">
+            {(['todos', 'pagos', 'pendentes', 'atrasados'] as const).map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-colors ${
+                  activeFilter === filter
+                    ? 'bg-[#CCFF00] text-[#131313]'
+                    : 'bg-[#2A2A2A] text-[#E5E2E1] hover:bg-[#353534]'
+                }`}
+              >
+                {filter === 'todos'
+                  ? 'Todos'
+                  : filter === 'pagos'
+                    ? 'Pagos'
+                    : filter === 'pendentes'
+                      ? 'Pendentes'
+                      : 'Atrasados'}
+              </button>
+            ))}
+          </div>
+
+          {/* Patient Payment List */}
+          <div className="space-y-3 mb-4">
+            <h2 className="text-sm font-headline font-bold text-[#E5E2E1] mb-4">
+              Pagamentos de Pacientes
             </h2>
 
-            {/* Fernando Vaz - Paid */}
-            <div className="glass-card rounded-2xl p-4 border-2 border-primary/30 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/20 border border-primary/40"></div>
-                <div>
-                  <h3 className="text-sm font-bold text-on-surface">
-                    Fernando Vaz
-                  </h3>
-                  <p className="text-xs text-on-surface-variant">
-                    R$ 850,00
-                  </p>
-                </div>
+            {filteredPayments.length === 0 ? (
+              <div className="glass-card rounded-2xl p-8 text-center">
+                <p className="text-[#C4C9AC]">
+                  Nenhum pagamento encontrado
+                </p>
               </div>
-              <span className="px-2 py-1 bg-primary/20 text-primary rounded text-xs font-bold">
-                Paid
-              </span>
-            </div>
-
-            {/* Mariana Costa - Pending */}
-            <div className="glass-card rounded-2xl p-4 border-2 border-on-surface-variant/30 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-on-surface-variant/20 border border-on-surface-variant/40"></div>
-                <div>
-                  <h3 className="text-sm font-bold text-on-surface">
-                    Mariana Costa
-                  </h3>
-                  <p className="text-xs text-on-surface-variant">
-                    R$ 1.200,00
-                  </p>
-                </div>
-              </div>
-              <span className="px-2 py-1 bg-surface-high text-on-surface-variant rounded text-xs font-bold">
-                Pending
-              </span>
-            </div>
-
-            {/* Ricardo Mendes - Overdue */}
-            <div className="glass-card rounded-2xl p-4 border-2 border-error/30 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-error/20 border border-error/40"></div>
-                <div>
-                  <h3 className="text-sm font-bold text-on-surface">
-                    Ricardo Mendes
-                  </h3>
-                  <p className="text-xs text-on-surface-variant">
-                    R$ 650,00
-                  </p>
-                </div>
-              </div>
-              <span className="px-2 py-1 bg-error/20 text-error rounded text-xs font-bold">
-                Overdue
-              </span>
-            </div>
+            ) : (
+              filteredPayments.map((payment) => {
+                const avatar = getPatientAvatar(payment.patientId);
+                return (
+                  <div
+                    key={payment.id}
+                    className={`glass-card rounded-2xl p-4 border-2 ${getCardBorderClass(payment.status)} flex items-center justify-between`}
+                  >
+                    <div className="flex items-center gap-3 flex-1">
+                      <div className="w-10 h-10 rounded-full bg-[#CCFF00]/20 border border-[#CCFF00]/40 flex items-center justify-center">
+                        <span className="text-xs font-bold text-[#131313]">
+                          {avatar}
+                        </span>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-sm font-bold text-[#E5E2E1]">
+                          {payment.patientName}
+                        </h3>
+                        <p className="text-xs text-[#C4C9AC]">
+                          {formatMoney(payment.amount)}
+                        </p>
+                        <p className="text-xs text-[#C4C9AC]">
+                          Vencimento: {formatDate(payment.dueDate)}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-end gap-2">
+                      <span
+                        className={`px-2 py-1 rounded text-xs font-bold ${getStatusBadgeClass(payment.status)}`}
+                      >
+                        {getStatusLabel(payment.status)}
+                      </span>
+                      <button className="text-xs text-[#CCFF00] hover:text-[#CCFF00]/80 transition-colors font-bold">
+                        {payment.status === 'paid'
+                          ? 'Recibo'
+                          : 'Lembrete'}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })
+            )}
           </div>
         </div>
       </main>
 
       {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-md border-t border-on-surface-variant/10">
-        <div className="flex justify-center gap-8 h-20 px-6">
+      <nav className="fixed bottom-0 left-0 right-0 bg-[#131313]/80 backdrop-blur-md border-t border-[#C4C9AC]/10">
+        <div className="flex justify-center gap-8 h-20 px-6 max-w-md mx-auto w-full">
           <Link
-            href="/"
-            className="flex items-center gap-2 text-on-surface-variant hover:text-on-surface transition-colors"
-          >
-            <span className="material-symbols-outlined">home</span>
-            <span className="text-sm">Home</span>
-          </Link>
-          <Link
-            href="/dieta"
-            className="flex items-center gap-2 text-on-surface-variant hover:text-on-surface transition-colors"
-          >
-            <span className="material-symbols-outlined">restaurant</span>
-            <span className="text-sm">Nutrition</span>
-          </Link>
-          <button
-            onClick={() => setActiveNav('training')}
+            href="/dashboard"
             className={`flex items-center gap-2 transition-colors ${
-              activeNav === 'training'
-                ? 'text-primary border-b-2 border-primary'
-                : 'text-on-surface-variant hover:text-on-surface'
+              pathname === '/dashboard'
+                ? 'text-[#CCFF00] border-b-2 border-[#CCFF00]'
+                : 'text-[#C4C9AC] hover:text-[#E5E2E1]'
             }`}
           >
-            <span className="material-symbols-outlined">fitness_center</span>
-            <span className="text-sm">Training</span>
-          </button>
+            <span className="material-symbols-outlined">home</span>
+            <span className="text-sm">Dashboard</span>
+          </Link>
           <Link
-            href="/chat"
-            className="flex items-center gap-2 text-on-surface-variant hover:text-on-surface transition-colors"
+            href="/pacientes"
+            className={`flex items-center gap-2 transition-colors ${
+              pathname === '/pacientes'
+                ? 'text-[#CCFF00] border-b-2 border-[#CCFF00]'
+                : 'text-[#C4C9AC] hover:text-[#E5E2E1]'
+            }`}
           >
             <span className="material-symbols-outlined">people</span>
-            <span className="text-sm">Community</span>
+            <span className="text-sm">Pacientes</span>
+          </Link>
+          <Link
+            href="/financeiro"
+            className={`flex items-center gap-2 transition-colors ${
+              pathname === '/financeiro'
+                ? 'text-[#CCFF00] border-b-2 border-[#CCFF00]'
+                : 'text-[#C4C9AC] hover:text-[#E5E2E1]'
+            }`}
+          >
+            <span className="material-symbols-outlined">payments</span>
+            <span className="text-sm">Financeiro</span>
+          </Link>
+          <Link
+            href="/chat"
+            className={`flex items-center gap-2 transition-colors ${
+              pathname === '/chat'
+                ? 'text-[#CCFF00] border-b-2 border-[#CCFF00]'
+                : 'text-[#C4C9AC] hover:text-[#E5E2E1]'
+            }`}
+          >
+            <span className="material-symbols-outlined">chat</span>
+            <span className="text-sm">Chat</span>
           </Link>
         </div>
       </nav>

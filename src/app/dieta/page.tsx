@@ -1,34 +1,84 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
-import BottomNav from "@/components/BottomNav";
+
+type ApproachType = "matematica" | "intuitiva" | "comportamental";
+
+interface Habit {
+  id: string;
+  name: string;
+  days: boolean[];
+}
+
+interface IntuitiveGoal {
+  id: string;
+  title: string;
+  icon: string;
+  progress: number;
+  target: number;
+  unit: string;
+}
 
 export default function DietaPage() {
+  const pathname = usePathname();
   const [selectedMeal, setSelectedMeal] = useState<"frango" | "peixe">("frango");
+  const [approachType, setApproachType] = useState<ApproachType>("matematica");
+  const [showTemplateModal, setShowTemplateModal] = useState(false);
+  const [habits, setHabits] = useState<Habit[]>([
+    { id: "1", name: "Café da manhã antes das 9h", days: [true, true, true, false, true, true, false] },
+    { id: "2", name: "5 porções de vegetais", days: [true, false, true, true, false, true, true] },
+    { id: "3", name: "Sem ultraprocessados", days: [true, true, true, true, true, false, true] },
+  ]);
+
+  const intuitiveGoals: IntuitiveGoal[] = [
+    { id: "1", title: "Beber 2L de água por dia", icon: "water_drop", progress: 1.5, target: 2, unit: "L" },
+    { id: "2", title: "Aumentar consumo de frutas", icon: "nutrition", progress: 3, target: 5, unit: "porções" },
+    { id: "3", title: "Reduzir carboidratos à noite", icon: "nights_stay", progress: 60, target: 100, unit: "%" },
+    { id: "4", title: "Comer mais devagar", icon: "self_improvement", progress: 4, target: 5, unit: "pontos" },
+  ];
+
+  const toggleHabitDay = (habitId: string, dayIndex: number) => {
+    setHabits(habits.map(h =>
+      h.id === habitId
+        ? { ...h, days: h.days.map((d, i) => i === dayIndex ? !d : d) }
+        : h
+    ));
+  };
+
+  const getProgressPercentage = (goal: IntuitiveGoal) => {
+    return Math.min((goal.progress / goal.target) * 100, 100);
+  };
+
+  const dayLabels = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
 
   return (
     <div className="min-h-screen bg-background text-on-background pb-32">
       {/* TopAppBar */}
-      <header className="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-20 bg-background/80 backdrop-blur-md">
+      <header className="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-20 bg-background/80 backdrop-blur-md border-b border-white/5">
         <div className="flex items-center gap-4">
-          {/* Profile Avatar */}
           <div className="w-10 h-10 rounded-full overflow-hidden ring-1 ring-white/10 bg-gradient-to-br from-primary/40 to-surface-high flex items-center justify-center">
             <span className="material-symbols-outlined text-primary">account_circle</span>
           </div>
-          <span className="text-xl font-extrabold italic text-primary tracking-widest font-headline neon-text-glow uppercase">
-            Premium
-          </span>
+          <div>
+            <span className="text-xs font-label uppercase tracking-[0.2em] text-on-surface-variant font-bold">
+              Paciente
+            </span>
+            <h2 className="text-lg font-headline font-black tracking-tight">Ricardo Mendes</h2>
+          </div>
         </div>
-        <div className="flex items-center gap-4">
-          <button className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors">
-            <span className="material-symbols-outlined text-on-background/60">notifications</span>
-          </button>
-        </div>
+        <button
+          onClick={() => setShowTemplateModal(true)}
+          className="flex items-center gap-2 px-4 py-2 glass-card-high text-primary hover:bg-white/10 transition-colors rounded-lg"
+        >
+          <span className="material-symbols-outlined text-lg">layers</span>
+          <span className="text-xs font-bold uppercase tracking-widest hidden sm:inline">Templates</span>
+        </button>
       </header>
 
-      <main className="pt-28 px-6 max-w-5xl mx-auto space-y-12">
-        {/* Performance Macro-Grid */}
+      <main className="pt-28 px-6 max-w-6xl mx-auto space-y-12">
+        {/* Performance Biometrics Section */}
         <section>
           <div className="flex justify-between items-end mb-8">
             <div>
@@ -50,8 +100,8 @@ export default function DietaPage() {
           </div>
 
           <div className="grid grid-cols-12 gap-4">
-            {/* Protein (Primary Focus) */}
-            <div className="col-span-12 md:col-span-7 glass-card p-8 flex flex-col justify-between min-h-[220px] relative overflow-hidden group">
+            {/* Protein Card */}
+            <div className="col-span-12 md:col-span-7 glass-card p-8 flex flex-col justify-between min-h-[200px] relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-4">
                 <span className="material-symbols-outlined text-primary/20 text-6xl select-none">
                   fitness_center
@@ -66,22 +116,23 @@ export default function DietaPage() {
                 </div>
               </div>
               <div className="relative z-10">
-                <div className="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden">
                   <div className="bg-primary h-full w-[75%] neon-glow transition-all duration-1000 ease-out"></div>
                 </div>
                 <div className="flex justify-between mt-3 font-label text-[10px] text-on-surface-variant uppercase tracking-[0.2em] font-bold">
-                  <span>Target: 240g</span>
-                  <span className="text-primary">75% Optimal</span>
+                  <span>Meta: 240g</span>
+                  <span className="text-primary">75% Ótimo</span>
                 </div>
               </div>
             </div>
 
             {/* Secondary Macros */}
             <div className="col-span-12 md:col-span-5 grid grid-rows-2 gap-4">
+              {/* Carbs */}
               <div className="glass-card-high p-6 flex justify-between items-center group transition-all hover:bg-white/5">
                 <div>
                   <span className="font-label text-[10px] font-black text-on-background/60 uppercase tracking-widest">
-                    Carbo
+                    Carboidratos
                   </span>
                   <div className="text-3xl font-headline font-black mt-1">
                     240<span className="text-sm text-on-surface-variant ml-1 font-normal uppercase tracking-normal">g</span>
@@ -113,6 +164,8 @@ export default function DietaPage() {
                   </svg>
                 </div>
               </div>
+
+              {/* Fats */}
               <div className="glass-card-high p-6 flex justify-between items-center group transition-all hover:bg-white/5">
                 <div>
                   <span className="font-label text-[10px] font-black text-on-background/60 uppercase tracking-widest">
@@ -152,152 +205,316 @@ export default function DietaPage() {
           </div>
         </section>
 
-        {/* Nutrition and Workout Section */}
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          {/* Meal Selection */}
-          <div className="lg:col-span-2 space-y-8">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-headline font-black tracking-tight uppercase">Próxima Refeição</h2>
-              <span className="bg-primary/10 text-primary border border-primary/20 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] rounded-full">
-                Almoço • 13:00
-              </span>
-            </div>
-            <div className="space-y-6">
-              {/* Option 1: Selected - Frango e Batata */}
-              <button
-                onClick={() => setSelectedMeal("frango")}
-                className={`glass-card overflow-hidden group cursor-pointer transition-all hover:translate-y-[-2px] hover:shadow-2xl border-l-[3px] w-full text-left ${
-                  selectedMeal === "frango" ? "border-primary shadow-xl shadow-primary/10" : "border-transparent"
-                }`}
-              >
-                <div className="flex flex-col sm:flex-row h-full">
-                  <div className="w-full sm:w-56 h-48 sm:h-auto overflow-hidden bg-gradient-to-br from-surface-high to-surface-low">
-                    <div className="w-full h-full flex items-center justify-center">
-                      <span className="material-symbols-outlined text-primary/30 text-6xl">
-                        restaurant
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex-1 p-8 flex flex-col justify-between">
-                    <div>
-                      <div className="flex justify-between items-start">
-                        <h3 className="text-xl font-headline font-black tracking-tight">
-                          01. Frango e Batata
-                        </h3>
-                        <span className="material-symbols-outlined text-primary neon-text-glow" style={{ fontVariationSettings: "'FILL' 1" }}>
-                          check_circle
-                        </span>
-                      </div>
-                      <p className="text-sm text-on-surface-variant mt-3 font-body leading-relaxed opacity-80">
-                        150g peito de frango grelhado + 200g batata doce assada + mix de folhas verdes.
-                      </p>
-                    </div>
-                    <div className="flex gap-8 mt-6 pt-6 border-t border-white/5">
-                      <div>
-                        <span className="block text-sm font-black text-white">42g</span>
-                        <span className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">
-                          Protein
-                        </span>
-                      </div>
-                      <div>
-                        <span className="block text-sm font-black text-white">45g</span>
-                        <span className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">
-                          Carbs
-                        </span>
-                      </div>
-                      <div>
-                        <span className="block text-sm font-black text-white">8g</span>
-                        <span className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">
-                          Fats
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </button>
-
-              {/* Option 2: Ghost - Peixe e Arroz */}
-              <button
-                onClick={() => setSelectedMeal("peixe")}
-                className={`glass-card-high overflow-hidden group cursor-pointer transition-all border-l-[3px] w-full text-left ${
-                  selectedMeal === "peixe" ? "border-primary shadow-xl shadow-primary/10 hover:bg-white/10" : "border-transparent hover:bg-white/5"
-                }`}
-              >
-                <div className="flex flex-col sm:flex-row h-full">
-                  <div className={`w-full sm:w-56 h-32 sm:h-auto overflow-hidden bg-gradient-to-br from-surface-high to-surface-low flex items-center justify-center transition-all ${
-                    selectedMeal === "peixe" ? "opacity-100" : "grayscale opacity-40 group-hover:opacity-70 group-hover:grayscale-0"
-                  }`}>
-                    <span className="material-symbols-outlined text-primary/20 text-5xl">
-                      lunch_dining
-                    </span>
-                  </div>
-                  <div className={`flex-1 p-8 flex flex-col justify-between transition-opacity ${
-                    selectedMeal === "peixe" ? "opacity-100" : "opacity-50 group-hover:opacity-100"
-                  }`}>
-                    <div>
-                      <h3 className="text-lg font-headline font-black tracking-tight">02. Peixe e Arroz</h3>
-                      <p className="text-xs text-on-surface-variant mt-2 font-body font-medium">
-                        160g Tilápia grelhada + 150g Arroz Integral.
-                      </p>
-                    </div>
-                    <div className="flex gap-6 mt-4 font-label text-[10px] text-on-surface-variant font-black uppercase tracking-widest">
-                      <span>38g P</span>
-                      <span>35g C</span>
-                      <span>12g G</span>
-                    </div>
-                  </div>
-                </div>
-              </button>
-
-              {/* Replacement Action */}
-              <Link href="/substituicao">
-                <button className="w-full flex items-center justify-center gap-3 py-5 glass-card-high text-primary font-black text-xs uppercase tracking-[0.25em] hover:bg-white/10 active:scale-[0.99] transition-all group">
-                  <span className="material-symbols-outlined text-lg group-hover:rotate-180 transition-transform duration-500">
-                    swap_horiz
-                  </span>
-                  Substituir Alimento
-                </button>
-              </Link>
-            </div>
+        {/* Tipo de Abordagem Selector */}
+        <section className="space-y-6">
+          <div>
+            <h2 className="text-2xl font-headline font-black tracking-tight uppercase mb-1">Tipo de Abordagem</h2>
+            <p className="text-sm text-on-surface-variant">Escolha a estratégia de diet que melhor se adapta ao paciente</p>
           </div>
 
-          {/* Secondary Column */}
-          <div className="space-y-10">
-            {/* Training Session */}
-            <div className="glass-card p-8 flex flex-col justify-between h-80 group relative overflow-hidden">
-              <div className="absolute inset-0 z-0 opacity-10 group-hover:opacity-20 transition-opacity duration-700 bg-gradient-to-br from-primary/20 to-transparent"></div>
-              <div className="relative z-10">
-                <span className="text-primary text-[10px] font-black uppercase tracking-[0.3em]">
-                  Programmed Session
-                </span>
-                <h3 className="text-3xl font-headline font-black mt-4 leading-[1.1] tracking-tighter uppercase">
-                  Treino A:<br />
-                  <span className="text-on-background/70">Membros Inferiores</span>
-                </h3>
-              </div>
-              <div className="relative z-10 flex items-center justify-between pt-6 border-t border-white/5">
-                <div>
-                  <span className="block text-2xl font-black">08</span>
-                  <span className="text-[9px] uppercase text-on-surface-variant tracking-[0.2em] font-bold">
-                    Exercícios
-                  </span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Matemática */}
+            <button
+              onClick={() => setApproachType("matematica")}
+              className={`glass-card p-6 text-left transition-all cursor-pointer border-2 ${
+                approachType === "matematica"
+                  ? "border-primary bg-primary/5 shadow-lg shadow-primary/20"
+                  : "border-transparent hover:bg-white/5"
+              }`}
+            >
+              <div className="flex items-start gap-4 mb-4">
+                <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                  approachType === "matematica" ? "bg-primary/20" : "bg-white/10"
+                }`}>
+                  <span className="material-symbols-outlined text-lg text-primary">calculate</span>
                 </div>
-                <button className="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg shadow-primary/20 hover:scale-110 active:scale-95 transition-all">
-                  <span className="material-symbols-outlined font-black text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>
-                    play_arrow
-                  </span>
+                <div className="flex-1">
+                  <h3 className="font-headline font-black tracking-tight uppercase">Matemática</h3>
+                  <p className="text-xs text-on-surface-variant mt-2 leading-relaxed">
+                    Cálculo preciso de macros e calorias
+                  </p>
+                </div>
+              </div>
+              {approachType === "matematica" && (
+                <div className="flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-widest">
+                  <span className="material-symbols-outlined text-sm">check_circle</span>
+                  Selecionado
+                </div>
+              )}
+            </button>
+
+            {/* Intuitiva */}
+            <button
+              onClick={() => setApproachType("intuitiva")}
+              className={`glass-card p-6 text-left transition-all cursor-pointer border-2 ${
+                approachType === "intuitiva"
+                  ? "border-primary bg-primary/5 shadow-lg shadow-primary/20"
+                  : "border-transparent hover:bg-white/5"
+              }`}
+            >
+              <div className="flex items-start gap-4 mb-4">
+                <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                  approachType === "intuitiva" ? "bg-primary/20" : "bg-white/10"
+                }`}>
+                  <span className="material-symbols-outlined text-lg text-primary">psychology</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-headline font-black tracking-tight uppercase">Intuitiva</h3>
+                  <p className="text-xs text-on-surface-variant mt-2 leading-relaxed">
+                    Metas semanais sem cálculos rígidos
+                  </p>
+                </div>
+              </div>
+              {approachType === "intuitiva" && (
+                <div className="flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-widest">
+                  <span className="material-symbols-outlined text-sm">check_circle</span>
+                  Selecionado
+                </div>
+              )}
+            </button>
+
+            {/* Comportamental */}
+            <button
+              onClick={() => setApproachType("comportamental")}
+              className={`glass-card p-6 text-left transition-all cursor-pointer border-2 ${
+                approachType === "comportamental"
+                  ? "border-primary bg-primary/5 shadow-lg shadow-primary/20"
+                  : "border-transparent hover:bg-white/5"
+              }`}
+            >
+              <div className="flex items-start gap-4 mb-4">
+                <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                  approachType === "comportamental" ? "bg-primary/20" : "bg-white/10"
+                }`}>
+                  <span className="material-symbols-outlined text-lg text-primary">self_improvement</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-headline font-black tracking-tight uppercase">Comportamental</h3>
+                  <p className="text-xs text-on-surface-variant mt-2 leading-relaxed">
+                    Hábitos e mudanças progressivas
+                  </p>
+                </div>
+              </div>
+              {approachType === "comportamental" && (
+                <div className="flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-widest">
+                  <span className="material-symbols-outlined text-sm">check_circle</span>
+                  Selecionado
+                </div>
+              )}
+            </button>
+          </div>
+        </section>
+
+        {/* Content based on Approach Type */}
+        {approachType === "matematica" && (
+          <section className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            {/* Meal Selection */}
+            <div className="lg:col-span-2 space-y-8">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-headline font-black tracking-tight uppercase">Próxima Refeição</h2>
+                <span className="bg-primary/10 text-primary border border-primary/20 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] rounded-full">
+                  Almoço • 13:00
+                </span>
+              </div>
+              <div className="space-y-6">
+                {/* Option 1: Selected - Frango e Batata */}
+                <button
+                  onClick={() => setSelectedMeal("frango")}
+                  className={`glass-card overflow-hidden group cursor-pointer transition-all hover:translate-y-[-2px] hover:shadow-2xl border-l-[3px] w-full text-left ${
+                    selectedMeal === "frango" ? "border-primary shadow-xl shadow-primary/10" : "border-transparent"
+                  }`}
+                >
+                  <div className="flex flex-col sm:flex-row h-full">
+                    <div className="w-full sm:w-56 h-48 sm:h-auto overflow-hidden bg-gradient-to-br from-surface-high to-surface-low">
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="material-symbols-outlined text-primary/30 text-6xl">
+                          restaurant
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex-1 p-8 flex flex-col justify-between">
+                      <div>
+                        <div className="flex justify-between items-start">
+                          <h3 className="text-xl font-headline font-black tracking-tight">
+                            01. Frango e Batata
+                          </h3>
+                          <span className="material-symbols-outlined text-primary neon-text-glow" style={{ fontVariationSettings: "'FILL' 1" }}>
+                            check_circle
+                          </span>
+                        </div>
+                        <p className="text-sm text-on-surface-variant mt-3 font-body leading-relaxed opacity-80">
+                          150g peito de frango grelhado + 200g batata doce assada + mix de folhas verdes.
+                        </p>
+                      </div>
+                      <div className="flex gap-8 mt-6 pt-6 border-t border-white/5">
+                        <div>
+                          <span className="block text-sm font-black text-white">42g</span>
+                          <span className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">
+                            Proteína
+                          </span>
+                        </div>
+                        <div>
+                          <span className="block text-sm font-black text-white">45g</span>
+                          <span className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">
+                            Carbos
+                          </span>
+                        </div>
+                        <div>
+                          <span className="block text-sm font-black text-white">8g</span>
+                          <span className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">
+                            Gordura
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </button>
+
+                {/* Option 2: Ghost - Peixe e Arroz */}
+                <button
+                  onClick={() => setSelectedMeal("peixe")}
+                  className={`glass-card-high overflow-hidden group cursor-pointer transition-all border-l-[3px] w-full text-left ${
+                    selectedMeal === "peixe" ? "border-primary shadow-xl shadow-primary/10 hover:bg-white/10" : "border-transparent hover:bg-white/5"
+                  }`}
+                >
+                  <div className="flex flex-col sm:flex-row h-full">
+                    <div className={`w-full sm:w-56 h-32 sm:h-auto overflow-hidden bg-gradient-to-br from-surface-high to-surface-low flex items-center justify-center transition-all ${
+                      selectedMeal === "peixe" ? "opacity-100" : "grayscale opacity-40 group-hover:opacity-70 group-hover:grayscale-0"
+                    }`}>
+                      <span className="material-symbols-outlined text-primary/20 text-5xl">
+                        lunch_dining
+                      </span>
+                    </div>
+                    <div className={`flex-1 p-8 flex flex-col justify-between transition-opacity ${
+                      selectedMeal === "peixe" ? "opacity-100" : "opacity-50 group-hover:opacity-100"
+                    }`}>
+                      <div>
+                        <h3 className="text-lg font-headline font-black tracking-tight">02. Peixe e Arroz</h3>
+                        <p className="text-xs text-on-surface-variant mt-2 font-body font-medium">
+                          160g Tilápia grelhada + 150g Arroz Integral.
+                        </p>
+                      </div>
+                      <div className="flex gap-6 mt-4 font-label text-[10px] text-on-surface-variant font-black uppercase tracking-widest">
+                        <span>38g P</span>
+                        <span>35g C</span>
+                        <span>12g G</span>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+
+                {/* Replacement Action */}
+                <Link href="/substituicao">
+                  <button className="w-full flex items-center justify-center gap-3 py-5 glass-card-high text-primary font-black text-xs uppercase tracking-[0.25em] hover:bg-white/10 active:scale-[0.99] transition-all group">
+                    <span className="material-symbols-outlined text-lg group-hover:rotate-180 transition-transform duration-500">
+                      swap_horiz
+                    </span>
+                    Substituir Alimento
+                  </button>
+                </Link>
               </div>
             </div>
 
-            {/* Supplementation Protocol */}
+            {/* Secondary Column - Supplementation */}
+            <div className="space-y-8">
+              <div className="glass-card p-8">
+                <div className="flex items-center gap-3 mb-8">
+                  <span className="material-symbols-outlined text-primary text-xl">pill</span>
+                  <h3 className="font-headline font-black text-lg tracking-tight uppercase">Suplementação</h3>
+                </div>
+                <div className="space-y-4">
+                  {/* Creatina */}
+                  <div className="flex items-center justify-between p-4 glass-card-high rounded-xl group hover:bg-white/5 transition-colors">
+                    <div>
+                      <span className="block text-xs font-black text-white group-hover:text-primary transition-colors">
+                        Creatina Monohidratada
+                      </span>
+                      <span className="text-[10px] text-on-surface-variant font-medium mt-1">5g em jejum</span>
+                    </div>
+                    <span className="font-label text-[10px] bg-white/5 px-3 py-1 font-black rounded-lg">
+                      08:00
+                    </span>
+                  </div>
+
+                  {/* Multivitamínico */}
+                  <div className="flex items-center justify-between p-4 glass-card-high rounded-xl group hover:bg-white/5 transition-colors">
+                    <div>
+                      <span className="block text-xs font-black text-white group-hover:text-primary transition-colors">
+                        Multivitamínico
+                      </span>
+                      <span className="text-[10px] text-on-surface-variant font-medium mt-1">
+                        1 cápsula c/ almoço
+                      </span>
+                    </div>
+                    <span className="font-label text-[10px] bg-white/5 px-3 py-1 font-black rounded-lg">
+                      13:00
+                    </span>
+                  </div>
+
+                  {/* Ashwagandha */}
+                  <div className="flex items-center justify-between p-4 glass-card-high rounded-xl border-l-2 border-primary/40 group hover:bg-white/5 transition-colors">
+                    <div>
+                      <span className="block text-xs font-black text-white group-hover:text-primary transition-colors">
+                        Ashwagandha
+                      </span>
+                      <span className="text-[10px] text-on-surface-variant font-medium mt-1">500mg pré-sono</span>
+                    </div>
+                    <span className="font-label text-[10px] bg-primary/10 text-primary px-3 py-1 font-black rounded-lg">
+                      21:00
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {approachType === "intuitiva" && (
+          <section className="space-y-8">
+            <div>
+              <h2 className="text-2xl font-headline font-black tracking-tight uppercase mb-2">Metas Semanais</h2>
+              <p className="text-sm text-on-surface-variant">Acompanhe o progresso sem focar em números exatos</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {intuitiveGoals.map((goal) => (
+                <div key={goal.id} className="glass-card p-6 space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <span className="material-symbols-outlined text-primary text-xl">{goal.icon}</span>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-headline font-black text-base tracking-tight">{goal.title}</h3>
+                      <div className="flex items-baseline gap-2 mt-2">
+                        <span className="text-2xl font-headline font-black">{goal.progress}</span>
+                        <span className="text-sm text-on-surface-variant">{goal.unit}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                      <div
+                        className="bg-primary h-full neon-glow transition-all duration-500 ease-out"
+                        style={{ width: `${getProgressPercentage(goal)}%` }}
+                      ></div>
+                    </div>
+                    <div className="flex justify-between text-[10px] font-label text-on-surface-variant uppercase tracking-widest font-bold">
+                      <span>Meta: {goal.target}{goal.unit}</span>
+                      <span className="text-primary">{Math.round(getProgressPercentage(goal))}%</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Supplementation for Intuitiva */}
             <div className="glass-card p-8">
               <div className="flex items-center gap-3 mb-8">
                 <span className="material-symbols-outlined text-primary text-xl">pill</span>
                 <h3 className="font-headline font-black text-lg tracking-tight uppercase">Suplementação</h3>
               </div>
               <div className="space-y-4">
-                {/* Creatina */}
                 <div className="flex items-center justify-between p-4 glass-card-high rounded-xl group hover:bg-white/5 transition-colors">
                   <div>
                     <span className="block text-xs font-black text-white group-hover:text-primary transition-colors">
@@ -310,7 +527,6 @@ export default function DietaPage() {
                   </span>
                 </div>
 
-                {/* Multivitamínico */}
                 <div className="flex items-center justify-between p-4 glass-card-high rounded-xl group hover:bg-white/5 transition-colors">
                   <div>
                     <span className="block text-xs font-black text-white group-hover:text-primary transition-colors">
@@ -324,81 +540,192 @@ export default function DietaPage() {
                     13:00
                   </span>
                 </div>
+              </div>
+            </div>
+          </section>
+        )}
 
-                {/* Ashwagandha */}
-                <div className="flex items-center justify-between p-4 glass-card-high rounded-xl border-l-2 border-primary/40 group hover:bg-white/5 transition-colors">
+        {approachType === "comportamental" && (
+          <section className="space-y-8">
+            <div>
+              <h2 className="text-2xl font-headline font-black tracking-tight uppercase mb-2">Rastreador de Hábitos</h2>
+              <p className="text-sm text-on-surface-variant">Acompanhe seus hábitos diários e construa uma rotina consistente</p>
+            </div>
+
+            <div className="space-y-6">
+              {habits.map((habit) => (
+                <div key={habit.id} className="glass-card p-6 space-y-4">
+                  <h3 className="font-headline font-black text-base tracking-tight">{habit.name}</h3>
+
+                  <div className="grid grid-cols-7 gap-2">
+                    {dayLabels.map((day, index) => (
+                      <button
+                        key={index}
+                        onClick={() => toggleHabitDay(habit.id, index)}
+                        className={`aspect-square flex flex-col items-center justify-center rounded-lg transition-all text-xs font-label font-bold uppercase tracking-widest ${
+                          habit.days[index]
+                            ? "bg-primary/20 border-2 border-primary text-primary shadow-lg shadow-primary/20"
+                            : "bg-white/5 border-2 border-transparent hover:bg-white/10 text-on-surface-variant"
+                        }`}
+                      >
+                        <span className="text-[10px]">{day}</span>
+                        {habit.days[index] && (
+                          <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>
+                            check_circle
+                          </span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                    <span className="text-xs text-on-surface-variant font-label uppercase tracking-widest font-bold">
+                      Semana
+                    </span>
+                    <span className="text-lg font-headline font-black text-primary">
+                      {habit.days.filter(d => d).length}/7 dias
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Supplementation for Comportamental */}
+            <div className="glass-card p-8">
+              <div className="flex items-center gap-3 mb-8">
+                <span className="material-symbols-outlined text-primary text-xl">pill</span>
+                <h3 className="font-headline font-black text-lg tracking-tight uppercase">Suplementação</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-4 glass-card-high rounded-xl group hover:bg-white/5 transition-colors">
                   <div>
                     <span className="block text-xs font-black text-white group-hover:text-primary transition-colors">
-                      Ashwagandha
+                      Creatina Monohidratada
                     </span>
-                    <span className="text-[10px] text-on-surface-variant font-medium mt-1">500mg pré-sono</span>
+                    <span className="text-[10px] text-on-surface-variant font-medium mt-1">5g em jejum</span>
                   </div>
-                  <span className="font-label text-[10px] bg-primary/10 text-primary px-3 py-1 font-black rounded-lg">
-                    21:00
+                  <span className="font-label text-[10px] bg-white/5 px-3 py-1 font-black rounded-lg">
+                    08:00
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between p-4 glass-card-high rounded-xl group hover:bg-white/5 transition-colors">
+                  <div>
+                    <span className="block text-xs font-black text-white group-hover:text-primary transition-colors">
+                      Multivitamínico
+                    </span>
+                    <span className="text-[10px] text-on-surface-variant font-medium mt-1">
+                      1 cápsula c/ almoço
+                    </span>
+                  </div>
+                  <span className="font-label text-[10px] bg-white/5 px-3 py-1 font-black rounded-lg">
+                    13:00
                   </span>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
 
-      {/* BottomNavBar - Mobile only */}
+      {/* Template Modal */}
+      {showTemplateModal && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="glass-card max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 space-y-8">
+            <div className="flex items-center justify-between">
+              <h2 className="text-3xl font-headline font-black tracking-tight uppercase">Templates de Dieta</h2>
+              <button
+                onClick={() => setShowTemplateModal(false)}
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {[
+                { name: "Ganho de Massa", desc: "Abordagem matemática com foco em hiperealimentação controlada", type: "matematica" },
+                { name: "Perda de Peso", desc: "Déficit calórico com metas semanais progressivas", type: "intuitiva" },
+                { name: "Definição Muscular", desc: "Hábitos diários com foco em consistência", type: "comportamental" },
+                { name: "Performance Atlética", desc: "Nutrição específica para treinos de alta intensidade", type: "matematica" },
+                { name: "Metabolismo Basal", desc: "Abordagem intuitiva para manutenção da saúde", type: "intuitiva" },
+              ].map((template, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setShowTemplateModal(false);
+                  }}
+                  className="w-full glass-card-high p-6 text-left hover:bg-white/10 transition-all group border-l-4 border-transparent hover:border-primary"
+                >
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="font-headline font-black text-lg tracking-tight group-hover:text-primary transition-colors">
+                        {template.name}
+                      </h3>
+                      <p className="text-sm text-on-surface-variant mt-2">{template.desc}</p>
+                    </div>
+                    <span className="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">
+                      arrow_forward
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 w-full z-50 px-4 pb-8 pt-4 bg-background/90 backdrop-blur-2xl border-t border-white/5 md:hidden">
         <div className="flex justify-around items-center max-w-lg mx-auto">
-          <a
-            className="flex flex-col items-center justify-center text-on-background/40 hover:text-white transition-all py-2"
-            href="/"
+          <Link
+            href="/dashboard"
+            className={`flex flex-col items-center justify-center py-2 transition-all ${
+              pathname === "/dashboard" ? "text-primary" : "text-on-background/40 hover:text-white"
+            }`}
           >
-            <span className="material-symbols-outlined text-2xl mb-1">home</span>
-            <span className="font-label text-[9px] uppercase tracking-widest font-bold">Home</span>
-          </a>
-          <a className="flex flex-col items-center justify-center text-primary py-2 px-6 bg-white/5 rounded-2xl relative" href="/dieta">
+            <span className="material-symbols-outlined text-2xl mb-1">dashboard</span>
+            <span className="font-label text-[9px] uppercase tracking-widest font-bold">Dashboard</span>
+          </Link>
+          <Link
+            href="/pacientes"
+            className={`flex flex-col items-center justify-center py-2 transition-all ${
+              pathname === "/pacientes" ? "text-primary" : "text-on-background/40 hover:text-white"
+            }`}
+          >
+            <span className="material-symbols-outlined text-2xl mb-1">group</span>
+            <span className="font-label text-[9px] uppercase tracking-widest font-bold">Pacientes</span>
+          </Link>
+          <Link
+            href="/dieta"
+            className="flex flex-col items-center justify-center text-primary py-2 px-6 bg-white/5 rounded-2xl relative"
+          >
             <span className="material-symbols-outlined text-2xl mb-1" style={{ fontVariationSettings: "'FILL' 1" }}>
               restaurant
             </span>
             <span className="font-label text-[9px] uppercase tracking-widest font-black">Dieta</span>
             <div className="absolute -top-1 w-1 h-1 bg-primary rounded-full shadow-lg shadow-primary"></div>
-          </a>
-          <a
-            className="flex flex-col items-center justify-center text-on-background/40 hover:text-white transition-all py-2"
-            href="/treino"
+          </Link>
+          <Link
+            href="/financeiro"
+            className={`flex flex-col items-center justify-center py-2 transition-all ${
+              pathname === "/financeiro" ? "text-primary" : "text-on-background/40 hover:text-white"
+            }`}
           >
-            <span className="material-symbols-outlined text-2xl mb-1">fitness_center</span>
-            <span className="font-label text-[9px] uppercase tracking-widest font-bold">Treino</span>
-          </a>
-          <a
-            className="flex flex-col items-center justify-center text-on-background/40 hover:text-white transition-all py-2"
-            href="/coach"
+            <span className="material-symbols-outlined text-2xl mb-1">paid</span>
+            <span className="font-label text-[9px] uppercase tracking-widest font-bold">Financeiro</span>
+          </Link>
+          <Link
+            href="/chat"
+            className={`flex flex-col items-center justify-center py-2 transition-all ${
+              pathname === "/chat" ? "text-primary" : "text-on-background/40 hover:text-white"
+            }`}
           >
             <span className="material-symbols-outlined text-2xl mb-1">chat_bubble</span>
-            <span className="font-label text-[9px] uppercase tracking-widest font-bold">Coach</span>
-          </a>
+            <span className="font-label text-[9px] uppercase tracking-widest font-bold">Chat</span>
+          </Link>
         </div>
       </nav>
-
-      {/* Desktop Navigation Cluster */}
-      <div className="hidden md:flex fixed top-6 right-8 z-[60] gap-8 glass-card py-2 px-6 rounded-full items-center">
-        <a
-          className="text-[10px] uppercase tracking-[0.2em] font-black text-on-surface-variant hover:text-primary transition-colors"
-          href="#"
-        >
-          Insights
-        </a>
-        <a
-          className="text-[10px] uppercase tracking-[0.2em] font-black text-on-surface-variant hover:text-primary transition-colors"
-          href="#"
-        >
-          Bio-Stats
-        </a>
-        <div className="w-1 h-1 bg-white/20 rounded-full"></div>
-        <a
-          className="text-[10px] uppercase tracking-[0.2em] font-black text-on-surface-variant hover:text-primary transition-colors"
-          href="#"
-        >
-          Protocol
-        </a>
-      </div>
     </div>
   );
 }
