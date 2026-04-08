@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { TACO_DATABASE, searchFoods, FoodItem, getFoodImage } from '@/lib/food-database';
 
 type ApproachType = "matematica" | "intuitiva" | "comportamental";
 
@@ -26,6 +27,10 @@ export default function DietaPage() {
   const [selectedMeal, setSelectedMeal] = useState<"frango" | "peixe">("frango");
   const [approachType, setApproachType] = useState<ApproachType>("matematica");
   const [showTemplateModal, setShowTemplateModal] = useState(false);
+  const [showFoodSearch, setShowFoodSearch] = useState(false);
+  const [foodQuery, setFoodQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<FoodItem[]>([]);
+  const [selectedMealIndex, setSelectedMealIndex] = useState<number | null>(null);
   const [habits, setHabits] = useState<Habit[]>([
     { id: "1", name: "Café da manhã antes das 9h", days: [true, true, true, false, true, true, false] },
     { id: "2", name: "5 porções de vegetais", days: [true, false, true, true, false, true, true] },
@@ -49,6 +54,16 @@ export default function DietaPage() {
 
   const getProgressPercentage = (goal: IntuitiveGoal) => {
     return Math.min((goal.progress / goal.target) * 100, 100);
+  };
+
+  const handleFoodSearch = (query: string) => {
+    setFoodQuery(query);
+    if (query.trim()) {
+      const results = searchFoods(query);
+      setSearchResults(results);
+    } else {
+      setSearchResults([]);
+    }
   };
 
   const dayLabels = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
@@ -318,90 +333,205 @@ export default function DietaPage() {
               </div>
               <div className="space-y-6">
                 {/* Option 1: Selected - Frango e Batata */}
-                <button
-                  onClick={() => setSelectedMeal("frango")}
-                  className={`glass-card overflow-hidden group cursor-pointer transition-all hover:translate-y-[-2px] hover:shadow-2xl border-l-[3px] w-full text-left ${
+                <div
+                  className={`glass-card overflow-hidden group transition-all hover:translate-y-[-2px] hover:shadow-2xl border-l-[3px] w-full ${
                     selectedMeal === "frango" ? "border-primary shadow-xl shadow-primary/10" : "border-transparent"
                   }`}
                 >
-                  <div className="flex flex-col sm:flex-row h-full">
-                    <div className="w-full sm:w-56 h-48 sm:h-auto overflow-hidden bg-gradient-to-br from-surface-high to-surface-low">
-                      <div className="w-full h-full flex items-center justify-center">
-                        <span className="material-symbols-outlined text-primary/30 text-6xl">
-                          restaurant
-                        </span>
+                  <button
+                    onClick={() => setSelectedMeal("frango")}
+                    className="w-full text-left"
+                  >
+                    <div className="flex flex-col sm:flex-row h-full">
+                      <div className="w-full sm:w-56 h-48 sm:h-auto overflow-hidden bg-gradient-to-br from-surface-high to-surface-low">
+                        <img
+                          src="https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=300&h=300&fit=crop"
+                          alt="Frango e Batata"
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none';
+                            (e.target as HTMLImageElement).parentElement!.innerHTML = '<div class="w-full h-full flex items-center justify-center"><span class="material-symbols-outlined text-primary/30 text-6xl">restaurant</span></div>';
+                          }}
+                        />
+                      </div>
+                      <div className="flex-1 p-8 flex flex-col justify-between">
+                        <div>
+                          <div className="flex justify-between items-start mb-4">
+                            <h3 className="text-xl font-headline font-black tracking-tight">
+                              01. Frango e Batata
+                            </h3>
+                            <span className="material-symbols-outlined text-primary neon-text-glow" style={{ fontVariationSettings: "'FILL' 1" }}>
+                              check_circle
+                            </span>
+                          </div>
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                              <img
+                                src="https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=48&h=48&fit=crop"
+                                alt="Frango"
+                                className="w-12 h-12 rounded-lg object-cover"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).style.display = 'none';
+                                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="material-symbols-outlined text-primary/30">nutrition</span>';
+                                }}
+                              />
+                              <div className="text-sm">
+                                <p className="font-black text-white">Peito de Frango Grelhado</p>
+                                <p className="text-xs text-on-surface-variant">150g • 165 kcal</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <img
+                                src="https://images.unsplash.com/photo-1599599810694-b5ac4dd53c4d?w=48&h=48&fit=crop"
+                                alt="Batata"
+                                className="w-12 h-12 rounded-lg object-cover"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).style.display = 'none';
+                                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="material-symbols-outlined text-primary/30">nutrition</span>';
+                                }}
+                              />
+                              <div className="text-sm">
+                                <p className="font-black text-white">Batata Doce Assada</p>
+                                <p className="text-xs text-on-surface-variant">200g • 172 kcal</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <img
+                                src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=48&h=48&fit=crop"
+                                alt="Folhas"
+                                className="w-12 h-12 rounded-lg object-cover"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).style.display = 'none';
+                                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="material-symbols-outlined text-primary/30">nutrition</span>';
+                                }}
+                              />
+                              <div className="text-sm">
+                                <p className="font-black text-white">Mix de Folhas Verdes</p>
+                                <p className="text-xs text-on-surface-variant">100g • 20 kcal</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex gap-8 mt-6 pt-6 border-t border-white/5">
+                          <div>
+                            <span className="block text-sm font-black text-white">42g</span>
+                            <span className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">
+                              Proteína
+                            </span>
+                          </div>
+                          <div>
+                            <span className="block text-sm font-black text-white">45g</span>
+                            <span className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">
+                              Carbos
+                            </span>
+                          </div>
+                          <div>
+                            <span className="block text-sm font-black text-white">8g</span>
+                            <span className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">
+                              Gordura
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex-1 p-8 flex flex-col justify-between">
-                      <div>
-                        <div className="flex justify-between items-start">
-                          <h3 className="text-xl font-headline font-black tracking-tight">
-                            01. Frango e Batata
-                          </h3>
-                          <span className="material-symbols-outlined text-primary neon-text-glow" style={{ fontVariationSettings: "'FILL' 1" }}>
-                            check_circle
-                          </span>
-                        </div>
-                        <p className="text-sm text-on-surface-variant mt-3 font-body leading-relaxed opacity-80">
-                          150g peito de frango grelhado + 200g batata doce assada + mix de folhas verdes.
-                        </p>
-                      </div>
-                      <div className="flex gap-8 mt-6 pt-6 border-t border-white/5">
-                        <div>
-                          <span className="block text-sm font-black text-white">42g</span>
-                          <span className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">
-                            Proteína
-                          </span>
-                        </div>
-                        <div>
-                          <span className="block text-sm font-black text-white">45g</span>
-                          <span className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">
-                            Carbos
-                          </span>
-                        </div>
-                        <div>
-                          <span className="block text-sm font-black text-white">8g</span>
-                          <span className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">
-                            Gordura
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </button>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectedMealIndex(0);
+                      setShowFoodSearch(true);
+                      setFoodQuery('');
+                      setSearchResults([]);
+                    }}
+                    className="w-full flex items-center justify-center gap-2 py-3 border-t border-white/5 text-primary/60 hover:text-primary hover:bg-white/5 transition-colors text-xs font-bold uppercase tracking-widest"
+                  >
+                    <span className="material-symbols-outlined text-sm">add</span>
+                    Adicionar Alimento
+                  </button>
+                </div>
 
                 {/* Option 2: Ghost - Peixe e Arroz */}
-                <button
-                  onClick={() => setSelectedMeal("peixe")}
-                  className={`glass-card-high overflow-hidden group cursor-pointer transition-all border-l-[3px] w-full text-left ${
+                <div
+                  className={`glass-card-high overflow-hidden group transition-all border-l-[3px] w-full ${
                     selectedMeal === "peixe" ? "border-primary shadow-xl shadow-primary/10 hover:bg-white/10" : "border-transparent hover:bg-white/5"
                   }`}
                 >
-                  <div className="flex flex-col sm:flex-row h-full">
-                    <div className={`w-full sm:w-56 h-32 sm:h-auto overflow-hidden bg-gradient-to-br from-surface-high to-surface-low flex items-center justify-center transition-all ${
-                      selectedMeal === "peixe" ? "opacity-100" : "grayscale opacity-40 group-hover:opacity-70 group-hover:grayscale-0"
-                    }`}>
-                      <span className="material-symbols-outlined text-primary/20 text-5xl">
-                        lunch_dining
-                      </span>
-                    </div>
-                    <div className={`flex-1 p-8 flex flex-col justify-between transition-opacity ${
-                      selectedMeal === "peixe" ? "opacity-100" : "opacity-50 group-hover:opacity-100"
-                    }`}>
-                      <div>
-                        <h3 className="text-lg font-headline font-black tracking-tight">02. Peixe e Arroz</h3>
-                        <p className="text-xs text-on-surface-variant mt-2 font-body font-medium">
-                          160g Tilápia grelhada + 150g Arroz Integral.
-                        </p>
+                  <button
+                    onClick={() => setSelectedMeal("peixe")}
+                    className="w-full text-left"
+                  >
+                    <div className="flex flex-col sm:flex-row h-full">
+                      <div className={`w-full sm:w-56 h-32 sm:h-auto overflow-hidden bg-gradient-to-br from-surface-high to-surface-low flex items-center justify-center transition-all ${
+                        selectedMeal === "peixe" ? "opacity-100" : "grayscale opacity-40 group-hover:opacity-70 group-hover:grayscale-0"
+                      }`}>
+                        <img
+                          src="https://images.unsplash.com/photo-1519708240471-33d11324e659?w=300&h=300&fit=crop"
+                          alt="Peixe e Arroz"
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none';
+                            (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="material-symbols-outlined text-primary/20 text-5xl">lunch_dining</span>';
+                          }}
+                        />
                       </div>
-                      <div className="flex gap-6 mt-4 font-label text-[10px] text-on-surface-variant font-black uppercase tracking-widest">
-                        <span>38g P</span>
-                        <span>35g C</span>
-                        <span>12g G</span>
+                      <div className={`flex-1 p-8 flex flex-col justify-between transition-opacity ${
+                        selectedMeal === "peixe" ? "opacity-100" : "opacity-50 group-hover:opacity-100"
+                      }`}>
+                        <div>
+                          <h3 className="text-lg font-headline font-black tracking-tight mb-3">02. Peixe e Arroz</h3>
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-3">
+                              <img
+                                src="https://images.unsplash.com/photo-1519708240471-33d11324e659?w=40&h=40&fit=crop"
+                                alt="Peixe"
+                                className="w-10 h-10 rounded-lg object-cover"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).style.display = 'none';
+                                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="material-symbols-outlined text-primary/30 text-lg">nutrition</span>';
+                                }}
+                              />
+                              <div className="text-xs">
+                                <p className="font-black text-white">Tilápia Grelhada</p>
+                                <p className="text-on-surface-variant">160g • 128 kcal</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <img
+                                src="https://images.unsplash.com/photo-1608958842386-f5baf7cf1c00?w=40&h=40&fit=crop"
+                                alt="Arroz"
+                                className="w-10 h-10 rounded-lg object-cover"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).style.display = 'none';
+                                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="material-symbols-outlined text-primary/30 text-lg">nutrition</span>';
+                                }}
+                              />
+                              <div className="text-xs">
+                                <p className="font-black text-white">Arroz Integral Cozido</p>
+                                <p className="text-on-surface-variant">150g • 195 kcal</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex gap-6 mt-4 font-label text-[10px] text-on-surface-variant font-black uppercase tracking-widest">
+                          <span>38g P</span>
+                          <span>35g C</span>
+                          <span>12g G</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </button>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectedMealIndex(1);
+                      setShowFoodSearch(true);
+                      setFoodQuery('');
+                      setSearchResults([]);
+                    }}
+                    className="w-full flex items-center justify-center gap-2 py-3 border-t border-white/5 text-primary/60 hover:text-primary hover:bg-white/5 transition-colors text-xs font-bold uppercase tracking-widest"
+                  >
+                    <span className="material-symbols-outlined text-sm">add</span>
+                    Adicionar Alimento
+                  </button>
+                </div>
 
                 {/* Replacement Action */}
                 <Link href="/substituicao">
@@ -627,6 +757,92 @@ export default function DietaPage() {
           </section>
         )}
       </main>
+
+      {/* Food Search Modal */}
+      {showFoodSearch && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="glass-card max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-headline font-black tracking-tight uppercase">Adicionar Alimento</h2>
+              <button
+                onClick={() => {
+                  setShowFoodSearch(false);
+                  setFoodQuery('');
+                  setSearchResults([]);
+                }}
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Pesquise um alimento (ex: frango, arroz, banana)..."
+                value={foodQuery}
+                onChange={(e) => handleFoodSearch(e.target.value)}
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-on-surface-variant focus:outline-none focus:border-primary focus:bg-white/10 transition-colors"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant">
+                search
+              </span>
+            </div>
+
+            <div className="space-y-3 max-h-[400px] overflow-y-auto">
+              {searchResults.length > 0 ? (
+                searchResults.map((food) => (
+                  <button
+                    key={food.id}
+                    onClick={() => {
+                      setShowFoodSearch(false);
+                      setFoodQuery('');
+                      setSearchResults([]);
+                    }}
+                    className="w-full flex items-center gap-4 p-4 glass-card-high rounded-lg hover:bg-white/10 transition-colors text-left group"
+                  >
+                    <img
+                      src={food.image || 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=100&h=100&fit=crop'}
+                      alt={food.name}
+                      className="w-12 h-12 rounded-lg object-cover flex-shrink-0"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                        (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="material-symbols-outlined text-primary/30 w-12 h-12 flex items-center justify-center">nutrition</span>';
+                      }}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="font-black text-white group-hover:text-primary transition-colors truncate">
+                        {food.name}
+                      </p>
+                      <p className="text-xs text-on-surface-variant">
+                        {food.portion} • {food.calories} kcal
+                      </p>
+                      <div className="flex gap-4 mt-1 text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">
+                        <span>{food.protein}g P</span>
+                        <span>{food.carbs}g C</span>
+                        <span>{food.fat}g G</span>
+                      </div>
+                    </div>
+                    <span className="material-symbols-outlined text-primary/60 group-hover:text-primary transition-colors flex-shrink-0">
+                      add_circle
+                    </span>
+                  </button>
+                ))
+              ) : foodQuery.trim() ? (
+                <div className="flex flex-col items-center justify-center py-12 text-on-surface-variant">
+                  <span className="material-symbols-outlined text-4xl mb-2 opacity-50">search_off</span>
+                  <p className="text-sm">Nenhum alimento encontrado</p>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-12 text-on-surface-variant">
+                  <span className="material-symbols-outlined text-4xl mb-2 opacity-50">nutrition</span>
+                  <p className="text-sm">Digite para pesquisar alimentos</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Template Modal */}
       {showTemplateModal && (
