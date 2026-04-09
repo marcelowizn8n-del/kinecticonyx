@@ -7,16 +7,14 @@ import BottomNav from "@/components/BottomNav";
 export default function CheckinNutricaoPage() {
   const [adherence, setAdherence] = useState(75);
   const [selectedFriction, setSelectedFriction] = useState("taste");
-  const [favoriteMealImage, setFavoriteMealImage] = useState<string | null>(null);
-  const [difficultMealImage, setDifficultMealImage] = useState<string | null>(null);
   const fileInputRefDifficult = useRef<HTMLInputElement>(null);
 
   const frictionPoints = [
-    { id: "cravings", label: "Cravings", icon: "favorite" },
-    { id: "social", label: "Social", icon: "people" },
-    { id: "time", label: "Time", icon: "schedule" },
-    { id: "taste", label: "Taste", icon: "restaurant" },
-    { id: "other", label: "Other", icon: "more_horiz" },
+    { id: "cravings", label: "CRAVINGS", icon: "restaurant" },
+    { id: "social", label: "SOCIAL", icon: "group" },
+    { id: "time", label: "TIME", icon: "schedule" },
+    { id: "taste", label: "TASTE", icon: "lunch_dining" },
+    { id: "other", label: "OTHER", icon: "more_horiz" },
   ];
 
   const handleDifficultMealUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,87 +22,82 @@ export default function CheckinNutricaoPage() {
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
-        setDifficultMealImage(event.target?.result as string);
+        // Handle upload
       };
       reader.readAsDataURL(file);
     }
   };
 
-  // SVG Circle Progress for adherence gauge
   const circumference = 2 * Math.PI * 45;
   const strokeDashoffset = circumference - (adherence / 100) * circumference;
 
   return (
     <>
-      <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background pb-24">
+      <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-[#131313] pb-24">
         {/* Fixed Header */}
-        <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-5 py-4 bg-background/80 backdrop-blur-lg border-b border-outline-variant max-w-md mx-auto">
-          <button className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-surface-high transition-colors">
-            <span className="material-symbols-outlined text-on-surface">close</span>
+        <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-5 py-4 bg-[#131313]/80 backdrop-blur-[16px] border-b border-[#444933] max-w-md mx-auto">
+          <button className="flex h-10 w-10 items-center justify-center hover:bg-[#2A2A2A] transition-colors rounded-lg">
+            <span className="material-symbols-outlined text-[#E5E2E1]">close</span>
           </button>
-          <h1 className="text-lg font-headline font-bold text-on-surface">Performance Check-in</h1>
-          <button className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-surface-high transition-colors">
-            <span className="material-symbols-outlined text-on-surface">save</span>
+          <h1 className="text-base font-['Inter'] font-bold text-[#E5E2E1]">Performance Check-in</h1>
+          <button className="flex h-10 w-10 items-center justify-center bg-[#CCFF00] hover:bg-[#ABD600] transition-colors rounded-lg">
+            <span className="material-symbols-outlined text-[#283500]">save</span>
           </button>
         </header>
 
         {/* Main Content */}
         <div className="pt-16 px-5 flex-1">
-          {/* Progress Stepper */}
+          {/* Progress Bar */}
           <div className="mb-8">
             <div className="flex gap-1 mb-3">
-              <div className="flex-1 h-2 rounded-full bg-primary" />
-              <div className="flex-1 h-2 rounded-full bg-primary" />
-              <div className="flex-1 h-2 rounded-full bg-surface-high" />
-              <div className="flex-1 h-2 rounded-full bg-surface-high" />
+              <div className="flex-1 h-1 bg-[#CCFF00]" />
+              <div className="flex-1 h-1 bg-[#CCFF00]" />
+              <div className="flex-1 h-1 bg-[#2A2A2A]" />
+              <div className="flex-1 h-1 bg-[#2A2A2A]" />
             </div>
-            <p className="text-xs font-label font-bold text-on-surface-variant uppercase tracking-wider">
+            <p className="text-xs font-['Inter'] font-bold text-[#C4C9AC] uppercase tracking-wider">
               PHASE 02: NUTRITION
             </p>
           </div>
 
           {/* Section Title */}
-          <div className="mb-6">
-            <p className="text-xs font-label font-bold text-on-surface-variant uppercase tracking-wider mb-2">
+          <div className="mb-8">
+            <p className="text-xs font-['Inter'] font-bold text-[#CCFF00] uppercase tracking-wider mb-2">
               ADHERENCE METRICS
             </p>
-            <h2 className="text-2xl font-headline font-bold text-on-surface">
+            <h2 className="text-3xl font-['Manrope'] font-bold text-[#E5E2E1]">
               How was your adherence to the diet this week?
             </h2>
           </div>
 
           {/* Adherence Gauge */}
           <div className="mb-8 flex flex-col items-center">
-            <div className="relative w-48 h-48 mb-4">
+            <div className="relative w-48 h-48 mb-6">
               <svg width="192" height="192" viewBox="0 0 192 192" className="transform -rotate-90">
-                {/* Background circle */}
                 <circle
                   cx="96"
                   cy="96"
                   r="45"
                   fill="none"
-                  stroke="currentColor"
+                  stroke="#2A2A2A"
                   strokeWidth="8"
-                  className="text-surface-high"
                 />
-                {/* Progress circle */}
                 <circle
                   cx="96"
                   cy="96"
                   r="45"
                   fill="none"
-                  stroke="currentColor"
+                  stroke="#CCFF00"
                   strokeWidth="8"
                   strokeDasharray={circumference}
                   strokeDashoffset={strokeDashoffset}
                   strokeLinecap="round"
-                  className="text-primary transition-all duration-500"
+                  className="transition-all duration-500"
                 />
               </svg>
-              {/* Center text */}
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-4xl font-headline font-bold text-primary">{adherence}</span>
-                <span className="text-sm text-on-surface-variant">%</span>
+                <span className="text-5xl font-['Manrope'] font-bold text-[#CCFF00]">{adherence}</span>
+                <span className="text-sm font-['Inter'] text-[#C4C9AC]">CONSISTENCY</span>
               </div>
             </div>
 
@@ -116,108 +109,102 @@ export default function CheckinNutricaoPage() {
                 max="100"
                 value={adherence}
                 onChange={(e) => setAdherence(parseInt(e.target.value))}
-                className="w-full h-2 rounded-full bg-surface-high appearance-none accent-primary cursor-pointer"
+                className="w-full h-2 bg-[#2A2A2A] appearance-none accent-[#CCFF00] cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, #CCFF00 0%, #CCFF00 ${adherence}%, #2A2A2A ${adherence}%, #2A2A2A 100%)`
+                }}
               />
-              <div className="flex justify-between text-xs text-on-surface-variant mt-2">
-                <span>0%</span>
-                <span>100%</span>
+              <div className="flex justify-between text-xs font-['Inter'] text-[#C4C9AC] mt-3">
+                <span>LOOSE</span>
+                <span>CLINICAL PRECISION</span>
               </div>
             </div>
           </div>
 
-          {/* Friction Points */}
+          {/* Friction Points Section */}
           <div className="mb-8">
-            <p className="text-xs font-label font-bold text-on-surface-variant uppercase tracking-wider mb-3">
+            <p className="text-xs font-['Inter'] font-bold text-[#E5E2E1] uppercase tracking-wider mb-2">
               IDENTIFY FRICTION POINTS
             </p>
-            <div className="grid grid-cols-3 gap-2">
-              {frictionPoints.map((point) => (
+            <p className="text-sm font-['Inter'] text-[#C4C9AC] mb-4">
+              Adherence dropped below your 80% baseline. What were the main challenges?
+            </p>
+            <div className="grid grid-cols-2 gap-2 mb-2">
+              {frictionPoints.slice(0, 4).map((point) => (
                 <button
                   key={point.id}
                   onClick={() => setSelectedFriction(point.id)}
                   className={`flex flex-col items-center gap-2 py-3 px-2 rounded-lg transition-all ${
                     selectedFriction === point.id
-                      ? "bg-primary text-on-primary"
-                      : "bg-surface-high text-on-surface hover:border-primary/30 border border-outline-variant/30"
+                      ? "bg-[#CCFF00] text-[#283500] border border-[#CCFF00]"
+                      : "bg-[#1C1B1B] text-[#E5E2E1] border border-[#444933]"
                   }`}
                 >
-                  <span className="material-symbols-outlined text-2xl">{point.icon}</span>
-                  <span className="text-xs font-label font-semibold">{point.label}</span>
+                  <span className="material-symbols-outlined text-xl">{point.icon}</span>
+                  <span className="text-xs font-['Inter'] font-bold">{point.label}</span>
                 </button>
               ))}
             </div>
+            <button
+              onClick={() => setSelectedFriction(frictionPoints[4].id)}
+              className={`w-full flex flex-col items-center gap-2 py-3 px-2 rounded-lg transition-all ${
+                selectedFriction === frictionPoints[4].id
+                  ? "bg-[#CCFF00] text-[#283500] border border-[#CCFF00]"
+                  : "bg-[#1C1B1B] text-[#E5E2E1] border border-[#444933]"
+              }`}
+            >
+              <span className="material-symbols-outlined text-xl">{frictionPoints[4].icon}</span>
+              <span className="text-xs font-['Inter'] font-bold">{frictionPoints[4].label}</span>
+            </button>
           </div>
 
-          {/* Meal Feedback */}
-          <div className="mb-8">
-            <p className="text-xs font-label font-bold text-on-surface-variant uppercase tracking-wider mb-3">
-              MEAL FEEDBACK
+          {/* Favorite Meal Card */}
+          <div className="mb-4 rounded-lg p-4 border border-[#444933]/50" style={{ background: "rgba(42, 42, 42, 0.4)", backdropFilter: "blur(16px)" }}>
+            <p className="text-xs font-['Inter'] font-bold text-[#C4C9AC] uppercase tracking-wider mb-3">
+              Favorite Meal
             </p>
-
-            {/* Favorite Meal Card */}
-            <div className="mb-4 glass-card rounded-2xl p-4 border border-outline-variant/30">
-              <p className="text-xs font-label font-semibold text-on-surface-variant uppercase tracking-wider mb-3">
-                Favorite Meal
-              </p>
-              <div className="flex gap-3">
-                <div className="w-20 h-20 rounded-lg bg-surface-high flex items-center justify-center flex-shrink-0">
-                  <span className="material-symbols-outlined text-on-surface-variant">restaurant</span>
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-headline font-bold text-on-surface mb-1">Salmon Quinoa Bowl</h3>
-                  <p className="text-xs text-on-surface-variant">Premium protein & whole grains</p>
-                  <button className="mt-2 text-xs font-label font-bold text-primary hover:underline">
-                    View Recipe
-                  </button>
-                </div>
+            <div className="flex gap-3 items-center">
+              <div className="w-16 h-16 rounded-lg bg-[#2A2A2A] flex items-center justify-center flex-shrink-0 border border-[#444933]">
+                <span className="material-symbols-outlined text-[#CCFF00]">restaurant</span>
+              </div>
+              <div className="flex-1">
+                <h3 className="font-['Manrope'] font-bold text-[#E5E2E1]">SALMON QUINOA BOWL</h3>
+                <p className="text-xs font-['Inter'] text-[#C4C9AC]">Premium protein & whole grains</p>
               </div>
             </div>
+          </div>
 
-            {/* Difficult Meal Card */}
-            <div className="glass-card rounded-2xl p-4 border border-outline-variant/30">
-              <p className="text-xs font-label font-semibold text-on-surface-variant uppercase tracking-wider mb-3">
-                Difficult Meal
-              </p>
-              <div
-                onClick={() => fileInputRefDifficult.current?.click()}
-                className="border-2 border-dashed border-outline-variant/50 rounded-lg p-6 text-center cursor-pointer hover:border-primary/30 transition-colors"
-              >
-                {difficultMealImage ? (
-                  <div className="flex flex-col items-center">
-                    <img
-                      src={difficultMealImage}
-                      alt="Difficult meal"
-                      className="w-20 h-20 rounded-lg object-cover mb-2"
-                    />
-                    <p className="text-xs text-on-surface-variant">Tap to change</p>
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center">
-                    <span className="material-symbols-outlined text-on-surface-variant text-3xl mb-2">
-                      add_photo_alternate
-                    </span>
-                    <p className="text-sm font-label font-semibold text-on-surface mb-1">Upload meal image</p>
-                    <p className="text-xs text-on-surface-variant">PNG, JPG up to 10MB</p>
-                  </div>
-                )}
-              </div>
-              <input
-                ref={fileInputRefDifficult}
-                type="file"
-                accept="image/*"
-                onChange={handleDifficultMealUpload}
-                className="hidden"
-              />
+          {/* Difficult Meal Card */}
+          <div className="mb-8 rounded-lg p-4 border border-[#444933]/50" style={{ background: "rgba(42, 42, 42, 0.4)", backdropFilter: "blur(16px)" }}>
+            <p className="text-xs font-['Inter'] font-bold text-[#C4C9AC] uppercase tracking-wider mb-3">
+              Difficult Meal
+            </p>
+            <div
+              onClick={() => fileInputRefDifficult.current?.click()}
+              className="border border-dashed border-[#444933] rounded-lg p-6 text-center cursor-pointer hover:border-[#CCFF00]/30 transition-colors bg-[#1C1B1B]/50"
+            >
+              <span className="material-symbols-outlined text-[#CCFF00] text-3xl block mb-2">
+                add_photo_alternate
+              </span>
+              <p className="text-sm font-['Inter'] font-bold text-[#E5E2E1] mb-1">FLAG A STRUGGLE</p>
+              <p className="text-xs font-['Inter'] text-[#C4C9AC]">Upload meal image for context</p>
             </div>
+            <input
+              ref={fileInputRefDifficult}
+              type="file"
+              accept="image/*"
+              onChange={handleDifficultMealUpload}
+              className="hidden"
+            />
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-3">
-            <button className="flex-1 py-4 px-5 rounded-xl border border-outline-variant/30 text-on-surface font-headline font-bold text-base transition-transform hover:scale-105 active:scale-95">
-              Back
+          <div className="flex gap-3 mb-4">
+            <button className="flex-1 py-3 px-5 rounded-lg bg-[#1C1B1B] text-[#E5E2E1] font-['Inter'] font-bold text-sm transition-transform hover:scale-105 active:scale-95 border border-[#444933]">
+              ← BACK
             </button>
-            <button className="flex-1 py-4 px-5 rounded-xl bg-primary text-on-primary font-headline font-bold text-base transition-transform hover:scale-105 active:scale-95">
-              Continue Check-in
+            <button className="flex-1 py-3 px-5 rounded-lg bg-[#CCFF00] text-[#283500] font-['Inter'] font-bold text-sm transition-transform hover:scale-105 active:scale-95">
+              CONTINUE CHECK-IN
             </button>
           </div>
         </div>

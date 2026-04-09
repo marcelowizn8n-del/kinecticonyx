@@ -82,122 +82,131 @@ export default function LoginPage() {
   return (
     <div className="relative min-h-screen flex flex-col overflow-hidden bg-background">
       {/* Header / Brand */}
-      <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md pt-[env(safe-area-inset-top,0px)]">
-        <div className="flex justify-between items-center px-6 py-4">
+      <header className="fixed top-0 w-full z-50 pt-[env(safe-area-inset-top,0px)]">
+        <div className="flex justify-between items-center px-6 py-6">
           <div className="text-lg font-extrabold tracking-tighter text-primary font-headline uppercase">
-            KINETIC ONYX
+            KINĒTIC ONYX
           </div>
-          <div className="font-headline text-[8px] uppercase tracking-[0.3em] text-white/40">
-            Clinical Edge
+          <div className="font-headline text-[9px] uppercase tracking-[0.4em] text-on-surface-variant">
+            CLINICAL EDGE
           </div>
         </div>
       </header>
 
-      {/* Background Decor */}
-      <div className="absolute inset-0 clinical-grid pointer-events-none opacity-60"></div>
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full -mr-20 -mt-20"></div>
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full -ml-20 -mb-20"></div>
+      {/* Background Decor - Clinical Grid */}
+      <div className="absolute inset-0 clinical-grid pointer-events-none opacity-40"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/3 blur-[120px] rounded-full -mr-32 -mt-32"></div>
+      <div className="absolute bottom-20 left-0 w-80 h-80 bg-primary/3 blur-[100px] rounded-full -ml-20"></div>
 
       {/* Content */}
-      <main className="relative z-10 w-full max-w-md mx-auto flex flex-col flex-grow pt-24 pb-12 overflow-hidden px-6">
-        {/* Hero */}
-        <div className="mb-8">
-          <h1 className="font-headline text-4xl font-extrabold tracking-tighter leading-none mb-3">
+      <main className="relative z-10 w-full max-w-md mx-auto flex flex-col flex-grow pt-32 pb-12 overflow-hidden px-6">
+        {/* Hero Section */}
+        <div className="mb-10">
+          <h1 className="font-headline text-5xl md:text-6xl font-extrabold tracking-tighter leading-none mb-4">
             ELITE
-            <br />
-            <span className="text-primary uppercase">AUTHENTICATION</span>
           </h1>
-          <p className="text-on-surface-variant/80 font-light text-sm max-w-[280px] leading-relaxed">
+          <div className="mb-4">
+            <span className="text-primary text-3xl md:text-4xl font-headline font-extrabold uppercase tracking-tight">
+              AUTHENTICATION
+            </span>
+          </div>
+          <p className="text-on-surface-variant font-light text-sm leading-relaxed max-w-sm">
             Initialize your clinical-grade performance session.
           </p>
         </div>
 
-        {/* Main Auth Interface */}
-        <div className="glass-card rounded-xl p-1 flex-grow flex flex-col shadow-2xl border border-white/5">
-          {/* Toggle Tab */}
-          <div className="flex p-1 bg-white/5 rounded-lg mb-6">
+        {/* Main Auth Card - Glass Level 2 */}
+        <div className="glass-card rounded-lg p-8 flex-grow flex flex-col shadow-2xl">
+          {/* Toggle Tabs */}
+          <div className="flex gap-2 mb-8 bg-surface-container rounded-md p-1">
             <button
               onClick={() => setActiveTab("login")}
               className={`flex-1 py-3 text-xs font-headline font-bold uppercase tracking-widest rounded-md transition-all ${
                 activeTab === "login"
                   ? "bg-primary text-on-primary"
-                  : "text-on-surface-variant"
+                  : "text-on-surface-variant hover:text-on-surface"
               }`}
             >
-              Login
+              LOGIN
             </button>
             <button
               onClick={() => setActiveTab("signup")}
               className={`flex-1 py-3 text-xs font-headline font-bold uppercase tracking-widest rounded-md transition-all ${
                 activeTab === "signup"
                   ? "bg-primary text-on-primary"
-                  : "text-on-surface-variant"
+                  : "text-on-surface-variant hover:text-on-surface"
               }`}
             >
-              Sign Up
+              SIGN UP
             </button>
           </div>
 
           {/* Form Section */}
-          <div className="px-3 flex-grow flex flex-col justify-center">
+          <div className="flex-grow flex flex-col justify-center">
             {/* Error message */}
             {error && (
-              <div className="mb-4 px-4 py-3 rounded-lg bg-error-container/30 border border-error/20">
+              <div className="mb-6 px-4 py-3 rounded-md bg-error-container/20 border border-error/20">
                 <p className="text-error text-xs font-medium">{error}</p>
               </div>
             )}
 
             {/* Signup success message */}
             {signupSuccess && (
-              <div className="mb-4 px-4 py-3 rounded-lg bg-primary/10 border border-primary/20">
+              <div className="mb-6 px-4 py-3 rounded-md bg-primary/10 border border-primary/20">
                 <p className="text-primary text-xs font-medium">Account created! Redirecting to login...</p>
               </div>
             )}
 
             {activeTab === "login" ? (
               /* LOGIN FORM */
-              <form onSubmit={handleLogin} className="space-y-5">
-                <div className="space-y-1.5">
-                  <label className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold ml-1">
-                    Email Identifier
+              <form onSubmit={handleLogin} className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-[8px] uppercase tracking-[0.3em] text-on-surface-variant font-bold">
+                    EMAIL IDENTIFIER
                   </label>
                   <input
                     type="email"
                     value={email}
-                    onChange={(e) => { setEmail(e.target.value); setError(""); }}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setError("");
+                    }}
                     placeholder="marcelowiz@gmail.com"
-                    className="w-full glass-input rounded-xl py-4 px-5 text-on-surface placeholder:text-white/20 focus:ring-1 focus:ring-primary/50 transition-all text-sm border-0 outline-0"
+                    className="w-full glass-input rounded-md py-4 px-4 text-on-surface placeholder:text-on-surface-variant/50 focus:ring-1 focus:ring-primary/50 transition-all text-sm border-0 outline-0"
                     required
                   />
                 </div>
 
-                <div className="space-y-1.5">
-                  <div className="flex justify-between items-center px-1">
-                    <label className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">
-                      Security Credential
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <label className="text-[8px] uppercase tracking-[0.3em] text-on-surface-variant font-bold">
+                      SECURITY CREDENTIAL
                     </label>
                     <a
                       href="#"
-                      className="text-[9px] uppercase tracking-widest text-primary/60 hover:text-primary transition-colors"
+                      className="text-[8px] uppercase tracking-[0.2em] text-primary hover:text-primary-dark transition-colors"
                     >
-                      Forgot?
+                      FORGOT?
                     </a>
                   </div>
                   <input
                     type="password"
                     value={password}
-                    onChange={(e) => { setPassword(e.target.value); setError(""); }}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setError("");
+                    }}
                     placeholder="••••••••"
-                    className="w-full glass-input rounded-xl py-4 px-5 text-on-surface placeholder:text-white/20 focus:ring-1 focus:ring-primary/50 transition-all text-sm border-0 outline-0"
+                    className="w-full glass-input rounded-md py-4 px-4 text-on-surface placeholder:text-on-surface-variant/50 focus:ring-1 focus:ring-primary/50 transition-all text-sm border-0 outline-0"
                     required
                   />
                 </div>
 
-                <div className="pt-4">
+                <div className="pt-2">
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-primary hover:brightness-110 active:scale-[0.97] transition-all text-on-primary font-headline font-extrabold py-5 rounded-xl uppercase tracking-widest text-sm shadow-[0_8px_30px_rgba(204,255,0,0.15)] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-primary hover:brightness-110 active:scale-[0.98] transition-all text-on-primary font-headline font-extrabold py-5 rounded-md uppercase tracking-widest text-sm shadow-[0_8px_30px_rgba(204,255,0,0.15)] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? (
                       <span className="flex items-center justify-center gap-2">
@@ -205,61 +214,70 @@ export default function LoginPage() {
                         Authenticating...
                       </span>
                     ) : (
-                      "Initialize Session"
+                      "INITIALIZE SESSION"
                     )}
                   </button>
                 </div>
               </form>
             ) : (
               /* SIGN UP FORM */
-              <form onSubmit={handleSignup} className="space-y-5">
-                <div className="space-y-1.5">
-                  <label className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold ml-1">
+              <form onSubmit={handleSignup} className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-[8px] uppercase tracking-[0.3em] text-on-surface-variant font-bold">
                     Full Name
                   </label>
                   <input
                     type="text"
                     value={signupName}
-                    onChange={(e) => { setSignupName(e.target.value); setError(""); }}
+                    onChange={(e) => {
+                      setSignupName(e.target.value);
+                      setError("");
+                    }}
                     placeholder="Your full name"
-                    className="w-full glass-input rounded-xl py-4 px-5 text-on-surface placeholder:text-white/20 focus:ring-1 focus:ring-primary/50 transition-all text-sm border-0 outline-0"
+                    className="w-full glass-input rounded-md py-4 px-4 text-on-surface placeholder:text-on-surface-variant/50 focus:ring-1 focus:ring-primary/50 transition-all text-sm border-0 outline-0"
                     required
                   />
                 </div>
 
-                <div className="space-y-1.5">
-                  <label className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold ml-1">
-                    Email Identifier
+                <div className="space-y-2">
+                  <label className="text-[8px] uppercase tracking-[0.3em] text-on-surface-variant font-bold">
+                    EMAIL IDENTIFIER
                   </label>
                   <input
                     type="email"
                     value={signupEmail}
-                    onChange={(e) => { setSignupEmail(e.target.value); setError(""); }}
+                    onChange={(e) => {
+                      setSignupEmail(e.target.value);
+                      setError("");
+                    }}
                     placeholder="name@onyx.labs"
-                    className="w-full glass-input rounded-xl py-4 px-5 text-on-surface placeholder:text-white/20 focus:ring-1 focus:ring-primary/50 transition-all text-sm border-0 outline-0"
+                    className="w-full glass-input rounded-md py-4 px-4 text-on-surface placeholder:text-on-surface-variant/50 focus:ring-1 focus:ring-primary/50 transition-all text-sm border-0 outline-0"
                     required
                   />
                 </div>
 
-                <div className="space-y-1.5">
-                  <label className="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold ml-1">
-                    Create Password
+                <div className="space-y-2">
+                  <label className="text-[8px] uppercase tracking-[0.3em] text-on-surface-variant font-bold">
+                    CREATE PASSWORD
                   </label>
                   <input
                     type="password"
                     value={signupPassword}
-                    onChange={(e) => { setSignupPassword(e.target.value); setError(""); }}
+                    onChange={(e) => {
+                      setSignupPassword(e.target.value);
+                      setError("");
+                    }}
                     placeholder="Min. 6 characters"
-                    className="w-full glass-input rounded-xl py-4 px-5 text-on-surface placeholder:text-white/20 focus:ring-1 focus:ring-primary/50 transition-all text-sm border-0 outline-0"
+                    className="w-full glass-input rounded-md py-4 px-4 text-on-surface placeholder:text-on-surface-variant/50 focus:ring-1 focus:ring-primary/50 transition-all text-sm border-0 outline-0"
                     required
                   />
                 </div>
 
-                <div className="pt-4">
+                <div className="pt-2">
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-primary hover:brightness-110 active:scale-[0.97] transition-all text-on-primary font-headline font-extrabold py-5 rounded-xl uppercase tracking-widest text-sm shadow-[0_8px_30px_rgba(204,255,0,0.15)] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-primary hover:brightness-110 active:scale-[0.98] transition-all text-on-primary font-headline font-extrabold py-5 rounded-md uppercase tracking-widest text-sm shadow-[0_8px_30px_rgba(204,255,0,0.15)] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? (
                       <span className="flex items-center justify-center gap-2">
@@ -267,7 +285,7 @@ export default function LoginPage() {
                         Creating Account...
                       </span>
                     ) : (
-                      "Create Account"
+                      "CREATE ACCOUNT"
                     )}
                   </button>
                 </div>
@@ -277,21 +295,21 @@ export default function LoginPage() {
             {/* Bio-Sync Link divider */}
             <div className="relative my-8">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-white/5"></div>
+                <div className="w-full h-px bg-surface-container-high"></div>
               </div>
-              <div className="relative flex justify-center text-[8px] uppercase tracking-[0.4em]">
-                <span className="bg-background px-3 text-on-surface-variant/40">Bio-Sync Link</span>
+              <div className="relative flex justify-center text-[8px] uppercase tracking-[0.3em]">
+                <span className="bg-background px-3 text-on-surface-variant/60">BIO-SYNC LINK</span>
               </div>
             </div>
 
-            {/* Social: Visual minimal icons */}
-            <div className="grid grid-cols-2 gap-3 mb-6">
+            {/* Social: Glass Cards */}
+            <div className="grid grid-cols-2 gap-3 mb-2">
               <button
                 onClick={handleGoogleLogin}
                 disabled={loading}
-                className="flex items-center justify-center gap-2 glass-input py-4 rounded-xl active:bg-white/10 transition-colors hover:bg-white/5 disabled:opacity-50"
+                className="flex items-center justify-center gap-2 glass-input py-4 rounded-md active:bg-white/10 hover:bg-white/5 transition-colors disabled:opacity-50"
               >
-                <svg className="w-4 h-4" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                     fill="#4285F4"
@@ -309,50 +327,50 @@ export default function LoginPage() {
                     fill="#EA4335"
                   ></path>
                 </svg>
-                <span className="text-[9px] uppercase font-bold tracking-widest text-on-surface">Google</span>
+                <span className="text-[8px] uppercase font-bold tracking-widest text-on-surface">G GOOGLE</span>
               </button>
-              <button className="flex items-center justify-center gap-2 glass-input py-4 rounded-xl active:bg-white/10 transition-colors hover:bg-white/5 opacity-40 cursor-not-allowed">
-                <svg className="w-4 h-4" viewBox="0 0 24 24">
+              <button className="flex items-center justify-center gap-2 glass-input py-4 rounded-md active:bg-white/10 hover:bg-white/5 transition-colors disabled:opacity-50 opacity-40 cursor-not-allowed">
+                <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
                     d="M17.05 20.28c-.96.95-2.22 1.44-3.54 1.44-1.32 0-2.31-.41-3.13-.41-.83 0-1.94.41-3.26.41-1.32 0-2.67-.53-3.71-1.63-2.15-2.23-2.15-6.07 0-8.31 1.04-1.1 2.39-1.63 3.71-1.63 1.32 0 2.22.41 3.26.41.83 0 1.81-.41 3.13-.41 1.32 0 2.58.49 3.54 1.44 1.83 1.82 1.83 5.08 0 6.9zM12 7.15c.01-1.94 1.57-3.5 3.51-3.51.01 1.94-1.57 3.5-3.51 3.51z"
                     fill="white"
                   ></path>
                 </svg>
-                <span className="text-[9px] uppercase font-bold tracking-widest text-on-surface/50">Apple</span>
+                <span className="text-[8px] uppercase font-bold tracking-widest text-on-surface/50">APPLE</span>
               </button>
             </div>
           </div>
         </div>
 
-        {/* Trust / Status Micro-copy */}
+        {/* Trust / Status Cards */}
         <div className="mt-8 grid grid-cols-2 gap-3">
-          <div className="p-4 glass-card rounded-xl border border-white/5">
-            <div className="text-[7px] uppercase tracking-[0.2em] mb-1 text-primary">System Uptime</div>
-            <div className="font-headline text-sm font-bold text-on-surface">99.98%</div>
+          <div className="p-4 glass-card rounded-md">
+            <div className="text-[7px] uppercase tracking-[0.2em] mb-2 text-primary font-bold">System Uptime</div>
+            <div className="font-headline text-lg font-bold text-on-surface">99.98%</div>
           </div>
-          <div className="p-4 glass-card rounded-xl border border-white/5">
-            <div className="text-[7px] uppercase tracking-[0.2em] mb-1 text-white/40">Clinical Labs</div>
-            <div className="font-headline text-sm font-bold text-on-surface">Global-12</div>
+          <div className="p-4 glass-card rounded-md">
+            <div className="text-[7px] uppercase tracking-[0.2em] mb-2 text-on-surface-variant font-bold">Clinical Labs</div>
+            <div className="font-headline text-lg font-bold text-on-surface">Global-12</div>
           </div>
         </div>
       </main>
 
-      {/* Footer: Minimal Mobile */}
-      <footer className="pb-8 px-6 pt-4 border-t border-white/5 bg-background">
+      {/* Footer */}
+      <footer className="pb-8 px-6 pt-4 bg-background">
         <div className="flex flex-col items-center gap-4">
           <div className="flex gap-6">
-            <a href="#" className="text-[8px] uppercase tracking-widest text-white/30 hover:text-white/50 transition-colors">
-              Privacy
+            <a href="#" className="text-[8px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-on-surface transition-colors">
+              PRIVACY
             </a>
-            <a href="#" className="text-[8px] uppercase tracking-widest text-white/30 hover:text-white/50 transition-colors">
-              Terms
+            <a href="#" className="text-[8px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-on-surface transition-colors">
+              TERMS
             </a>
-            <a href="#" className="text-[8px] uppercase tracking-widest text-white/30 hover:text-white/50 transition-colors">
-              Science
+            <a href="#" className="text-[8px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-on-surface transition-colors">
+              SCIENCE
             </a>
           </div>
-          <div className="text-[7px] uppercase tracking-[0.3em] text-white/20">
-            © 2026 Kinetic Onyx
+          <div className="text-[7px] uppercase tracking-[0.3em] text-on-surface-variant/60">
+            © 2026 KINETIC ONYX
           </div>
         </div>
       </footer>

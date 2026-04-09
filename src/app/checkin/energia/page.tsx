@@ -1,35 +1,27 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import BottomNav from "@/components/BottomNav";
 
 export default function CheckinEnergiaPage() {
   const [energy, setEnergy] = useState(8);
-  const [hungerState, setHungerState] = useState("balanced");
-  const [muscleRecovery, setMuscleRecovery] = useState("moderate");
+  const [hungerState, setHungerState] = useState("balanced_controlled");
+  const [muscleRecovery, setMuscleRecovery] = useState("02_moderate");
   const [fatigueNotes, setFatigueNotes] = useState("");
-
-  const hungerStates = ["HIGH_INTENSITY", "BALANCED", "SUPPRESSED"];
-  const muscleRecoveryStates = ["Fresh", "Moderate", "Acute", "Severe"];
 
   return (
     <>
-      <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background pb-24">
-        {/* Background blur orbs */}
-        <div className="fixed inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-32 -left-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        </div>
-
+      <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-[#131313] pb-24">
         {/* Fixed Header */}
-        <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-5 py-4 bg-background/80 backdrop-blur-lg border-b border-outline-variant max-w-md mx-auto">
-          <button className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-surface-high transition-colors">
-            <span className="material-symbols-outlined text-on-surface">close</span>
+        <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-5 py-4 bg-[#131313]/80 backdrop-blur-[16px] border-b border-[#444933] max-w-md mx-auto">
+          <button className="flex h-10 w-10 items-center justify-center hover:bg-[#2A2A2A] transition-colors rounded-lg">
+            <span className="material-symbols-outlined text-[#E5E2E1]">close</span>
           </button>
-          <h1 className="text-lg font-headline font-bold text-on-surface">Phase 01 / 04</h1>
-          <button className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-surface-high transition-colors">
-            <span className="material-symbols-outlined text-on-surface">save</span>
+          <h1 className="text-base font-['Manrope'] font-bold text-[#E5E2E1]">PHASE 01 / 04</h1>
+          <button className="flex h-10 w-10 items-center justify-center bg-[#CCFF00] hover:bg-[#ABD600] transition-colors rounded-lg">
+            <span className="material-symbols-outlined text-[#283500]">save</span>
           </button>
         </header>
 
@@ -38,44 +30,47 @@ export default function CheckinEnergiaPage() {
           {/* Progress Bar */}
           <div className="mb-8">
             <div className="flex gap-1">
-              <div className="flex-1 h-1 rounded-full bg-primary" />
-              <div className="flex-1 h-1 rounded-full bg-surface-high" />
-              <div className="flex-1 h-1 rounded-full bg-surface-high" />
-              <div className="flex-1 h-1 rounded-full bg-surface-high" />
+              <div className="flex-1 h-1 bg-[#CCFF00]" />
+              <div className="flex-1 h-1 bg-[#2A2A2A]" />
+              <div className="flex-1 h-1 bg-[#2A2A2A]" />
+              <div className="flex-1 h-1 bg-[#2A2A2A]" />
             </div>
           </div>
 
           {/* Greeting */}
           <div className="mb-8">
-            <h2 className="text-3xl font-headline font-bold text-on-surface mb-1">
-              Good morning, <span className="text-primary">Victor</span>.
+            <h2 className="text-5xl font-['Manrope'] font-bold text-[#E5E2E1] mb-2">
+              Good morning, <span className="text-[#CCFF00]">Victor</span>.
             </h2>
-            <p className="text-lg text-on-surface-variant">How is your energy?</p>
+            <p className="text-base font-['Inter'] text-[#C4C9AC]">How is your energy?</p>
           </div>
 
-          {/* Performance Insight */}
-          <div className="mb-8 glass-panel rounded-2xl p-5 border border-outline-variant/30">
-            <div className="mb-4">
-              <p className="text-xs text-on-surface-variant uppercase tracking-wider mb-2">Performance Insight</p>
-              <p className="text-lg font-headline font-bold text-on-surface">
-                <span className="text-primary">+15%</span> surge in protein absorption
-              </p>
+          {/* Performance Insight Card */}
+          <div className="mb-8 rounded-lg p-5 border border-[#444933]/50" style={{ background: "rgba(42, 42, 42, 0.4)", backdropFilter: "blur(16px)" }}>
+            <div className="mb-4 flex items-start gap-3">
+              <span className="material-symbols-outlined text-[#CCFF00] flex-shrink-0">trending_up</span>
+              <div className="flex-1">
+                <p className="text-xs font-['Inter'] text-[#C4C9AC] uppercase tracking-wider mb-2">Performance Insight</p>
+                <p className="text-sm font-['Inter'] text-[#E5E2E1]">
+                  <span className="text-[#CCFF00] font-bold">15% surge</span> in protein absorption detected. Satiety levels expected to peak.
+                </p>
+              </div>
             </div>
             <div className="flex gap-2">
-              <button className="flex-1 py-2 px-3 rounded-lg bg-primary text-on-primary font-label font-bold text-sm transition-transform hover:scale-105 active:scale-95">
-                Confirmed
+              <button className="flex-1 py-3 px-4 rounded-lg bg-[#CCFF00] text-[#283500] font-['Inter'] font-bold text-xs transition-transform hover:scale-105 active:scale-95">
+                CONFIRMED
               </button>
-              <button className="flex-1 py-2 px-3 rounded-lg bg-surface-high text-on-surface font-label font-bold text-sm transition-transform hover:scale-105 active:scale-95">
-                Neutral
+              <button className="flex-1 py-3 px-4 rounded-lg bg-[#2A2A2A] text-[#E5E2E1] font-['Inter'] font-bold text-xs transition-transform hover:scale-105 active:scale-95 border border-[#444933]">
+                NEUTRAL
               </button>
             </div>
           </div>
 
-          {/* Energy Slider */}
+          {/* Metabolic Energy */}
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <p className="text-sm font-label font-semibold text-on-surface-variant uppercase tracking-wider">Energy Level</p>
-              <span className="text-4xl font-headline font-bold text-primary">{energy}</span>
+            <p className="text-xs font-['Inter'] font-bold text-[#C4C9AC] uppercase tracking-wider mb-4">Metabolic Energy</p>
+            <div className="flex items-end justify-between mb-4">
+              <span className="text-5xl font-['Manrope'] font-bold text-[#CCFF00]">{String(energy).padStart(2, "0")}</span>
             </div>
             <input
               type="range"
@@ -83,77 +78,104 @@ export default function CheckinEnergiaPage() {
               max="10"
               value={energy}
               onChange={(e) => setEnergy(parseInt(e.target.value))}
-              className="w-full h-2 rounded-full bg-surface-high appearance-none accent-primary cursor-pointer"
+              className="w-full h-2 bg-[#2A2A2A] appearance-none accent-[#CCFF00] cursor-pointer"
+              style={{
+                background: `linear-gradient(to right, #CCFF00 0%, #CCFF00 ${(energy / 10) * 100}%, #2A2A2A ${(energy / 10) * 100}%, #2A2A2A 100%)`
+              }}
             />
-            <div className="flex justify-between text-xs text-on-surface-variant mt-2">
-              <span>Low</span>
-              <span>High</span>
+            <div className="flex justify-between text-xs text-[#C4C9AC] mt-3">
+              <span>MINIMAL</span>
+              <span>OPTIMAL</span>
             </div>
           </div>
 
-          {/* Fatigue Notes */}
+          {/* Specific Fatigue Moments */}
           <div className="mb-8">
-            <label className="text-sm font-label font-semibold text-on-surface-variant uppercase tracking-wider block mb-3">
-              Qualitative Feedback
+            <label className="text-xs font-['Inter'] font-bold text-[#C4C9AC] uppercase tracking-wider block mb-3">
+              Specific Fatigue Moments
             </label>
             <textarea
               value={fatigueNotes}
               onChange={(e) => setFatigueNotes(e.target.value)}
-              placeholder="Describe any fatigue moments or energy dips..."
-              className="w-full h-24 rounded-xl glass-input border border-outline-variant/30 p-3 text-on-surface placeholder-on-surface-variant/50 focus:border-primary/30 focus:outline-none resize-none"
+              placeholder="Input specific timeframes or triggers..."
+              className="w-full h-24 rounded-lg p-3 text-[#E5E2E1] placeholder-[#C4C9AC]/40 focus:outline-none resize-none border border-[#444933]/50"
+              style={{ background: "rgba(255, 255, 255, 0.03)", backdropFilter: "blur(10px)" }}
             />
           </div>
 
-          {/* Hunger State */}
+          {/* Daily Hunger */}
           <div className="mb-8">
-            <p className="text-sm font-label font-semibold text-on-surface-variant uppercase tracking-wider block mb-3">
-              Hunger State
+            <p className="text-xs font-['Inter'] font-bold text-[#C4C9AC] uppercase tracking-wider block mb-3">
+              Daily Hunger
             </p>
-            <div className="grid grid-cols-3 gap-2">
-              {hungerStates.map((state) => (
-                <button
-                  key={state}
-                  onClick={() => setHungerState(state.toLowerCase())}
-                  className={`py-3 px-2 rounded-lg font-label font-semibold text-xs transition-all ${
-                    hungerState === state.toLowerCase()
-                      ? "bg-primary text-on-primary"
-                      : "bg-surface-high text-on-surface hover:border-primary/30 border border-outline-variant/30"
-                  }`}
-                >
-                  {state}
-                </button>
-              ))}
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={() => setHungerState("high_intensity")}
+                className={`py-3 px-4 rounded-lg font-['Inter'] font-bold text-xs transition-all flex items-center justify-between ${
+                  hungerState === "high_intensity"
+                    ? "bg-[#CCFF00] text-[#283500]"
+                    : "bg-[#1C1B1B] text-[#E5E2E1] border border-[#444933] hover:border-[#CCFF00]/30"
+                }`}
+              >
+                <span>HIGH INTENSITY</span>
+                <span className="material-symbols-outlined text-base">local_fire_department</span>
+              </button>
+              <button
+                onClick={() => setHungerState("balanced_controlled")}
+                className={`py-3 px-4 rounded-lg font-['Inter'] font-bold text-xs transition-all flex items-center justify-between ${
+                  hungerState === "balanced_controlled"
+                    ? "bg-[#CCFF00] text-[#283500]"
+                    : "bg-[#1C1B1B] text-[#E5E2E1] border border-[#444933] hover:border-[#CCFF00]/30"
+                }`}
+              >
+                <span>BALANCED / CONTROLLED</span>
+                <span className="material-symbols-outlined text-base">scale</span>
+              </button>
+              <button
+                onClick={() => setHungerState("suppressed")}
+                className={`py-3 px-4 rounded-lg font-['Inter'] font-bold text-xs transition-all flex items-center justify-between ${
+                  hungerState === "suppressed"
+                    ? "bg-[#CCFF00] text-[#283500]"
+                    : "bg-[#1C1B1B] text-[#E5E2E1] border border-[#444933] hover:border-[#CCFF00]/30"
+                }`}
+              >
+                <span>SUPPRESSED</span>
+                <span className="material-symbols-outlined text-base">sentiment_very_satisfied</span>
+              </button>
             </div>
           </div>
 
           {/* Muscle Recovery */}
           <div className="mb-8">
-            <p className="text-sm font-label font-semibold text-on-surface-variant uppercase tracking-wider block mb-3">
+            <p className="text-xs font-['Inter'] font-bold text-[#C4C9AC] uppercase tracking-wider block mb-3">
               Muscle Recovery
             </p>
             <div className="grid grid-cols-2 gap-2">
-              {muscleRecoveryStates.map((state) => (
+              {[
+                { id: "01_fresh", label: "01 FRESH" },
+                { id: "02_moderate", label: "02 MODERATE" },
+                { id: "03_acute", label: "03 ACUTE" },
+                { id: "04_severe", label: "04 SEVERE" }
+              ].map((option) => (
                 <button
-                  key={state}
-                  onClick={() => setMuscleRecovery(state.toLowerCase())}
-                  className={`py-3 px-3 rounded-lg font-label font-semibold text-xs transition-all ${
-                    muscleRecovery === state.toLowerCase()
-                      ? "bg-primary text-on-primary"
-                      : "bg-surface-high text-on-surface hover:border-primary/30 border border-outline-variant/30"
+                  key={option.id}
+                  onClick={() => setMuscleRecovery(option.id)}
+                  className={`py-3 px-3 rounded-lg font-['Inter'] font-bold text-xs transition-all ${
+                    muscleRecovery === option.id
+                      ? "bg-[#CCFF00] text-[#283500]"
+                      : "bg-[#1C1B1B] text-[#E5E2E1] border border-[#444933] hover:border-[#CCFF00]/30"
                   }`}
                 >
-                  {state}
+                  {option.label}
                 </button>
               ))}
             </div>
           </div>
+        </div>
 
-          {/* CTA Button */}
-          <div className="mb-4">
-            <button className="w-full py-4 px-5 rounded-xl bg-primary text-on-primary font-headline font-bold text-base transition-transform hover:scale-105 active:scale-95">
-              NEXT: PHYSICAL METRICS
-            </button>
-          </div>
+        {/* Bottom Progress Bar */}
+        <div className="fixed bottom-24 left-0 right-0 max-w-md mx-auto h-1 bg-[#2A2A2A]">
+          <div className="h-1 w-1/4 bg-[#CCFF00]" />
         </div>
       </div>
 
