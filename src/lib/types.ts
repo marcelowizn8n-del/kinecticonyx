@@ -5,6 +5,7 @@ export interface Patient {
   phone: string;
   cpf: string;
   avatar: string; // initials like "RM"
+  avatarUrl?: string; // base64 or URL of uploaded photo
   age: number;
   gender: 'M' | 'F';
   goal: string; // ex: "Emagrecimento", "Hipertrofia", "Saúde"

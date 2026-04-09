@@ -4,8 +4,9 @@ import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useParams, useRouter } from 'next/navigation';
 import { useApp } from '@/lib/AppContext';
+import { Patient } from '@/lib/types';
 
-const MOCK_PATIENT = {
+const MOCK_PATIENT: Patient = {
   id: 'patient-ricardo',
   name: 'Ricardo Mendes',
   email: 'ricardo.mendes@email.com',
@@ -54,11 +55,12 @@ const MOCK_PATIENT = {
   armCircumference: 30.2,
   thighCircumference: 55.3,
   calfCircumference: 38.1,
-  physicalActivityLevel: 'Moderado',
+  healthHistory: 'Sem histórico relevante',
+  allergies: [],
+  restrictions: [],
+  activityLevel: 'moderate' as const,
   sleepHours: 7.5,
-  consultationFrequency: 'Semanal',
-  paymentMethod: 'PIX',
-  dueDay: 15,
+  consultationFrequency: 'biweekly' as const,
   exams: [
     { id: '1', type: 'Hemograma', date: '2024-04-01', status: 'OK' },
     { id: '2', type: 'Colesterol', date: '2024-04-01', status: 'OK' },
@@ -337,10 +339,14 @@ export default function PatientProfilePage() {
         <section className="mb-8">
           <div className="glass-card rounded-2xl p-8 border border-on-surface-variant/10">
             <div className="flex items-start gap-8 mb-6">
-              <div className="w-32 h-32 rounded-full bg-accent flex items-center justify-center flex-shrink-0 shadow-lg">
-                <span className="text-5xl font-headline font-bold text-background">
-                  {patient.avatar}
-                </span>
+              <div className="w-32 h-32 rounded-full bg-accent flex items-center justify-center flex-shrink-0 shadow-lg overflow-hidden">
+                {patient.avatarUrl ? (
+                  <img src={patient.avatarUrl} alt={patient.name} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-5xl font-headline font-bold text-background">
+                    {patient.avatar}
+                  </span>
+                )}
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-4 mb-2">

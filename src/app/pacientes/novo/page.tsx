@@ -182,6 +182,10 @@ function NewPatientPageInner() {
           nextConsultation: patient.nextConsultation || '',
           professionalNotes: patient.notes || '',
         });
+        // Load existing avatar if available
+        if (patient.avatarUrl) {
+          setAvatarPreview(patient.avatarUrl);
+        }
       }
     }
   }, [editPatientId, getPatientById]);
@@ -205,16 +209,24 @@ function NewPatientPageInner() {
     }));
   };
 
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setFormData((prev) => ({ ...prev, photo: file }));
+      // Convert to base64 for preview and persistence
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatarPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   const handleAvatarClick = () => {
-    setShowAvatarToast(true);
-    setTimeout(() => setShowAvatarToast(false), 3000);
+    // Open file picker directly instead of showing toast
+    fileInputRef.current?.click();
   };
 
   const getAvatarInitials = () => {
@@ -284,6 +296,7 @@ function NewPatientPageInner() {
       email: formData.email,
       phone: formData.phone,
       avatar: getAvatarInitials(),
+      avatarUrl: avatarPreview || undefined,
       age: new Date().getFullYear() - new Date(formData.birthDate).getFullYear(),
       gender: formData.gender as 'M' | 'F',
       goal: formData.mainGoal,
@@ -406,10 +419,10 @@ function NewPatientPageInner() {
                     {/* Avatar Circle */}
                     <div className="relative w-24 h-24">
                       <div className="w-full h-full rounded-full bg-gradient-to-br from-primary to-primary/60 border-3 border-primary flex items-center justify-center relative">
-                        {formData.photo ? (
+                        {avatarPreview ? (
                           <div className="w-full h-full rounded-full overflow-hidden">
                             <img
-                              src={URL.createObjectURL(formData.photo)}
+                              src={avatarPreview}
                               alt="Patient Avatar"
                               className="w-full h-full object-cover"
                             />

@@ -169,10 +169,14 @@ export default function PacientesPage() {
                 {/* Patient Avatar and Status */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-primary/20 border-2 border-primary/40 flex items-center justify-center group-hover:border-primary transition-colors">
-                      <span className="text-sm font-headline font-bold text-primary">
-                        {patient.avatar}
-                      </span>
+                    <div className="w-14 h-14 rounded-full bg-primary/20 border-2 border-primary/40 flex items-center justify-center group-hover:border-primary transition-colors overflow-hidden">
+                      {patient.avatarUrl ? (
+                        <img src={patient.avatarUrl} alt={patient.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <span className="text-sm font-headline font-bold text-primary">
+                          {patient.avatar}
+                        </span>
+                      )}
                     </div>
                     <div>
                       <h3 className="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">
