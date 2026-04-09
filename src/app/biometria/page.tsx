@@ -26,6 +26,9 @@ export default function BiometriaPage() {
                 U
               </div>
             </div>
+            <Link href="/dashboard" className="text-on-surface hover:text-primary transition-colors">
+              <span className="material-symbols-outlined text-xl">home</span>
+            </Link>
             <h1 className="font-headline font-black text-base italic text-on-surface-variant">
               Performance Hub
             </h1>

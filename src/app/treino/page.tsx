@@ -11,6 +11,7 @@ interface Exercise {
   rest: string;
   muscleGroup: string;
   icon: string;
+  videoUrl?: string;
 }
 
 interface Workout {
@@ -39,6 +40,7 @@ const MOCK_WORKOUTS: Workout[] = [
         rest: '2-3 min',
         muscleGroup: 'Glúteos',
         icon: 'fitness_center',
+        videoUrl: 'https://www.youtube.com/embed/aclHkVaku9U',
       },
       {
         name: 'Leg Press',
@@ -47,6 +49,7 @@ const MOCK_WORKOUTS: Workout[] = [
         rest: '2 min',
         muscleGroup: 'Quadríceps',
         icon: 'fitness_center',
+        videoUrl: 'https://www.youtube.com/embed/IZxyjW7MPJQ',
       },
       {
         name: 'Cadeira Extensora',
@@ -97,6 +100,7 @@ const MOCK_WORKOUTS: Workout[] = [
         rest: '2-3 min',
         muscleGroup: 'Peito',
         icon: 'fitness_center',
+        videoUrl: 'https://www.youtube.com/embed/rT7DgCr-3pg',
       },
       {
         name: 'Remada Curvada',
@@ -105,6 +109,7 @@ const MOCK_WORKOUTS: Workout[] = [
         rest: '2-3 min',
         muscleGroup: 'Costas',
         icon: 'fitness_center',
+        videoUrl: 'https://www.youtube.com/embed/kBWAon7ItDw',
       },
       {
         name: 'Desenvolvimento',
@@ -113,6 +118,7 @@ const MOCK_WORKOUTS: Workout[] = [
         rest: '2 min',
         muscleGroup: 'Ombro',
         icon: 'fitness_center',
+        videoUrl: 'https://www.youtube.com/embed/qEwKCR5JCog',
       },
       {
         name: 'Puxada Frontal',
@@ -203,10 +209,65 @@ const MOCK_WORKOUTS: Workout[] = [
 const DAYS_OF_WEEK = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
 const TODAY_INDEX = 0; // Monday for demo - change to actual day
 
+interface VideoModalState {
+  isOpen: boolean;
+  exerciseName: string;
+  videoUrl: string;
+}
+
+interface ToastState {
+  isVisible: boolean;
+  message: string;
+}
+
 export default function TreinoPage() {
   const pathname = usePathname();
   const [expandedWorkout, setExpandedWorkout] = useState<string | null>('treino-a');
   const [completedSessions, setCompletedSessions] = useState(3);
+  const [videoModal, setVideoModal] = useState<VideoModalState>({
+    isOpen: false,
+    exerciseName: '',
+    videoUrl: '',
+  });
+  const [toast, setToast] = useState<ToastState>({
+    isVisible: false,
+    message: '',
+  });
+  const [completedExercises, setCompletedExercises] = useState<Set<string>>(new Set());
+
+  const showToast = (message: string) => {
+    setToast({ isVisible: true, message });
+    setTimeout(() => setToast({ isVisible: false, message: '' }), 3000);
+  };
+
+  const openVideoModal = (exerciseName: string, videoUrl: string) => {
+    setVideoModal({ isOpen: true, exerciseName, videoUrl });
+  };
+
+  const closeVideoModal = () => {
+    setVideoModal({ isOpen: false, exerciseName: '', videoUrl: '' });
+  };
+
+  const toggleExerciseComplete = (exerciseName: string) => {
+    const newCompleted = new Set(completedExercises);
+    if (newCompleted.has(exerciseName)) {
+      newCompleted.delete(exerciseName);
+    } else {
+      newCompleted.add(exerciseName);
+    }
+    setCompletedExercises(newCompleted);
+  };
+
+  const handleMarkWorkoutComplete = () => {
+    if (completedSessions < 7) {
+      setCompletedSessions(completedSessions + 1);
+      showToast('Treino marcado como realizado!');
+    }
+  };
+
+  const handleScheduleWorkout = () => {
+    showToast('Agendamento em breve');
+  };
 
   const getMuscleGroupColor = (muscleGroup: string): string => {
     const colors: Record<string, string> = {
@@ -240,6 +301,53 @@ export default function TreinoPage() {
     }
   };
 
+  // Video Modal Component
+  const VideoModal = () => {
+    if (!videoModal.isOpen) return null;
+
+    return (
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        onClick={closeVideoModal}
+      >
+        {/* Glassmorphism Backdrop */}
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-xl" />
+
+        {/* Modal Content */}
+        <div
+          className="relative w-full max-w-2xl bg-surface-container rounded-2xl overflow-hidden shadow-2xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="bg-surface-high p-6 border-b border-on-surface-variant/10 flex items-center justify-between">
+            <h2 className="text-xl font-headline font-bold text-on-surface">
+              {videoModal.exerciseName}
+            </h2>
+            <button
+              onClick={closeVideoModal}
+              className="w-10 h-10 rounded-lg bg-on-surface-variant/20 hover:bg-on-surface-variant/30 transition-colors flex items-center justify-center"
+            >
+              <span className="material-symbols-outlined text-on-surface-variant">
+                close
+              </span>
+            </button>
+          </div>
+
+          {/* Video Container */}
+          <div className="relative w-full bg-black pt-[56.25%]">
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src={videoModal.videoUrl}
+              title={videoModal.exerciseName}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-background text-on-surface">
       {/* Fixed Header */}
@@ -260,6 +368,9 @@ export default function TreinoPage() {
                   {completedSessions}/7 sessões
                 </span>
               </div>
+              <Link href="/dashboard" className="w-10 h-10 rounded-lg bg-surface-high hover:bg-surface-highest transition-colors flex items-center justify-center">
+                <span className="material-symbols-outlined text-on-surface">home</span>
+              </Link>
             </div>
           </div>
         </div>
@@ -407,48 +518,92 @@ export default function TreinoPage() {
 
                   {/* Exercises List */}
                   <div className="p-6 space-y-4">
-                    {workout.exercises.map((exercise, index) => (
-                      <div
-                        key={index}
-                        className="glass-card rounded-xl p-4 flex items-start gap-4 hover:bg-surface-container/50 transition-colors"
-                      >
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center flex-shrink-0">
-                          <span className="material-symbols-outlined text-sm text-primary">
-                            {exercise.icon}
-                          </span>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-headline font-bold text-on-surface">
-                            {exercise.name}
-                          </h4>
-                          <div className="flex items-center gap-3 mt-2 flex-wrap">
-                            <span className="text-xs bg-surface-high px-3 py-1 rounded-full text-on-surface-variant font-bold">
-                              {exercise.sets} séries
-                            </span>
-                            <span className="text-xs bg-surface-high px-3 py-1 rounded-full text-on-surface-variant font-bold">
-                              {exercise.reps} reps
-                            </span>
-                            <span className="text-xs bg-surface-high px-3 py-1 rounded-full text-on-surface-variant font-bold">
-                              {exercise.rest} descanso
-                            </span>
-                            <span className={`text-xs px-3 py-1 rounded-full font-bold ${getMuscleGroupColor(exercise.muscleGroup)}`}>
-                              {exercise.muscleGroup}
+                    {workout.exercises.map((exercise, index) => {
+                      const exerciseKey = `${workout.id}-${index}`;
+                      const isCompleted = completedExercises.has(exerciseKey);
+
+                      return (
+                        <div
+                          key={index}
+                          className={`glass-card rounded-xl p-4 flex items-start gap-4 transition-all ${
+                            isCompleted
+                              ? 'bg-primary/10 border border-primary/30'
+                              : 'hover:bg-surface-container/50'
+                          }`}
+                        >
+                          <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center flex-shrink-0">
+                            <span className="material-symbols-outlined text-sm text-primary">
+                              {exercise.icon}
                             </span>
                           </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-2">
+                              <h4 className="font-headline font-bold text-on-surface">
+                                {exercise.name}
+                              </h4>
+                              {exercise.videoUrl && (
+                                <button
+                                  onClick={() =>
+                                    openVideoModal(exercise.name, exercise.videoUrl!)
+                                  }
+                                  className="text-primary hover:text-primary-dark transition-colors flex-shrink-0"
+                                  title="Ver demonstração de vídeo"
+                                >
+                                  <span className="material-symbols-outlined text-sm">
+                                    play_circle
+                                  </span>
+                                </button>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-3 mt-2 flex-wrap">
+                              <span className="text-xs bg-surface-high px-3 py-1 rounded-full text-on-surface-variant font-bold">
+                                {exercise.sets} séries
+                              </span>
+                              <span className="text-xs bg-surface-high px-3 py-1 rounded-full text-on-surface-variant font-bold">
+                                {exercise.reps} reps
+                              </span>
+                              <span className="text-xs bg-surface-high px-3 py-1 rounded-full text-on-surface-variant font-bold">
+                                {exercise.rest} descanso
+                              </span>
+                              <span className={`text-xs px-3 py-1 rounded-full font-bold ${getMuscleGroupColor(exercise.muscleGroup)}`}>
+                                {exercise.muscleGroup}
+                              </span>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => toggleExerciseComplete(exerciseKey)}
+                            className={`flex-shrink-0 w-6 h-6 rounded border-2 transition-colors flex items-center justify-center ${
+                              isCompleted
+                                ? 'bg-primary border-primary'
+                                : 'border-on-surface-variant/30 hover:border-primary'
+                            }`}
+                          >
+                            {isCompleted && (
+                              <span className="material-symbols-outlined text-xs text-on-primary">
+                                check
+                              </span>
+                            )}
+                          </button>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
 
                   {/* Action Button */}
                   <div className="px-6 py-4 border-t border-on-surface-variant/10 flex gap-3">
-                    <button className="flex-1 py-3 bg-primary text-on-primary font-bold rounded-lg hover:bg-primary-dark transition-colors">
+                    <button
+                      onClick={handleMarkWorkoutComplete}
+                      className="flex-1 py-3 bg-primary text-on-primary font-bold rounded-lg hover:bg-primary-dark transition-colors"
+                    >
                       <span className="material-symbols-outlined inline mr-2">
                         check_circle
                       </span>
                       Marcar como Realizado
                     </button>
-                    <button className="px-4 py-3 bg-surface-high text-on-surface font-bold rounded-lg hover:bg-surface-highest transition-colors">
+                    <button
+                      onClick={handleScheduleWorkout}
+                      className="px-4 py-3 bg-surface-high text-on-surface font-bold rounded-lg hover:bg-surface-highest transition-colors"
+                    >
                       <span className="material-symbols-outlined">
                         schedule
                       </span>
@@ -612,6 +767,16 @@ export default function TreinoPage() {
           </Link>
         </div>
       </nav>
+
+      {/* Video Modal */}
+      <VideoModal />
+
+      {/* Toast Notification */}
+      {toast.isVisible && (
+        <div className="fixed bottom-32 left-1/2 transform -translate-x-1/2 z-40 bg-primary text-on-primary px-6 py-3 rounded-lg shadow-lg font-bold">
+          {toast.message}
+        </div>
+      )}
     </div>
   );
 }

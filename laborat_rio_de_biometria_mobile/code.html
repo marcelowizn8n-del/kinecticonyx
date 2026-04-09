@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script type='text/javascript' nonce='qqpcgo6F0DhQ297cIkqu+A==' src='https://contribution.usercontent.google.com/Uh5gTHLtEEX9dvv90sheOQBah6oR3UJiBhS1zplUGJFrBwcWRR2aBqFGUI3ZHrw4IuesLov9z-GLvIJgGWKTc1mbfoxChjtWHbZveXWLQHkLspEgZJMKvGawWpSPFdHdKzmAWhcHJ-nmM-iZ3LpKJKPGKiLE4x4XZsUIkLch7UIqME6qeQSWAFe65PezLUXYEixC1fVdi7UMEZcOCdF6jxXkJXscctU8nI_IFy4mLwalq3kfftmiuqGCM_YEDaAFEEorRg0DmKYMwdZmXvF7yld3mJwbw9XXojKkYwTFPWQOerKvrqphm60E-umXUF820xL11XtoeEyfa7DWeHSGuXO5i0dsd9ICJg4-hz3WZzbSK_jMnjBqTE0aS0GW1fQPv378mYxDwDgwJHRnoVhnyHL5Sbw58qY379M7U8rHHH8RHJsmwAkHZUIkfv1tnM7_xJwMBjKXNjws4lopImdj_hWX5ZO82OloBLXv06FMCjh_4LpaB3A8_cMYtxzrpnbZCOQSL9ssDL1hD-H6d6alXH6YSAQHD48l3HlBx16k28VF6I8J0VzeAGX-c7FCXJHQYhybJuv_kPxCTpiC3C-jE5sW1Lzjkxf0VL8LcMF9NzxD34LhNI4qTw9RA3_4eBa4vmXgQfFKguh9CnLDwzJF45nCI7ya4WD3NTr0n2rk0NfgXasumUEfWE7XOcKmKzZZwd6XmACOQRiOXePFwbzPDOnKqkYYEiosVnCpcmsLKLjcKoKMd6b9ccvzcpII_GqIUJBM3D51h5ITd5Oehkxsmv1mO-tchabCK9siRoJd'></script><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#e5e2e1",
+                        "on-primary-fixed-variant": "#3c4d00",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary-container": "#474649",
+                        "primary-fixed": "#c3f400",
+                        "tertiary-fixed": "#c3f400",
+                        "on-tertiary-container": "#556d00",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-container": "#201f1f",
+                        "primary-fixed-dim": "#abd600",
+                        "on-tertiary-fixed-variant": "#3c4d00",
+                        "on-tertiary": "#283500",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary-fixed": "#161e00",
+                        "surface": "#131313",
+                        "surface-tint": "#abd600",
+                        "secondary": "#c8c6c8",
+                        "on-primary-container": "#556d00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary-container": "#c3f400",
+                        "surface-dim": "#131313",
+                        "background": "#131313",
+                        "surface-container-highest": "#353534",
+                        "on-secondary-container": "#b6b4b7",
+                        "outline-variant": "#444933",
+                        "on-secondary-fixed-variant": "#474649",
+                        "on-error": "#690005",
+                        "secondary-fixed": "#e4e2e4",
+                        "primary-container": "#c3f400",
+                        "primary": "#ffffff",
+                        "surface-bright": "#3a3939",
+                        "outline": "#8e9379",
+                        "inverse-primary": "#506600",
+                        "on-primary": "#283500",
+                        "on-secondary": "#303032",
+                        "on-error-container": "#ffdad6",
+                        "error-container": "#93000a",
+                        "tertiary-fixed-dim": "#abd600",
+                        "surface-variant": "#353534",
+                        "inverse-on-surface": "#313030",
+                        "secondary-fixed-dim": "#c8c6c8",
+                        "error": "#ffb4ab",
+                        "on-surface-variant": "#c4c9ac",
+                        "on-secondary-fixed": "#1b1b1d",
+                        "on-background": "#e5e2e1",
+                        "tertiary": "#ffffff",
+                        "on-primary-fixed": "#161e00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .biometric-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 1rem;
+        }
+        .scanner-line {
+            background: linear-gradient(to bottom, transparent, #CCFF00, transparent);
+            height: 100%;
+            width: 2px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.3;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container/30">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#131313]">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20">
+<img alt="User athlete profile silhouette" class="w-full h-full object-cover" data-alt="close-up portrait of a fit athlete in a dark gym environment with cinematic low-key lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm0gfjFLj5VBuKB2UNNdeKbj9XpW0te4hEHIOdSD4QVn8kRvSttf9gHjKBuOAQKkG5q6iop-lXmUwrF49y-HMrCaYmI4XIy-54rUkRBktR2uERlP11jYxraE1c9S5zOGzzE1vc0CamG-IqtFl0id5egHSyPWI1BBS0t3fMx_Ah2qDSDixZx6zQEBD-YvmGuwVFn6vIWNvD9rXmXDW3a0vsem1s7YiHF6zn5O4IiqBwYEIl2XS_CJSxJIxZ6Ivds7Tg6J7EI7RU_55z"/>
+</div>
+<h1 class="font-headline font-black text-xl italic text-[#CCFF00]">Performance Hub</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#E5E2E1] opacity-70 hover:bg-[#2A2A2A] transition-colors p-2 rounded-lg cursor-pointer">settings</span>
+</div>
+</nav>
+<main class="pt-20 pb-28 px-6 max-w-md mx-auto">
+<!-- Header -->
+<header class="mb-8">
+<h2 class="font-headline font-bold text-3xl tracking-tight text-on-surface">Laboratório de Biometria</h2>
+<p class="font-label text-sm text-on-surface-variant uppercase tracking-widest mt-1 opacity-60">Biometric Progress Lab</p>
+</header>
+<!-- Side-by-Side Comparison Container -->
+<section class="mb-10 relative">
+<div class="grid grid-cols-2 gap-2 bg-surface-container-low p-2 rounded-xl border border-outline-variant/10">
+<!-- Before Photo -->
+<div class="relative aspect-[3/4] rounded-lg overflow-hidden group">
+<img alt="Before biometric photo" class="w-full h-full object-cover grayscale opacity-80" data-alt="Full body shot of a person in athletic wear standing in a clinical setting with neutral lighting for biometric analysis" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwHAmPOmVoUGYbXuWn_RPrPd_lTYdVwstE6lPLvDhHgQvghiLyyzKQFYPSolBp43bx49mSRlyINXmRshwc0wAlF-KCdkV7qWvMxBs95FemBQoZhHQonI7v8DA2cTnYBdc1xhI6ScIVgW0RE-kB4-ezUiVypnj5gPn2_wu1_Z-jmHlHWKK-tC06CCxcrw5pEaW9XlA64EIY9fgviC66nu-euu8ZVDfFp521YI6151AKLjtVFA2hQ9-66c9QlPsoDk23G-u9e4O8oUnP"/>
+<div class="absolute inset-0 bg-[#CCFF00]/5 pointer-events-none">
+<!-- Technical Overlay SVG -->
+<svg class="absolute inset-0 w-full h-full text-[#CCFF00] opacity-40" fill="none" stroke="currentColor" stroke-width="0.5" viewbox="0 0 100 100">
+<path d="M50 10 L50 90 M30 30 L70 30 M25 50 L75 50 M40 85 L60 85"></path>
+<circle cx="50" cy="20" r="5"></circle>
+</svg>
+</div>
+<div class="absolute top-3 left-3 bg-surface-container-lowest/80 backdrop-blur px-2 py-1 rounded text-[10px] font-bold uppercase tracking-tighter">Day 01</div>
+</div>
+<!-- After Photo -->
+<div class="relative aspect-[3/4] rounded-lg overflow-hidden group">
+<img alt="After biometric photo" class="w-full h-full object-cover" data-alt="Full body shot of a person showing muscular definition in athletic wear standing in the same clinical setting with neutral lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwyNPhWmEly4RtEI4CFNYDGTOlTUsabb4nl5eCbyHAqFjNDUCKYOdC7IvHoOG-A0w72IyB6SFxXF6ulSmxdK50A9j5mjIX63ViCH-n4Y4a5Qefp2lO1WLYIFnIv__EtJ0kCsQdROCG9fgQlOsG-ejKCUmapCTwfuYBpGnGHMWYoH6dd87P3cuNCPPQE9r0kbjm40mFl2eKxjLqj3MeR5yFInwQE_FXMSWXqlhgzYYR5A0tSrF9xQzCWFMpb1g986VI8oMJDQGO7jPj"/>
+<div class="absolute inset-0 bg-[#CCFF00]/10 pointer-events-none">
+<!-- Technical Overlay SVG - Enhanced Contour -->
+<svg class="absolute inset-0 w-full h-full text-[#CCFF00] opacity-70" fill="none" stroke="currentColor" stroke-width="0.8" viewbox="0 0 100 100">
+<path d="M50 10 L50 90 M28 28 L72 28 M22 48 L78 48 M38 88 L62 88"></path>
+<circle cx="50" cy="18" r="4.5"></circle>
+<path d="M35 30 Q50 25 65 30 M30 50 Q50 45 70 50" stroke-dasharray="2 1"></path>
+</svg>
+</div>
+<div class="absolute top-3 right-3 bg-[#CCFF00] text-on-primary px-2 py-1 rounded text-[10px] font-bold uppercase tracking-tighter shadow-lg shadow-[#CCFF00]/20">Day 90</div>
+</div>
+</div>
+<!-- Technical Scanner Line -->
+<div class="scanner-line"></div>
+</section>
+<!-- Metric Delta Bento Grid -->
+<section class="space-y-4">
+<div class="biometric-grid">
+<!-- Large Delta Card -->
+<div class="bg-surface-container-high p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl">fitness_center</span>
+</div>
+<p class="font-label text-[10px] font-semibold uppercase tracking-widest text-on-surface-variant mb-2">Weight Comparison</p>
+<div class="flex items-baseline gap-2">
+<span class="font-headline font-bold text-4xl text-on-surface">82.4</span>
+<span class="font-label text-sm text-on-surface-variant">kg</span>
+</div>
+<div class="mt-4 inline-flex items-center gap-1 px-2 py-1 bg-primary-container/10 rounded-md border border-[#CCFF00]/20">
+<span class="material-symbols-outlined text-sm text-[#CCFF00]">trending_down</span>
+<span class="font-label font-bold text-xs text-[#CCFF00]">-3.2kg</span>
+</div>
+</div>
+<!-- Small Detail Card -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col justify-between border border-outline-variant/10">
+<p class="font-label text-[10px] font-semibold uppercase tracking-widest text-on-surface-variant">Fat %</p>
+<div>
+<div class="font-headline font-bold text-2xl text-on-surface">14.2%</div>
+<div class="font-label text-[10px] text-[#CCFF00] mt-1 font-bold">-2.8% Delta</div>
+</div>
+</div>
+</div>
+<!-- Asymmetric Secondary Row -->
+<div class="grid grid-cols-3 gap-4">
+<div class="col-span-1 bg-surface-container-low p-4 rounded-xl">
+<p class="font-label text-[9px] font-semibold uppercase tracking-tighter text-on-surface-variant">Muscle</p>
+<div class="font-headline font-bold text-lg text-on-surface">+1.4kg</div>
+</div>
+<div class="col-span-2 bg-surface-container-high p-4 rounded-xl flex items-center justify-between">
+<div>
+<p class="font-label text-[9px] font-semibold uppercase tracking-tighter text-on-surface-variant">Postural Score</p>
+<div class="font-headline font-bold text-lg text-[#CCFF00]">94 / 100</div>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-variant relative flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-2 border-[#CCFF00] border-t-transparent -rotate-45"></div>
+<span class="material-symbols-outlined text-xs text-[#CCFF00]">check</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Action -->
+<button class="w-full mt-8 bg-[#CCFF00] text-on-primary py-4 rounded-md font-headline font-extrabold text-sm uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span>Exportar Relatório PDF</span>
+<span class="material-symbols-outlined text-sm">download</span>
+</button>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full h-20 flex justify-around items-center px-4 pb-safe bg-[#1C1B1B] shadow-[0_-4px_40px_-5px_rgba(0,0,0,0.6)] z-50 rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-[#E5E2E1] opacity-40 space-y-1 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-[&#39;Inter&#39;] text-[10px] font-semibold uppercase tracking-widest">Fuel</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#E5E2E1] opacity-40 space-y-1 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">fitness_center</span>
+<span class="font-[&#39;Inter&#39;] text-[10px] font-semibold uppercase tracking-widest">Training</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#CCFF00] space-y-1 relative after:content-[&#39;&#39;] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-[#CCFF00] after:rounded-full scale-95 duration-200">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-[&#39;Inter&#39;] text-[10px] font-semibold uppercase tracking-widest">Progress</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#E5E2E1] opacity-40 space-y-1 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-[&#39;Inter&#39;] text-[10px] font-semibold uppercase tracking-widest">Insights</span>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,51 @@
+# Guia de Implementação: Do Stitch para o Antigravity
+
+Este guia detalha o processo técnico para transformar os designs e a arquitetura do **Kinetic Onyx** em um produto funcional utilizando o **Antigravity**.
+
+## Passo 1: Preparação do Ambiente no Antigravity
+Antes de importar o código, configure a base do seu projeto:
+1.  **Framework:** Inicie um projeto React ou Next.js (recomendado para Web Apps/PWA).
+2.  **Tailwind CSS:** Instale e configure o Tailwind. No seu arquivo `tailwind.config.js`, adicione as cores do **Kinetic Onyx**:
+    ```javascript
+    theme: {
+      extend: {
+        colors: {
+          primary: '#CCFF00', // Verde Neon
+          background: '#131313',
+          surface: '#1C1B1B',
+          'surface-high': '#2A2A2A',
+        },
+        fontFamily: {
+          manrope: ['Manrope', 'sans-serif'],
+          inter: ['Inter', 'sans-serif'],
+        },
+      }
+    }
+    ```
+
+## Passo 2: Extração de Código via Stitch
+O Stitch gera o código "limpo" pronto para ser usado. Para cada tela selecionada:
+1.  No Stitch, clique no botão **</> View Code** na barra de ferramentas.
+2.  Copie o bloco de **HTML** e as classes **Tailwind** geradas.
+3.  No Antigravity, crie um novo componente para cada tela (ex: `Login.tsx`, `Dashboard.tsx`) e cole o código.
+4.  Substitua as imagens estáticas por componentes de imagem do seu framework (ex: `next/image`).
+
+## Passo 3: Implementação do Design System
+Garanta a consistência visual seguindo as definições do documento {{DATA:DESIGN_SYSTEM:DESIGN_SYSTEM_1}}:
+1.  **Botões Primários:** Use sempre a classe `bg-primary text-black font-bold`.
+2.  **Glassmorphism:** Aplique `backdrop-blur-xl bg-white/5` nos containers de superfície para o efeito premium.
+3.  **Tipografia:** Garanta que os pesos das fontes Manrope (700, 800) e Inter (400, 500) estejam carregados.
+
+## Passo 4: Integração do Backend e MCP
+O Antigravity permite uma integração fluida com o Backend que estruturamos no documento {{DATA:TEXT:TEXT_15}}:
+1.  **Configuração de Banco:** Use as entidades (User, Anthropometry, etc.) para criar seu schema no Prisma ou Drizzle.
+2.  **API:** Conecte os formulários das telas (como o Login e Check-in) aos seus endpoints via `fetch` ou `axios`.
+3.  **MCP (Model Context Protocol):** Use o MCP para fornecer este guia e as descrições das telas ao assistente do Antigravity. Ele entenderá o contexto completo do design e ajudará a escrever a lógica de negócio (como a substituição de macros ou alertas preditivos) baseada nos prompts que definimos aqui.
+
+## Passo 5: Ativação das Funcionalidades de Elite
+1.  **Motor 3D:** Para as telas {{DATA:SCREEN:SCREEN_22}} e {{DATA:SCREEN:SCREEN_24}}, use a biblioteca `react-three-fiber` para renderizar o modelo holográfico.
+2.  **PWA:** Adicione um `manifest.json` e configure o Service Worker para que o app seja "instalável" via navegador sem passar pelas lojas.
+3.  **Checkout:** Integre o Stripe via Webhook para liberar o acesso Gold automaticamente após o pagamento.
+
+---
+**Dica de Arquiteto:** Comece pelo fluxo de **Login (SCREEN_14)** e o **Dashboard (SCREEN_31)**. Eles formam a espinha dorsal do sistema.

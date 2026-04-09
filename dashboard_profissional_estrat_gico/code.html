@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Professional Dashboard | Performance Ecosystem</title>
+<script type='text/javascript' nonce='UrPXfJzY3P1+0vdHAy+hfg==' src='https://contribution.usercontent.google.com/bta3suc6nPVy4c9bYv_W0jGxRekbQqAJlcb3wJDB-LB_nP_yexUByUYZDl3xHMk2nKJDYaOHhYX1Ss28nVoHBpEtDtQuAKqtG0AREvFwm1Wo3RXaEAr3CRtlyCgbfMkKYrlxLDAaAZbu_5JIhpyKqaWbVqkBlhfVqZPDbHhWuZsV_SK7rUHzc3WZTmtOkwJ5nsqYPQP5xQEh6MSc48GrY1cftwRz7iIdkDG1STmeI782HjYWbgiXSJIKDUf03VTTX4uCO5v4tyB0HYqOfV1-TrU2PppmkhxoOkDzMmbXgba1okz_kbLD4t7ZWkBz06UbvXxbQzYdomBXte_8t8LVa8DGmqAyZEui_tf2t7wnEnb9BvfgM-gVTOe2oh8GZa_TAMp9GFnaoACAVecxC5OUhzjONJXY2guRug9BGBwWHlZxl0XMsQFFa7bk_T805x2ssbAdVb6vPC2_DDMsMZ81vGqJO1wddO8aQHn6P4-TM7Y_3pN4t5-TQxptSsSK113Fl3TBORjPpbI5MRBFabJ8XEuirrNXshg-zQpMN262dLTMGYasUJBj3OX04pyjVqGJGWlcsuxdGnl_PN5ovm-O6O3Z20ccVhNysAd4Hg_EHiIu9U-ZM7gt7glHzLgW9VaR7_rf8Ixv9UiMLjodDrKLUejSXs5MFe9gl31lL7gX6sEzqN1BB0946VhYuDo_uc3d4NFoxuRREkekC8KsI_CY9Qar5T7FAS_xwW0GSaMc5Zg6ouwEP0OF_EynNBUk5VHIK0hvJ8mwBxYqKxia9ABAme-lT5MqxfpOcORP237W'></script><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#2a2a2a",
+              "on-tertiary": "#283500",
+              "on-surface-variant": "#c4c9ac",
+              "error-container": "#93000a",
+              "on-error": "#690005",
+              "on-secondary": "#303032",
+              "tertiary-fixed-dim": "#abd600",
+              "surface-container-low": "#1c1b1b",
+              "on-secondary-container": "#b6b4b7",
+              "surface-variant": "#353534",
+              "surface-container": "#201f1f",
+              "background": "#131313",
+              "on-background": "#e5e2e1",
+              "tertiary-fixed": "#c3f400",
+              "inverse-on-surface": "#313030",
+              "secondary-fixed": "#e4e2e4",
+              "inverse-primary": "#506600",
+              "surface": "#131313",
+              "on-tertiary-container": "#556d00",
+              "outline-variant": "#444933",
+              "error": "#ffb4ab",
+              "surface-container-highest": "#353534",
+              "primary-container": "#c3f400",
+              "tertiary": "#ffffff",
+              "primary": "#ffffff",
+              "inverse-surface": "#e5e2e1",
+              "primary-fixed-dim": "#abd600",
+              "secondary-fixed-dim": "#c8c6c8",
+              "on-primary-fixed": "#161e00",
+              "on-error-container": "#ffdad6",
+              "on-surface": "#e5e2e1",
+              "surface-bright": "#3a3939",
+              "on-primary-fixed-variant": "#3c4d00",
+              "on-secondary-fixed-variant": "#474649",
+              "secondary-container": "#474649",
+              "surface-dim": "#131313",
+              "outline": "#8e9379",
+              "secondary": "#c8c6c8",
+              "surface-tint": "#abd600",
+              "on-tertiary-fixed": "#161e00",
+              "on-primary": "#283500",
+              "on-secondary-fixed": "#1b1b1d",
+              "tertiary-container": "#c3f400",
+              "primary-fixed": "#c3f400",
+              "on-tertiary-fixed-variant": "#3c4d00",
+              "on-primary-container": "#556d00",
+              "surface-container-lowest": "#0e0e0e"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      body { font-family: 'Inter', sans-serif; }
+      .font-headline { font-family: 'Manrope', sans-serif; }
+      .glass-card {
+        background: rgba(42, 42, 42, 0.4);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .neon-glow {
+        box-shadow: 0 0 15px rgba(204, 255, 0, 0.2);
+      }
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: #131313; }
+      ::-webkit-scrollbar-thumb { background: #353534; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#131313] shadow-[0_40px_40px_-5px_rgba(0,0,0,0.6)]">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20">
+<img alt="Professional Profile" class="w-full h-full object-cover" data-alt="Professional sports nutritionist in a clinical setting with modern lighting and dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvcoFtQ4o_ODL9l7GXV2OMALoVsvFE5YCDv3g5A5_VJ4WRsImGyJFbllppp4rBoH9Ti58WSCcHOPenXW8N7-0EDpPawnRZdjLDrN5IGkqRPQ82mlN5Mx5KLOwGyyk2T02FrHaN6Q4VQ-FebbMSJO-rnS5xwpoY37Wu5jqy2WYG8MMOWtWAcBR3c0n_B9q21bP596QnmULv3WtmtoyK_z_MuOIB_EsZ69phdmG3fXaw18G9mfwKaCRJoe_6ur81BUH50Jv2Nz601bdM"/>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-medium text-on-surface-variant uppercase tracking-wider">Bem-vindo, Dr.</span>
+<h1 class="font-headline font-bold tracking-tight text-[#E5E2E1] leading-none">Victor High-End</h1>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-[#CCFF00] hover:opacity-80 transition-opacity active:scale-90">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full ring-2 ring-background"></span>
+</button>
+<span class="text-xl font-black italic text-[#CCFF00] tracking-widest hidden md:block">PREMIUM</span>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-7xl mx-auto space-y-10">
+<!-- Alertas Preditivos (Horizontal Bento) -->
+<section>
+<div class="flex items-end justify-between mb-6">
+<div>
+<h2 class="font-headline text-3xl font-extrabold tracking-tight">Alertas Preditivos</h2>
+<p class="text-on-surface-variant text-sm mt-1">Sinais vitais e adesão do ecossistema.</p>
+</div>
+<span class="text-[10px] font-bold text-[#CCFF00] tracking-[0.2em] uppercase">Real-Time Data</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+<!-- Critical Alert -->
+<div class="md:col-span-7 glass-card p-6 rounded-xl border border-error-container/20 flex flex-col justify-between group cursor-pointer transition-all hover:bg-error-container/5">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-error-container/30 text-error text-[10px] font-bold uppercase tracking-widest">
+<span class="material-symbols-outlined text-xs" data-icon="warning" style="font-variation-settings: &#39;FILL&#39; 1;">warning</span>
+                            Atenção Crítica
+                        </div>
+<span class="text-on-surface-variant text-xs font-mono">ID: #4921</span>
+</div>
+<div class="mt-8">
+<h3 class="text-xl font-headline font-bold mb-2">João Silva: Queda de 15% na adesão</h3>
+<p class="text-on-surface-variant leading-relaxed max-w-md">O paciente demonstrou redução significativa no consumo proteico e falha no log de treinos nos últimos 4 dias.</p>
+</div>
+<div class="mt-6 flex items-center gap-3">
+<button class="bg-[#CCFF00] text-on-primary px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-tighter flex items-center gap-2 active:scale-95 transition-transform">
+                            Intervir Agora
+                            <span class="material-symbols-outlined text-sm" data-icon="bolt" style="font-variation-settings: &#39;FILL&#39; 1;">bolt</span>
+</button>
+</div>
+</div>
+<!-- Positive Evolution -->
+<div class="md:col-span-5 glass-card p-6 rounded-xl border border-tertiary-fixed-dim/20 flex flex-col justify-between hover:bg-tertiary-fixed-dim/5 transition-all">
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-tertiary-fixed-dim/20 text-[#CCFF00] text-[10px] font-bold uppercase tracking-widest self-start">
+<span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span>
+                        Evolução Acelerada
+                    </div>
+<div class="mt-8">
+<h3 class="text-xl font-headline font-bold mb-1">Mariana Costa</h3>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-headline font-black text-[#CCFF00]">-2.4%</span>
+<span class="text-xs text-on-surface-variant font-medium">Gordura Corporal (30d)</span>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant mt-4">Meta trimestral atingida em 45 dias. Plano de manutenção sugerido.</p>
+</div>
+</div>
+</section>
+<!-- Performance Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+<!-- Gráfico de Evolução Física (Clinical Grid Layout) -->
+<div class="lg:col-span-2 space-y-6">
+<div class="flex items-center justify-between">
+<h2 class="font-headline text-2xl font-bold tracking-tight">Análise Biométrica</h2>
+<div class="flex gap-2">
+<button class="px-3 py-1 text-[10px] font-bold bg-surface-container-high rounded text-on-surface-variant">3 MESES</button>
+<button class="px-3 py-1 text-[10px] font-bold bg-[#CCFF00] rounded text-on-primary">6 MESES</button>
+</div>
+</div>
+<div class="relative glass-card aspect-[16/9] md:aspect-[21/9] rounded-xl p-8 border border-white/5 overflow-hidden">
+<!-- Background Grid Lines -->
+<div class="absolute inset-0 grid grid-cols-6 grid-rows-4 pointer-events-none opacity-10">
+<div class="border-r border-b border-on-surface-variant"></div>
+<div class="border-r border-b border-on-surface-variant"></div>
+<div class="border-r border-b border-on-surface-variant"></div>
+<div class="border-r border-b border-on-surface-variant"></div>
+<div class="border-r border-b border-on-surface-variant"></div>
+<div class="border-b border-on-surface-variant"></div>
+<div class="border-r border-b border-on-surface-variant"></div>
+<div class="border-r border-b border-on-surface-variant"></div>
+<div class="border-r border-b border-on-surface-variant"></div>
+<div class="border-r border-b border-on-surface-variant"></div>
+<div class="border-r border-b border-on-surface-variant"></div>
+<div class="border-b border-on-surface-variant"></div>
+</div>
+<!-- Simplified Graph Visualization (SVG for Precision) -->
+<div class="relative w-full h-full flex items-end">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 800 300">
+<!-- Weight Line -->
+<path d="M0,220 Q150,200 300,180 T600,100 T800,80" fill="none" stroke="#CCFF00" stroke-linecap="round" stroke-width="3"></path>
+<!-- Body Fat Line -->
+<path d="M0,150 Q200,160 400,140 T800,90" fill="none" stroke="#E5E2E1" stroke-dasharray="8 4" stroke-opacity="0.5" stroke-width="2"></path>
+<!-- Interaction Point -->
+<circle class="neon-glow" cx="600" cy="100" fill="#CCFF00" r="6"></circle>
+</svg>
+<!-- Legend Overlays -->
+<div class="absolute top-0 right-0 flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="w-3 h-[2px] bg-[#CCFF00]"></span>
+<span class="text-[10px] font-bold tracking-widest text-on-surface">PESO (KG)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-[2px] bg-on-surface/30 border-dashed border-t"></span>
+<span class="text-[10px] font-bold tracking-widest text-on-surface-variant">% GORDURA</span>
+</div>
+</div>
+<!-- Focused Metric Overlay -->
+<div class="absolute left-[580px] top-[40px] pointer-events-none text-center">
+<div class="bg-surface-container-highest/90 backdrop-blur-md px-3 py-2 rounded-lg border border-outline-variant/30">
+<p class="text-[10px] text-on-surface-variant font-bold">OUT 24</p>
+<p class="text-lg font-headline font-black text-[#CCFF00]">82.4 KG</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Lista de Pacientes em Destaque -->
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<h2 class="font-headline text-2xl font-bold tracking-tight">Atletas Ativos</h2>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer" data-icon="search">search</span>
+</div>
+<div class="space-y-3">
+<!-- Patient Item 1 -->
+<div class="surface-container-low p-4 rounded-xl flex items-center justify-between group hover:bg-surface-container-high transition-colors cursor-pointer border-l-2 border-transparent hover:border-[#CCFF00]">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest overflow-hidden border border-outline-variant/10">
+<img alt="Patient 1" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Close up of a muscular male athlete&#39;s face in black and white photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkVWI-AtBSD3YTnvtcqmnvCx9UNNtmlD3hPUlmA1KnCzubJwCszf8RtOBO6OPwX73EhMCEfQCi8_xl3OOP6fMRY5uxxLDYv9P8C6y9CrFcjE86ovjuEP_D8PIyeE6MZgxFyPiYvUcMj3te9Kv9u488kICtjjkgDI0NN7W11PrLvsvJGLcVc1b_T_nBaIkG5iYnpgmFKz9mv2Yc1YzuGgvbT1fW81_A08yrPf5gWKeVBJv4wt8hELU8tGNxO5MP010S6RU7Y4fcqvUS"/>
+</div>
+<div>
+<h4 class="font-bold text-sm">Ricardo Mendes</h4>
+<div class="flex items-center gap-2 mt-1">
+<div class="w-20 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-[88%] h-full bg-[#CCFF00]"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant">88%</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[9px] font-bold bg-[#CCFF00]/10 text-[#CCFF00] px-2 py-0.5 rounded uppercase tracking-tighter">PAGO</span>
+<span class="text-[10px] text-on-surface-variant mt-1">Ajustar Plano</span>
+</div>
+</div>
+<!-- Patient Item 2 -->
+<div class="surface-container-low p-4 rounded-xl flex items-center justify-between group hover:bg-surface-container-high transition-colors cursor-pointer border-l-2 border-transparent">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest overflow-hidden border border-outline-variant/10">
+<img alt="Patient 2" class="w-full h-full object-cover grayscale" data-alt="Female fitness model in athletic wear with professional studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHFSpkwAEZDxPXDJfb3ZqhAr-T_0cKsiAIbcN8CKSHTsBKioHf06raFgq41IDYVTOkqk3QjU8ebzvsT83FmmY_yL9H9aK-u_a5yGC6-w3m_ubzcQYds1A0taus2J5aLPtDcjYfXictFXaTCKwob1OxtfhUsw88TncaOau0PzQn3BJWqgae-tKebBkrepDq3lgZDk1qrCRL-2-XRb-8dqs55NgNAJvTEs1QfyUJPBzJm2Xw6cDLzk8i9wu3qstZ3OTMzp59nKLjlwhu"/>
+</div>
+<div>
+<h4 class="font-bold text-sm">Carla Antunes</h4>
+<div class="flex items-center gap-2 mt-1">
+<div class="w-20 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-[42%] h-full bg-error"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant">42%</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[9px] font-bold bg-error-container/20 text-error px-2 py-0.5 rounded uppercase tracking-tighter">PENDENTE</span>
+<span class="text-[10px] text-on-surface-variant mt-1">Check-in em 2d</span>
+</div>
+</div>
+<!-- Patient Item 3 -->
+<div class="surface-container-low p-4 rounded-xl flex items-center justify-between group hover:bg-surface-container-high transition-colors cursor-pointer border-l-2 border-transparent">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest overflow-hidden border border-outline-variant/10">
+<img alt="Patient 3" class="w-full h-full object-cover grayscale" data-alt="Portrait of a male fitness influencer against a dark textured wall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbpHCgmtSt1urX_vHgfLKmxsd1ee32EH9fOqzLZp9NbuP6DpL6Auwyz4F3o4KTJ3BBpKA91fz8HzKTSdMP9vSMb2NMKFIikteUSABEl_4LpuRJlfU6v0UtKmL9j_tnND2c9onp7mBu1xUHmxuRT8jfxbRu9pml-x9rnxj-cCMpqdxB2Ahxi4e1_dKmFahAgob-j_iz6tESLXcOGOZtG_sk0vs4y4eDzUKoAIxjksjqgeOhNZ84KzH9qJVvlTUlnt5XW4_9heLyLzg6"/>
+</div>
+<div>
+<h4 class="font-bold text-sm">Fernando Vaz</h4>
+<div class="flex items-center gap-2 mt-1">
+<div class="w-20 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-[75%] h-full bg-[#CCFF00]"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant">75%</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[9px] font-bold bg-[#CCFF00]/10 text-[#CCFF00] px-2 py-0.5 rounded uppercase tracking-tighter">PAGO</span>
+<span class="text-[10px] text-on-surface-variant mt-1">Nova Dieta</span>
+</div>
+</div>
+</div>
+<button class="w-full py-4 bg-surface-container-high text-on-surface border border-outline-variant/10 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-surface-variant transition-colors flex items-center justify-center gap-2">
+                    Visualizar Todos
+                    <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed bottom-28 right-6 w-14 h-14 bg-[#CCFF00] text-on-primary rounded-full shadow-[0_10px_30px_rgba(204,255,0,0.3)] flex items-center justify-center hover:scale-110 active:scale-95 transition-transform z-50 group">
+<span class="material-symbols-outlined text-3xl font-bold" data-icon="add" style="font-variation-settings: &#39;FILL&#39; 0, &#39;wght&#39; 700;">add</span>
+<span class="absolute right-full mr-4 bg-surface-container-highest text-on-surface px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Novo Check-in</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#131313]/80 backdrop-blur-xl border-t border-[#CCFF00]/15 shadow-[0_-10px_30px_rgba(0,0,0,0.5)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-[#CCFF00] font-bold bg-[#2A2A2A] rounded-xl px-3 py-1 scale-98 active:scale-95 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: &#39;FILL&#39; 1;">home</span>
+<span class="font-[&#39;Inter&#39;] text-[10px] uppercase tracking-widest font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/50 hover:text-[#CCFF00] transition-colors scale-98 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+<span class="font-[&#39;Inter&#39;] text-[10px] uppercase tracking-widest font-medium">Dieta</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/50 hover:text-[#CCFF00] transition-colors scale-98 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+<span class="font-[&#39;Inter&#39;] text-[10px] uppercase tracking-widest font-medium">Treino</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/50 hover:text-[#CCFF00] transition-colors scale-98 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-[&#39;Inter&#39;] text-[10px] uppercase tracking-widest font-medium">Chat</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;800&amp;family=Inter:wght@300;400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script type='text/javascript' nonce='o9vW/DRKzX3G6hWczlMAkg==' src='https://contribution.usercontent.google.com/jishBHT9h2UB48Qsr1gNEW_HU2v9X93vTk3f17tkrbPTSp9hzHAjlOBnM-8m9S8YulcyiQMqxgQ4LZ5k9vBAZRaPUzZhmqjXUvkeixbuwNataEGQieDvcNULG3a06awY_3PAHE66vrQXZ59mGLCiiGqreVLESNC6qmd_ukHNR83j0uwqZHWwfzF9X52a3O1QA7XNKJChQFsbnim-isYRjZQWDazkiIcFpaGY2Ra6D0YGuc5gfwnLUDqVxHcxPZY-p9NXDsaAM_vzcCD1qjix-nMf91QSoeCA9uXDD9O3n8lzLoMm_ZEzQZ6W9Kx2Iae1ZiTn1K80QFNxZxT_OvVHTwHkIklc52nJp3v4vx2V3tCOzHvjEDIwfeuV7jbuzj_D8Y4WHaVoy-vjJIaZsxDigDRa_2P_OpwQNOuSrQ_TNfeTtEDnYgErKlsYc0RkWJ8ewL_F42y2TgMFGmIuO35-NuVUEaLOWjOX62MBdHs2SZxQzLAiepw6xqQ7msQlbELnxTGV9UtredQFigJxesT6-uPoFskAT8fNIIL-Mb00QknIL-eJVmkzqLDsPaL2TxRtW1M0TY7U4bi98HvLF3PBQ1Q61zQSqm5ZC9TXYqJrQyY6cgZ4wDiwbHk4YKXHldhPKDgs_0M-0GJ5GhsA8etYb1-TWgPDDMOxcve9gXChpJ8e9ahkmEw6JC0CA_DRZY8YDIfpN5AHyLv_MScWjdLLILMjV7E7UhwoYaj2DyiLdv0GqXSYlACXwT_mBGcFs2KoH6glONSjDLw_7TKvOGucgNy2Q1nnKGapKf2GO8Pd'></script><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#93000a",
+                    "surface-bright": "#3a3939",
+                    "secondary-container": "#474649",
+                    "primary-fixed": "#c3f400",
+                    "outline-variant": "#444933",
+                    "on-tertiary-container": "#556d00",
+                    "surface-container-highest": "#353534",
+                    "inverse-on-surface": "#313030",
+                    "primary": "#ffffff",
+                    "on-secondary-container": "#b6b4b7",
+                    "outline": "#8e9379",
+                    "surface-dim": "#131313",
+                    "secondary-fixed": "#e4e2e4",
+                    "surface": "#131313",
+                    "on-primary-fixed": "#161e00",
+                    "on-primary-container": "#556d00",
+                    "primary-container": "#c3f400",
+                    "surface-container": "#201f1f",
+                    "inverse-surface": "#e5e2e1",
+                    "on-surface-variant": "#c4c9ac",
+                    "tertiary-container": "#c3f400",
+                    "on-error-container": "#ffdad6",
+                    "secondary": "#c8c6c8",
+                    "primary-fixed-dim": "#abd600",
+                    "on-surface": "#e5e2e1",
+                    "on-secondary-fixed-variant": "#474649",
+                    "on-secondary": "#303032",
+                    "tertiary-fixed-dim": "#abd600",
+                    "surface-container-low": "#1c1b1b",
+                    "on-tertiary-fixed-variant": "#3c4d00",
+                    "on-primary-fixed-variant": "#3c4d00",
+                    "surface-container-lowest": "#0e0e0e",
+                    "tertiary-fixed": "#c3f400",
+                    "inverse-primary": "#506600",
+                    "on-background": "#e5e2e1",
+                    "tertiary": "#ffffff",
+                    "surface-variant": "#353534",
+                    "error": "#ffb4ab",
+                    "on-tertiary-fixed": "#161e00",
+                    "secondary-fixed-dim": "#c8c6c8",
+                    "on-secondary-fixed": "#1b1b1d",
+                    "on-primary": "#283500",
+                    "surface-tint": "#abd600",
+                    "on-tertiary": "#283500",
+                    "on-error": "#690005",
+                    "surface-container-high": "#2a2a2a",
+                    "background": "#131313"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            background-image: radial-gradient(rgba(204, 255, 0, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .glass-panel {
+            background: rgba(42, 42, 42, 0.4);
+            backdrop-filter: blur(16px);
+        }
+        .neon-glow {
+            text-shadow: 0 0 10px rgba(204, 255, 0, 0.5);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-body text-on-surface overflow-hidden h-screen flex">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#131313]/80 backdrop-blur-xl border-b border-[#CCFF00]/10 shadow-[0_0_40px_-5px_rgba(0,0,0,0.6)] flex justify-between items-center px-6 h-16 w-full">
+<div class="text-xl font-bold tracking-tighter text-[#CCFF00] uppercase font-headline">BIO-DIGITAL LAB</div>
+<nav class="hidden md:flex items-center space-x-8 font-headline text-sm font-semibold">
+<a class="text-[#CCFF00] border-b-2 border-[#CCFF00] h-16 flex items-center transition-colors" href="#">WORKSTATION</a>
+<a class="text-[#E5E2E1]/60 hover:text-[#CCFF00] transition-colors h-16 flex items-center" href="#">PROTOCOL</a>
+<a class="text-[#E5E2E1]/60 hover:text-[#CCFF00] transition-colors h-16 flex items-center" href="#">BIOMETRICS</a>
+</nav>
+<div class="flex items-center space-x-4">
+<button class="text-[#E5E2E1]/60 hover:text-[#CCFF00] active:scale-90 duration-200 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="text-[#E5E2E1]/60 hover:text-[#CCFF00] active:scale-90 duration-200 transition-colors">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="text-[#E5E2E1]/60 hover:text-[#CCFF00] active:scale-90 duration-200 transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Authority: JSON) -->
+<aside class="h-full w-72 fixed left-0 top-0 z-40 bg-[#1C1B1B] flex flex-col py-20 px-4 space-y-2 font-manrope text-sm">
+<div class="px-4 mb-8">
+<h2 class="text-lg font-black text-[#CCFF00]">NEURAL LINK</h2>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest opacity-60">Active Session: 04:21:09</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center space-x-3 px-4 py-3 bg-[#2A2A2A] text-[#CCFF00] border-r-4 border-[#CCFF00] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="accessibility_new">accessibility_new</span>
+<span>Anatomy</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#E5E2E1]/50 hover:bg-[#2A2A2A]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+<span>Biometrics</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#E5E2E1]/50 hover:bg-[#2A2A2A]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="timeline">timeline</span>
+<span>Timeline</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#E5E2E1]/50 hover:bg-[#2A2A2A]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+<span>Diagnostics</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#E5E2E1]/50 hover:bg-[#2A2A2A]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Archive</span>
+</a>
+</nav>
+<button class="mx-4 mt-auto mb-4 bg-[#CCFF00] text-[#283500] font-bold py-4 px-6 rounded-md active:scale-95 duration-150 transition-all">
+            INITIATE SCAN
+        </button>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 flex-1 relative flex flex-col pt-16 pb-20 overflow-hidden">
+<!-- Central 3D Model Area -->
+<div class="flex-1 relative flex items-center justify-center p-8">
+<div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+<div class="w-full h-full border border-[#CCFF00]/10 rounded-full scale-150 animate-pulse"></div>
+</div>
+<!-- 3D Model Representation -->
+<div class="relative w-full max-w-2xl h-full flex items-center justify-center">
+<div class="relative z-10 w-full h-[819px] flex items-center justify-center">
+<!-- Placeholder for the anatomical model with descriptive data-alt -->
+<img alt="3D Holographic Human Model" class="h-full object-contain mix-blend-screen opacity-80 filter grayscale brightness-125 saturate-150 hue-rotate-[60deg]" data-alt="3D translucent anatomical male figure with glowing green wireframe overlay highlighting muscles and circulatory system on black background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjo8_sDABmie1IKlMBtLvNx-V99QwVm2KU-mfq_x3QngDpA4th6KS7_aBoBehauM-1drQEI1hH2EUEZ0rfwVpjJ8T8tjYVn-FnwpnUL_3LoeO3n4r0lIlaJ4Am_5ALS9tZlK46Oj2tT_OkkDxVaAE2ddWuzPLru4CL1kToxI0BEhBDFHtKlpSk_joB8m-KrnxYENhxRsDr_F_OlqHmmDFZQYtyYas6gE1D7zKl59fiKY49KTn7td0aQxQgo7hBZRrWgaY3z_Qpo_wT"/>
+<!-- Floating Data Overlays (Kinetic Onyx Design System) -->
+<div class="absolute top-[10%] left-[10%] glass-panel p-4 rounded-lg border-l-2 border-[#CCFF00] shadow-2xl">
+<div class="text-[10px] text-on-surface-variant font-headline uppercase tracking-widest mb-1">Body Fat Index</div>
+<div class="text-4xl font-headline font-black text-[#CCFF00] neon-glow">14.2<span class="text-lg ml-1 font-light opacity-60">%</span></div>
+<div class="flex items-center mt-2 text-[#CCFF00]">
+<span class="material-symbols-outlined text-xs mr-1" data-icon="arrow_downward">arrow_downward</span>
+<span class="text-[10px] font-bold">-0.4% from last scan</span>
+</div>
+</div>
+<div class="absolute top-[40%] right-0 glass-panel p-4 rounded-lg border-r-2 border-[#CCFF00] shadow-2xl">
+<div class="text-[10px] text-on-surface-variant font-headline uppercase tracking-widest mb-1">Muscle Mass</div>
+<div class="text-4xl font-headline font-black text-[#CCFF00] neon-glow">72.8<span class="text-lg ml-1 font-light opacity-60">kg</span></div>
+<div class="flex items-center mt-2 text-[#CCFF00]">
+<span class="material-symbols-outlined text-xs mr-1" data-icon="arrow_upward">arrow_upward</span>
+<span class="text-[10px] font-bold">+1.2kg lean tissue gain</span>
+</div>
+</div>
+<div class="absolute bottom-[20%] left-[15%] glass-panel p-4 rounded-lg border-l-2 border-[#CCFF00] shadow-2xl">
+<div class="text-[10px] text-on-surface-variant font-headline uppercase tracking-widest mb-1">Waist Circumf.</div>
+<div class="text-4xl font-headline font-black text-[#CCFF00] neon-glow">84.5<span class="text-lg ml-1 font-light opacity-60">cm</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Biometric History Sidebar (Inside Main) -->
+<aside class="absolute top-24 right-8 bottom-28 w-80 flex flex-col space-y-4">
+<h3 class="font-headline font-extrabold text-sm tracking-widest text-[#CCFF00] mb-4 uppercase">Biometric History</h3>
+<!-- Metric Card 1 -->
+<div class="bg-surface-container-low p-4 rounded-lg border border-[#CCFF00]/5">
+<div class="flex justify-between items-center mb-4">
+<span class="text-xs font-bold text-on-surface-variant">FAT %</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-[#CCFF00]/10 text-[#CCFF00]">STABLE</span>
+</div>
+<div class="h-16 w-full flex items-end space-x-1">
+<div class="flex-1 bg-[#CCFF00]/10 h-[80%] rounded-sm"></div>
+<div class="flex-1 bg-[#CCFF00]/15 h-[70%] rounded-sm"></div>
+<div class="flex-1 bg-[#CCFF00]/20 h-[75%] rounded-sm"></div>
+<div class="flex-1 bg-[#CCFF00]/30 h-[60%] rounded-sm"></div>
+<div class="flex-1 bg-[#CCFF00] h-[55%] rounded-sm shadow-[0_0_10px_rgba(204,255,0,0.3)]"></div>
+</div>
+<div class="mt-2 text-[10px] opacity-40 text-center">LAST 30 DAYS</div>
+</div>
+<!-- Metric Card 2 -->
+<div class="bg-surface-container-low p-4 rounded-lg border border-[#CCFF00]/5">
+<div class="flex justify-between items-center mb-4">
+<span class="text-xs font-bold text-on-surface-variant">METABOLIC AGE</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/10 text-blue-400">OPTIMAL</span>
+</div>
+<div class="flex items-center space-x-4">
+<div class="text-3xl font-headline font-black text-[#E5E2E1]">24</div>
+<div class="h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-[#CCFF00] w-[65%]"></div>
+</div>
+</div>
+</div>
+<!-- Metric Card 3 -->
+<div class="bg-surface-container-low p-4 rounded-lg border border-[#CCFF00]/5 flex-1">
+<div class="flex justify-between items-center mb-4">
+<span class="text-xs font-bold text-on-surface-variant">CELLULAR HYDRATION</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="aspect-square rounded bg-[#CCFF00]/5 border border-[#CCFF00]/10 flex flex-col items-center justify-center">
+<div class="text-lg font-black text-[#CCFF00]">72%</div>
+<div class="text-[8px] opacity-40 uppercase">Intracellular</div>
+</div>
+<div class="aspect-square rounded bg-[#CCFF00]/5 border border-[#CCFF00]/10 flex flex-col items-center justify-center">
+<div class="text-lg font-black text-[#CCFF00]">28%</div>
+<div class="text-[8px] opacity-40 uppercase">Extracellular</div>
+</div>
+</div>
+<div class="mt-6">
+<div class="text-[10px] text-on-surface-variant uppercase mb-2">Tissue Density Scan</div>
+<div class="space-y-1">
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden"><div class="h-full bg-[#CCFF00] w-[90%]"></div></div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden"><div class="h-full bg-[#CCFF00] w-[40%] opacity-60"></div></div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden"><div class="h-full bg-[#CCFF00] w-[75%] opacity-30"></div></div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Scan Status Indicator -->
+<div class="absolute bottom-6 left-8 flex items-center space-x-4 px-6 py-3 bg-[#1C1B1B]/80 backdrop-blur rounded-full border border-[#CCFF00]/20">
+<div class="relative w-3 h-3">
+<div class="absolute inset-0 bg-[#CCFF00] rounded-full animate-ping opacity-75"></div>
+<div class="relative bg-[#CCFF00] w-3 h-3 rounded-full"></div>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-[#CCFF00] tracking-widest uppercase">Scan Synchronization</span>
+<span class="text-[8px] text-on-surface-variant opacity-60 uppercase">Streaming High-Fidelity Data v2.0.4</span>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Authority: JSON) -->
+<nav class="fixed bottom-0 left-72 right-0 z-50 rounded-t-xl bg-[#131313]/90 backdrop-blur-md shadow-[0_-10px_30px_rgba(0,0,0,0.5)] flex justify-around items-center h-20 px-12 font-manrope text-[10px] uppercase font-bold">
+<a class="flex flex-col items-center justify-center text-[#CCFF00] bg-[#CCFF00]/10 rounded-lg p-2 transition-all scale-110" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="sensors">sensors</span>
+<span>Live Feed</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/40 p-2 hover:text-[#CCFF00] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="layers">layers</span>
+<span>Layers</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/40 p-2 hover:text-[#CCFF00] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="location_on">location_on</span>
+<span>Markers</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/40 p-2 hover:text-[#CCFF00] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="ios_share">ios_share</span>
+<span>Export</span>
+</a>
+</nav>
+</body></html>

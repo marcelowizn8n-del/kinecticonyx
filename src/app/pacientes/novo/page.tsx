@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useApp } from '@/lib/AppContext';
 
 interface FormData {
@@ -73,11 +73,16 @@ const TABS: TabConfig[] = [
   { id: 'plan', label: 'Plano e Consultas', icon: 'calendar_today' },
 ];
 
-export default function NewPatientPage() {
+function NewPatientPageInner() {
   const router = useRouter();
-  const { addPatient } = useApp();
+  const searchParams = useSearchParams();
+  const editPatientId = searchParams.get('edit');
+  const { addPatient, updatePatient, getPatientById } = useApp();
   const [activeTab, setActiveTab] = useState<string>('personal');
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [showAvatarToast, setShowAvatarToast] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const avatarInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
@@ -121,6 +126,66 @@ export default function NewPatientPage() {
     professionalNotes: '',
   });
 
+  // Load patient data if in edit mode
+  useEffect(() => {
+    if (editPatientId) {
+      setIsEditMode(true);
+      const patient = getPatientById(editPatientId);
+      if (patient) {
+        setFormData({
+          fullName: patient.name || '',
+          cpf: patient.cpf || '',
+          birthDate: patient.birthDate || '',
+          gender: patient.gender || 'M',
+          email: patient.email || '',
+          phone: patient.phone || '',
+          address: patient.address || '',
+          profession: patient.profession || '',
+          maritalStatus: patient.maritalStatus || '',
+          photo: null,
+          weight: patient.weight || 0,
+          height: patient.height || 0,
+          waistCircumference: patient.waistCircumference || 0,
+          hipCircumference: patient.hipCircumference || 0,
+          armCircumference: patient.armCircumference || 0,
+          thighCircumference: patient.thighCircumference || 0,
+          calfCircumference: patient.calfCircumference || 0,
+          bodyFatSkinfolds: (patient.bodyFat || 0) / 2,
+          bodyFatBioimpedance: (patient.bodyFat || 0) / 2,
+          muscleMass: patient.muscleMass || 0,
+          waterPercentage: patient.waterPercentage || 0,
+          visceralFat: patient.visceralFat || 0,
+          basalMetabolicRate: patient.bmr || 1500,
+          mainGoal: patient.goal || 'Saúde',
+          approachType: (patient.dietType || 'mathematical') as 'mathematical' | 'intuitive' | 'behavioral',
+          healthHistory: patient.healthHistory || '',
+          allergies: patient.allergies || [],
+          dietaryRestrictions: patient.restrictions || [],
+          physicalActivityLevel:
+            patient.activityLevel === 'sedentary' ? 'Sedentário' :
+            patient.activityLevel === 'light' ? 'Leve' :
+            patient.activityLevel === 'moderate' ? 'Moderado' :
+            patient.activityLevel === 'intense' ? 'Intenso' :
+            'Leve',
+          sleepHours: patient.sleepHours || 7,
+          uploadedExams: [],
+          monthlyValue: patient.monthlyFee || 0,
+          dueDay: 1,
+          paymentMethod: 'PIX',
+          paymentStatus: (patient.paymentStatus as 'paid' | 'pending' | 'overdue') || 'pending',
+          startDate: patient.startDate || new Date().toISOString().split('T')[0],
+          consultationFrequency:
+            patient.consultationFrequency === 'weekly' ? 'Semanal' :
+            patient.consultationFrequency === 'biweekly' ? 'Quinzenal' :
+            patient.consultationFrequency === 'monthly' ? 'Mensal' :
+            'Semanal',
+          nextConsultation: patient.nextConsultation || '',
+          professionalNotes: patient.notes || '',
+        });
+      }
+    }
+  }, [editPatientId, getPatientById]);
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -145,6 +210,20 @@ export default function NewPatientPage() {
     if (file) {
       setFormData((prev) => ({ ...prev, photo: file }));
     }
+  };
+
+  const handleAvatarClick = () => {
+    setShowAvatarToast(true);
+    setTimeout(() => setShowAvatarToast(false), 3000);
+  };
+
+  const getAvatarInitials = () => {
+    return formData.fullName
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
   };
 
   const handleExamUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -200,17 +279,11 @@ export default function NewPatientPage() {
       return;
     }
 
-    const newPatient = {
-      id: `patient-${Date.now()}`,
+    const patientData = {
       name: formData.fullName,
       email: formData.email,
       phone: formData.phone,
-      avatar: formData.fullName
-        .split(' ')
-        .map((n) => n[0])
-        .join('')
-        .toUpperCase()
-        .slice(0, 2),
+      avatar: getAvatarInitials(),
       age: new Date().getFullYear() - new Date(formData.birthDate).getFullYear(),
       gender: formData.gender as 'M' | 'F',
       goal: formData.mainGoal,
@@ -255,8 +328,19 @@ export default function NewPatientPage() {
       consultationFrequency: (formData.consultationFrequency || 'biweekly') as 'weekly' | 'biweekly' | 'monthly',
     };
 
-    addPatient(newPatient);
-    router.push(`/pacientes/${newPatient.id}`);
+    if (isEditMode && editPatientId) {
+      // Update existing patient
+      updatePatient(editPatientId, patientData);
+      router.push(`/pacientes/${editPatientId}`);
+    } else {
+      // Create new patient
+      const newPatient = {
+        id: `patient-${Date.now()}`,
+        ...patientData,
+      };
+      addPatient(newPatient);
+      router.push(`/pacientes/${newPatient.id}`);
+    }
   };
 
   const handleCancel = () => {
@@ -275,7 +359,9 @@ export default function NewPatientPage() {
             <span className="material-symbols-outlined">arrow_back</span>
             <span className="text-sm font-bold">Voltar</span>
           </Link>
-          <h1 className="flex-1 text-xl font-headline font-bold">Novo Paciente</h1>
+          <h1 className="flex-1 text-xl font-headline font-bold">
+            {isEditMode ? 'Editar Paciente' : 'Novo Paciente'}
+          </h1>
         </div>
       </header>
 
@@ -311,26 +397,43 @@ export default function NewPatientPage() {
                   Informações Pessoais
                 </h2>
 
-                {/* Photo Upload */}
+                {/* Avatar Display with Camera Icon */}
                 <div className="mb-6">
                   <label className="block text-sm font-bold text-on-surface-variant mb-3">
-                    Foto do Paciente
+                    Avatar do Paciente
                   </label>
                   <div className="flex items-center gap-6">
-                    <div className="w-24 h-24 rounded-full bg-primary/20 border-2 border-primary/40 flex items-center justify-center">
-                      {formData.photo ? (
-                        <div className="w-full h-full rounded-full overflow-hidden">
-                          <img
-                            src={URL.createObjectURL(formData.photo)}
-                            alt="Patient"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      ) : (
-                        <span className="material-symbols-outlined text-2xl text-primary">
-                          camera_alt
+                    {/* Avatar Circle */}
+                    <div className="relative w-24 h-24">
+                      <div className="w-full h-full rounded-full bg-gradient-to-br from-primary to-primary/60 border-3 border-primary flex items-center justify-center relative">
+                        {formData.photo ? (
+                          <div className="w-full h-full rounded-full overflow-hidden">
+                            <img
+                              src={URL.createObjectURL(formData.photo)}
+                              alt="Patient Avatar"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        ) : formData.fullName ? (
+                          <span className="text-2xl font-bold text-on-primary">
+                            {getAvatarInitials()}
+                          </span>
+                        ) : (
+                          <span className="material-symbols-outlined text-3xl text-on-primary">
+                            person
+                          </span>
+                        )}
+                      </div>
+                      {/* Camera Icon Overlay */}
+                      <button
+                        onClick={handleAvatarClick}
+                        className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary hover:bg-primary/90 border-2 border-background flex items-center justify-center transition-colors cursor-pointer"
+                        title="Upload de avatar em breve"
+                      >
+                        <span className="material-symbols-outlined text-sm text-on-primary">
+                          camera
                         </span>
-                      )}
+                      </button>
                     </div>
                     <button
                       onClick={() => fileInputRef.current?.click()}
@@ -346,8 +449,26 @@ export default function NewPatientPage() {
                       onChange={handlePhotoUpload}
                       className="hidden"
                     />
+                    <input
+                      ref={avatarInputRef}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                    />
                   </div>
                 </div>
+
+                {/* Avatar Upload Toast */}
+                {showAvatarToast && (
+                  <div className="mb-6 p-4 bg-primary/20 border border-primary/40 rounded-lg flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                    <span className="material-symbols-outlined text-primary">
+                      info
+                    </span>
+                    <span className="text-sm font-medium text-on-surface">
+                      Upload de avatar em breve
+                    </span>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-2 gap-6 mb-6">
                   <div>
@@ -1066,7 +1187,7 @@ export default function NewPatientPage() {
             className="flex-1 px-6 py-4 bg-primary text-on-primary font-bold rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
           >
             <span className="material-symbols-outlined">check</span>
-            Salvar Paciente
+            {isEditMode ? 'Salvar Alterações' : 'Salvar Paciente'}
           </button>
           <button
             onClick={handleCancel}
@@ -1077,5 +1198,13 @@ export default function NewPatientPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function NewPatientPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center"><span className="text-primary font-headline text-xl">Carregando...</span></div>}>
+      <NewPatientPageInner />
+    </Suspense>
   );
 }

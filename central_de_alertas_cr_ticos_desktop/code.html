@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Central de Alertas Críticos | KINĒTIC ONYX</title>
+<script type='text/javascript' nonce='9kxBrUuYbztbxoCBJHg/Cw==' src='https://contribution.usercontent.google.com/ipy-OMY-W7T-PY0gZXGpj6Md1jHBXTrNC9mLL7hSzXyoighY6KWdymP6gxrn4MtvOaXVHYn0GWS89YT09-zfyye8jGCYDD1cCMFZi-JhbTjNbN6m4rLLM2_FFEiWnJiKf_nPl5P4T9zn1kRjmUWWIdyl4STRoHoOgpht734_YLS08WsaclTNT8ltgbcUQzlXE9roqHA9pbUkXlEwa6WWR_VL3vr_uq6iek7ikZDv5PVeNWWFyX5X7FK5V4odGcMHxwlBr8xmCJ5FBBbynwBMymeqfPfmHh-89vGHL9P1ffsFl9OT6WEKDH9c7WlW6Bv5IkxFNlzCYWD0KKkbptBiXZ0UhM_nZdfaUJsiYK8l1jBB3DF1oxFZ2SpR60gPj5umTFACOvC6cjkKbqfn__OhRuDyPOQZObkKPvla1u1sg5oZZveO6fPawAW4kZnyjwIU8LtW13QC3Tf2gz3XfmalDS3qs_CzTdGl89vHXebCrXqSeH4O6BjKmiLhlvup6WJYSq3U2ngZKWsXyvdEr_n4K74e8r4eU7WlUDUJZeGhe3j4btZriymA61Jk2q5UFtoUCCKqkrVUWt9XqRXSWIz5NZghoKuRudmbZeqJCFIG2893NiQiJcht5Rr0kH9xuCuhX2sPy_JfS6EdQo8YzzG4DJFapfFBDRInY1jVChqs97DjmlZnHX0HfLgB5ln1CMVCSsAgy5NgrOmdzppS97CUl94v4ZJhcq7zg_H4zSWh122AaPUCTrIH_v3V3tenYZ8PWJqxK8GFXVTPX6utigJmhTJHDMIvAWvS-97PQE_v'></script><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#e5e2e1",
+                        "on-primary-fixed-variant": "#3c4d00",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary-container": "#474649",
+                        "primary-fixed": "#c3f400",
+                        "tertiary-fixed": "#c3f400",
+                        "on-tertiary-container": "#556d00",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-container": "#201f1f",
+                        "primary-fixed-dim": "#abd600",
+                        "on-tertiary-fixed-variant": "#3c4d00",
+                        "on-tertiary": "#283500",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary-fixed": "#161e00",
+                        "surface": "#131313",
+                        "surface-tint": "#abd600",
+                        "secondary": "#c8c6c8",
+                        "on-primary-container": "#556d00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary-container": "#c3f400",
+                        "surface-dim": "#131313",
+                        "background": "#131313",
+                        "surface-container-highest": "#353534",
+                        "on-secondary-container": "#b6b4b7",
+                        "outline-variant": "#444933",
+                        "on-secondary-fixed-variant": "#474649",
+                        "on-error": "#690005",
+                        "secondary-fixed": "#e4e2e4",
+                        "primary-container": "#c3f400",
+                        "primary": "#ffffff",
+                        "surface-bright": "#3a3939",
+                        "outline": "#8e9379",
+                        "inverse-primary": "#506600",
+                        "on-primary": "#283500",
+                        "on-secondary": "#303032",
+                        "on-error-container": "#ffdad6",
+                        "error-container": "#93000a",
+                        "tertiary-fixed-dim": "#abd600",
+                        "surface-variant": "#353534",
+                        "inverse-on-surface": "#313030",
+                        "secondary-fixed-dim": "#c8c6c8",
+                        "error": "#ffb4ab",
+                        "on-surface-variant": "#c4c9ac",
+                        "on-secondary-fixed": "#1b1b1d",
+                        "on-background": "#e5e2e1",
+                        "tertiary": "#ffffff",
+                        "on-primary-fixed": "#161e00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#131313] dark:bg-[#131313]">
+<div class="flex justify-between items-center px-8 h-16 w-full max-w-full mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black italic text-[#CCFF00] tracking-tighter font-headline">KINĒTIC ONYX</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-[#E5E2E1] opacity-70 hover:text-[#CCFF00] transition-colors duration-200 font-headline tracking-tight" href="#">Dashboard</a>
+<a class="text-[#E5E2E1] opacity-70 hover:text-[#CCFF00] transition-colors duration-200 font-headline tracking-tight" href="#">Clients</a>
+<a class="text-[#E5E2E1] opacity-70 hover:text-[#CCFF00] transition-colors duration-200 font-headline tracking-tight" href="#">Analytics</a>
+<a class="text-[#E5E2E1] opacity-70 hover:text-[#CCFF00] transition-colors duration-200 font-headline tracking-tight" href="#">Protocol</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#E5E2E1] opacity-70 cursor-pointer hover:text-[#CCFF00]">notifications</span>
+<span class="material-symbols-outlined text-[#E5E2E1] opacity-70 cursor-pointer hover:text-[#CCFF00]">settings</span>
+<img alt="Coach profile avatar" class="w-8 h-8 rounded-lg object-cover" data-alt="Professional sports scientist with sharp features and clinical expression in a dark high-tech environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5Wf1gfDpDtSv7HmhJiwVe15scXkQ-9TgPLJvUbim4t27Y10TbVCYa38qgZzinn6kdeu_WbWBPCXNuZUgMHS_bDmXbzJpW7b5ms4cPWiTOkzm86IUISO_OQIQ9pOtfkzGOj_NdbxB12awAIe59siSXOYbXLG0W217IE8ESX3fXxk41gewup6cx6wahBDRN8V5v-HkunmSm9I30gTPnrmL466cwaAqG7bdsCPaoFXqFMXdC0C0aeXdMXwJDslJ19G5M829s2rvC9e1_"/>
+</div>
+</div>
+<div class="bg-[#1C1B1B] h-[1px] w-full block"></div>
+</header>
+<div class="flex pt-16 h-screen">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-[#1C1B1B] dark:bg-[#1C1B1B] flex flex-col py-6 gap-2 border-r border-surface-container-high overflow-y-auto">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-md bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-[#CCFF00]">verified_user</span>
+</div>
+<div>
+<p class="font-headline text-xs font-bold text-[#E5E2E1] uppercase tracking-widest">Performance Lead</p>
+<p class="font-headline text-[10px] text-[#E5E2E1] opacity-50 uppercase tracking-widest">Elite Clinical Tier</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 text-[#E5E2E1] opacity-60 px-4 py-3 hover:bg-[#2A2A2A] hover:opacity-100 transition-all font-headline text-sm uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 text-[#E5E2E1] opacity-60 px-4 py-3 hover:bg-[#2A2A2A] hover:opacity-100 transition-all font-headline text-sm uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span>Biometrics</span>
+</a>
+<a class="flex items-center gap-3 text-[#E5E2E1] opacity-60 px-4 py-3 hover:bg-[#2A2A2A] hover:opacity-100 transition-all font-headline text-sm uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">nutrition</span>
+<span>Nutrition</span>
+</a>
+<a class="flex items-center gap-3 text-[#E5E2E1] opacity-60 px-4 py-3 hover:bg-[#2A2A2A] hover:opacity-100 transition-all font-headline text-sm uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">bedtime</span>
+<span>Recovery</span>
+</a>
+<a class="flex items-center gap-3 text-[#CCFF00] bg-[#2A2A2A] rounded-md px-4 py-3 font-semibold font-headline text-sm uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">report_problem</span>
+<span>Alerts</span>
+</a>
+<a class="flex items-center gap-3 text-[#E5E2E1] opacity-60 px-4 py-3 hover:bg-[#2A2A2A] hover:opacity-100 transition-all font-headline text-sm uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Reports</span>
+</a>
+</div>
+<div class="mt-auto px-4 pb-4">
+<button class="w-full bg-[#CCFF00] text-[#131313] py-3 rounded-md font-bold text-xs uppercase tracking-widest hover:bg-[#ABD600] transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                    Add New Client
+                </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 flex-1 p-10 bg-surface overflow-y-auto">
+<!-- Header Section -->
+<section class="mb-12">
+<h1 class="text-5xl font-extrabold font-headline tracking-tighter text-on-surface mb-2">Central de Alertas Críticos</h1>
+<p class="text-on-surface-variant font-body max-w-2xl opacity-80 uppercase tracking-widest text-xs">Real-time proactive intervention monitoring for high-performance cohorts</p>
+</section>
+<!-- Stats Overview Bento Grid -->
+<div class="grid grid-cols-12 gap-6 mb-12">
+<div class="col-span-12 lg:col-span-8 bg-surface-container-low rounded-xl p-8 border-l-4 border-[#CCFF00]">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h2 class="font-headline text-2xl font-bold mb-1">Health Distribution</h2>
+<p class="text-on-surface-variant text-sm">Live cohort status overview</p>
+</div>
+<span class="material-symbols-outlined text-[#CCFF00] text-3xl">insights</span>
+</div>
+<div class="flex items-end gap-1 h-32">
+<div class="flex-1 bg-surface-container-high h-[40%] rounded-t-sm hover:bg-[#CCFF00] transition-all cursor-pointer"></div>
+<div class="flex-1 bg-surface-container-high h-[60%] rounded-t-sm hover:bg-[#CCFF00] transition-all cursor-pointer"></div>
+<div class="flex-1 bg-[#CCFF00] h-[90%] rounded-t-sm"></div>
+<div class="flex-1 bg-surface-container-high h-[50%] rounded-t-sm hover:bg-[#CCFF00] transition-all cursor-pointer"></div>
+<div class="flex-1 bg-surface-container-high h-[30%] rounded-t-sm hover:bg-[#CCFF00] transition-all cursor-pointer"></div>
+<div class="flex-1 bg-surface-container-high h-[75%] rounded-t-sm hover:bg-[#CCFF00] transition-all cursor-pointer"></div>
+<div class="flex-1 bg-surface-container-high h-[20%] rounded-t-sm hover:bg-[#CCFF00] transition-all cursor-pointer"></div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4 grid grid-rows-2 gap-6">
+<div class="bg-surface-container-high rounded-xl p-6 flex flex-col justify-between">
+<span class="text-xs font-headline font-bold uppercase tracking-widest text-on-surface-variant">Active Alerts</span>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-black font-headline text-[#CCFF00]">12</span>
+<span class="text-xs text-error font-bold uppercase tracking-widest">+2 today</span>
+</div>
+</div>
+<div class="bg-surface-container-high rounded-xl p-6 flex flex-col justify-between">
+<span class="text-xs font-headline font-bold uppercase tracking-widest text-on-surface-variant">Intervention Rate</span>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-black font-headline">94%</span>
+<span class="text-xs text-[#CCFF00] font-bold uppercase tracking-widest">Optimal</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Priority Alerts Grid -->
+<div class="space-y-4">
+<h3 class="font-headline text-lg font-bold uppercase tracking-widest text-[#CCFF00] mb-6">High-Priority Interventions</h3>
+<!-- Alert Card 1 -->
+<div class="bg-surface-container-low group hover:bg-[#201F1F] transition-all duration-300 rounded-lg p-6 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="relative">
+<img alt="Patient avatar" class="w-14 h-14 rounded-md object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Close-up of a focused female athlete with sweat, clinical lighting, high contrast photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnyIfgNRoDZU-JHORXLr6tbFNAAaYlNJRj1utIr_0sCJpGg4jwSB5B0lMlMubc4y-x5bWvu5d2igexcRblHHXiFcs3rIrEsLVpbeDy9sEIDL0EBntuqm8YZgzDkW4n5CmLFw97uHw-6tmWdlVio8r1Nvouh-9pQGCg7emPy657-gB87fC4di3lKfuuDQsqlH36tRaEa-XvPk_SG151OxRKzEujRAdc_pPn6NTAgWipQnq9UZSWbqMX-6wTkzS6CdHGKznPm4DkHQBK"/>
+<div class="absolute -top-1 -right-1 w-4 h-4 bg-error border-2 border-surface rounded-full"></div>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h4 class="font-headline font-bold text-lg">Valentina Rossi</h4>
+<span class="bg-[#CCFF00]/10 text-[#CCFF00] text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-tighter">Elite Tier</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-error font-bold text-sm uppercase tracking-wide flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">warning</span>
+                                    Low Adherence detected
+                                </span>
+<span class="text-on-surface-variant text-xs opacity-50 uppercase tracking-widest">Last Sync: 14m ago</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="hidden xl:flex flex-col items-end">
+<span class="text-xs uppercase tracking-widest text-on-surface-variant font-bold">Risk Level</span>
+<div class="flex gap-1 mt-1">
+<div class="w-4 h-1 bg-error"></div>
+<div class="w-4 h-1 bg-error"></div>
+<div class="w-4 h-1 bg-error"></div>
+<div class="w-4 h-1 bg-surface-container-highest"></div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="bg-[#2A2A2A] text-on-surface px-6 py-2 rounded-md font-bold text-xs uppercase tracking-widest hover:bg-surface-container-highest transition-all">Update Protocol</button>
+<button class="bg-[#CCFF00] text-[#131313] px-6 py-2 rounded-md font-bold text-xs uppercase tracking-widest hover:scale-[0.98] transition-all">Send Message</button>
+</div>
+</div>
+</div>
+<!-- Alert Card 2 -->
+<div class="bg-surface-container-low group hover:bg-[#201F1F] transition-all duration-300 rounded-lg p-6 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="relative">
+<img alt="Patient avatar" class="w-14 h-14 rounded-md object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Portrait of a determined male crossfit athlete, cinematic shadows, high resolution, dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiZCiH-lIbSnRnjvDTcc1ikwLTGPv5U1qV6aIzpxbu9GJtDbI4-H0lHgLBVicxwYDDLzzYXLJYHFot6uQznPwvpdtOmkPO8Vz8qe1T2zeTmmGyH6VMaPW-kf7sJ3uhAYsHeTwGAwhcKggzU-wHLHW91roi0DDUbuGUSNjlcvkdpPuuPmon05c1e5rj40VQGAFAwyja_5m0a_7CPJ2PvJXVpINg5lGOkEcPO6Dpn8JDmAmuXGIC1ayQXN7cV4MhTmVOoga6nPEb7PMU"/>
+<div class="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 border-2 border-surface rounded-full"></div>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h4 class="font-headline font-bold text-lg">Marcus Thorne</h4>
+<span class="bg-[#CCFF00]/10 text-[#CCFF00] text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-tighter">Pro Tier</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-orange-500 font-bold text-sm uppercase tracking-wide flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_flat</span>
+                                    Evolution Plateau
+                                </span>
+<span class="text-on-surface-variant text-xs opacity-50 uppercase tracking-widest">Last Sync: 2h ago</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="hidden xl:flex flex-col items-end">
+<span class="text-xs uppercase tracking-widest text-on-surface-variant font-bold">Risk Level</span>
+<div class="flex gap-1 mt-1">
+<div class="w-4 h-1 bg-orange-500"></div>
+<div class="w-4 h-1 bg-orange-500"></div>
+<div class="w-4 h-1 bg-surface-container-highest"></div>
+<div class="w-4 h-1 bg-surface-container-highest"></div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="bg-[#2A2A2A] text-on-surface px-6 py-2 rounded-md font-bold text-xs uppercase tracking-widest hover:bg-surface-container-highest transition-all">Update Protocol</button>
+<button class="bg-[#CCFF00] text-[#131313] px-6 py-2 rounded-md font-bold text-xs uppercase tracking-widest hover:scale-[0.98] transition-all">Send Message</button>
+</div>
+</div>
+</div>
+<!-- Alert Card 3 -->
+<div class="bg-surface-container-low group hover:bg-[#201F1F] transition-all duration-300 rounded-lg p-6 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="relative">
+<img alt="Patient avatar" class="w-14 h-14 rounded-md object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Professional woman in athletic gear looking thoughtfully away, cool lighting, clinical atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmvR6ALuSx_jKQaJa-P8IKz89topUSlmT35stEo3-zLkAFoN1rYtKzyIDIZcCcZAeRDA0qetnliFLIdYC0g_F4HTUT0_zgu8kuLJh6-aQo1ECm_pJyvrv53q7jWKOTvHNLQEgBkBAdhPRrWDD_ctUfg6SGJP7hAAY3GLntJzUwI-1ovFoBZf-Cg7qCkorSsjDZGux-GcOyDX83GzrWjFXt6ppS9veEj8cqPyiv3qN7wj4dmE4g9fSD9KEEA3XzJQJGd7uL9oQep_rt"/>
+<div class="absolute -top-1 -right-1 w-4 h-4 bg-error border-2 border-surface rounded-full"></div>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h4 class="font-headline font-bold text-lg">Elena Fischer</h4>
+<span class="bg-[#CCFF00]/10 text-[#CCFF00] text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-tighter">Gold Tier</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-error font-bold text-sm uppercase tracking-wide flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">person_remove</span>
+                                    High Churn Risk
+                                </span>
+<span class="text-on-surface-variant text-xs opacity-50 uppercase tracking-widest">Last Sync: 1d ago</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="hidden xl:flex flex-col items-end">
+<span class="text-xs uppercase tracking-widest text-on-surface-variant font-bold">Risk Level</span>
+<div class="flex gap-1 mt-1">
+<div class="w-4 h-1 bg-error"></div>
+<div class="w-4 h-1 bg-error"></div>
+<div class="w-4 h-1 bg-error"></div>
+<div class="w-4 h-1 bg-error"></div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="bg-[#2A2A2A] text-on-surface px-6 py-2 rounded-md font-bold text-xs uppercase tracking-widest hover:bg-surface-container-highest transition-all">Update Protocol</button>
+<button class="bg-[#CCFF00] text-[#131313] px-6 py-2 rounded-md font-bold text-xs uppercase tracking-widest hover:scale-[0.98] transition-all">Send Message</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Contextual Performance Micro-Grid -->
+<section class="mt-16 bg-[#1C1B1B] p-8 rounded-xl">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-headline text-lg font-bold uppercase tracking-widest">Protocol Distribution</h3>
+<div class="flex gap-2">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-sm bg-[#CCFF00]"></div>
+<span class="text-[10px] font-bold uppercase tracking-widest opacity-60">High Activity</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-sm bg-[#2A2A2A]"></div>
+<span class="text-[10px] font-bold uppercase tracking-widest opacity-60">Baseline</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-4 lg:grid-cols-8 gap-4">
+<!-- Example grid representing data density -->
+<div class="aspect-square bg-[#CCFF00] rounded-sm opacity-20"></div>
+<div class="aspect-square bg-[#CCFF00] rounded-sm opacity-40"></div>
+<div class="aspect-square bg-[#2A2A2A] rounded-sm"></div>
+<div class="aspect-square bg-[#CCFF00] rounded-sm opacity-100"></div>
+<div class="aspect-square bg-[#CCFF00] rounded-sm opacity-60"></div>
+<div class="aspect-square bg-[#2A2A2A] rounded-sm"></div>
+<div class="aspect-square bg-[#CCFF00] rounded-sm opacity-10"></div>
+<div class="aspect-square bg-[#CCFF00] rounded-sm opacity-80"></div>
+<!-- Repeat of secondary level -->
+<div class="aspect-square bg-[#2A2A2A] rounded-sm"></div>
+<div class="aspect-square bg-[#2A2A2A] rounded-sm"></div>
+<div class="aspect-square bg-[#CCFF00] rounded-sm opacity-40"></div>
+<div class="aspect-square bg-[#2A2A2A] rounded-sm"></div>
+<div class="aspect-square bg-[#CCFF00] rounded-sm opacity-90"></div>
+<div class="aspect-square bg-[#CCFF00] rounded-sm opacity-100"></div>
+<div class="aspect-square bg-[#2A2A2A] rounded-sm"></div>
+<div class="aspect-square bg-[#CCFF00] rounded-sm opacity-30"></div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

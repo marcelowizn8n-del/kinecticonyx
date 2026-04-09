@@ -260,12 +260,17 @@ export default function BioDigitalPage() {
         <h1 className="text-xs font-black tracking-widest text-primary uppercase font-headline">
           BIO-DIGITAL LAB
         </h1>
-        <button
-          className="hover:opacity-80 transition-opacity text-primary text-xl"
-          onClick={() => setSettingsOpen(!settingsOpen)}
-        >
-          <span className="material-symbols-outlined">settings</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <Link href="/dashboard" className="hover:opacity-80 transition-opacity text-on-surface text-xl">
+            <span className="material-symbols-outlined">home</span>
+          </Link>
+          <button
+            className="hover:opacity-80 transition-opacity text-primary text-xl"
+            onClick={() => setSettingsOpen(!settingsOpen)}
+          >
+            <span className="material-symbols-outlined">settings</span>
+          </button>
+        </div>
       </header>
 
       {/* Main Content Canvas */}
@@ -483,6 +488,9 @@ export default function BioDigitalPage() {
           <button className="text-sm font-bold text-on-surface-variant uppercase tracking-wide hover:text-on-surface">
             BIOMETRICS
           </button>
+          <Link href="/dashboard" className="text-on-surface hover:text-primary transition-colors">
+            <span className="material-symbols-outlined text-xl">home</span>
+          </Link>
         </div>
       </header>
 

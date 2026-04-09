@@ -1,0 +1,37 @@
+# Guia de Preparação para Desenvolvimento: Antigravity & Kinetic Onyx
+
+Para levar este projeto do Stitch para o desenvolvimento real no **Antigravity**, siga estes passos estruturados. Este roteiro garante que a visão de "Clinical Edge" e a performance do sistema sejam mantidas.
+
+## 1. Coleta de Assets do Design System (Kinetic Onyx)
+O Stitch já definiu as fundações. Você precisará extrair:
+*   **Cores:** Primary `#CCFF00`, Background `#131313`, Surfaces (`#1C1B1B`, `#2A2A2A`).
+*   **Tipografia:** Importe as fontes **Manrope** (Google Fonts) para títulos e **Inter** para corpo de texto.
+*   **Configuração Tailwind:** O projeto foi construído usando utilitários Tailwind. Configure seu `tailwind.config.js` com estas cores personalizadas e famílias de fontes.
+
+## 2. Extração de Código das Telas
+O Antigravity é excelente para processar o código que geramos aqui:
+1.  No Stitch, abra cada tela principal.
+2.  Clique no botão **</> View Code**.
+3.  Copie o HTML e o CSS gerado.
+4.  No Antigravity, use o componente de **Custom Code** ou cole diretamente nas suas Views para acelerar a montagem das interfaces.
+
+## 3. Implementação do Motor 3D (Bio-Digital Lab)
+Para a simulação 3D (SCREEN_24 e SCREEN_22), você precisará de uma biblioteca de renderização:
+*   **Recomendação:** `React Three Fiber` (R3F) ou `Three.js`.
+*   **Workflow:** Importe seu modelo 3D (provavelmente em formato `.glb` ou `.gltf`) e use as coordenadas das "camadas de dados flutuantes" que definimos no design para posicionar os labels no espaço 3D.
+
+## 4. Integração do Backend (Arquitetura)
+Siga o esquema de banco de dados que definimos em `TEXT_15`:
+*   **API:** Crie seus endpoints em Node.js (NestJS) seguindo o padrão REST ou GraphQL.
+*   **Webhooks:** Configure a integração com Stripe/Hotmart para liberar o acesso após a confirmação do pagamento.
+*   **Segurança:** Implemente JWT para autenticação, garantindo que o acesso web seja seguro e exclusivo para assinantes.
+
+## 5. Checklist de Lançamento (PWA)
+Para que o app não precise de loja (App Store/Play Store):
+1.  Configure o `manifest.json` para permitir a instalação na tela inicial.
+2.  Implemente Service Workers para garantir que a dieta e o treino funcionem offline.
+3.  Use as notificações push nativas da web para os alertas inteligentes.
+
+---
+**Próximo Passo Recomendado:**
+Comece importando a tela de **Login (SCREEN_28)** e a **Central de Alertas (SCREEN_2)** para estabelecer a conexão entre o usuário e o profissional.

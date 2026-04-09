@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<title>KINETIC ONYX | Auth</title>
+<script type='text/javascript' nonce='rg6n0qif4B1ZasXuicIQ+A==' src='https://contribution.usercontent.google.com/4kZRMDMKuogw2c_HNlkqXeaK-1gTo8YmhTf6IDXSptqnDWI0QXjx8H8SnWCBO2m_FXzZUBc_-1ZwizX_fiBYtKMbVF93Hq25fYRynRhngfokYdhaUFum8590z1d2DzCFocLLK2fI_IBrV9We6Lga8w70UmJfPrjXDjyHJGzuCWp5XP-wGe2vVy9uG2nHRS62Vvs1yTYYdN0QWfmeZDzGA8uz6SbRUtxSB7B6iHwNqPgJyjDGQJyg8k8DKOIsQMN2rhlo3h39DaXOGKGlQBRWhOKjgyHbUfP7ZYMhslFI5Hk3Fygpwd-QJuMn1d_G19LU_VczCxfn6XJ0pJmt0hgxFvO0Ef3gCVwvfx5yGe8fUBigMRncBHqCtSMpd-MrKpzpb6BAMcXfcGhoscQOysK7H7JH4qSWfmfdzs2fLU1NA1HQuBM6TMDURH1fvc8pZm-Tsg-kw_G3LYRlNTAS3mpzonzVEpnCdU6r6oYdI86QREvm6qhMVxORjiO61FZIWs8i_VC90NpY_aJHDjhxauEHUx0YyzZdWRxmGPJyTYV925xtOmGxo1RgqUTJ6WJOc3Zmm-Cei8fxUICJBhsV23EgDBvBD77HgUVqJ-NS6o6ucI6LvCQW5AQUYb_l2HKeXuaqwDq4ACtpZ0_wOxO5qj4RAOnGS10_iEvTSCO1d7CTWdCE354u93w99BJTeeyPPa85qY1MA04pmkIhxQS45lu6y0WIl3NTDuqOgx-w_m-5xryIpiWBpQxbRgM2kWrQ2EvgMrF-7tv5gtW072h2EnnHcjzYW6gXia0tZc2RDOok'></script><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#CCFF00",
+                      "background": "#131313",
+                      "on-background": "#e5e2e1",
+                      "surface": "#1c1b1b",
+                      "on-surface-variant": "#c4c9ac",
+                      "outline": "#444933",
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.5rem",
+                      "xl": "1rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "body": ["Inter"],
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .clinical-grid {
+            background-image: 
+                linear-gradient(to right, rgba(204, 255, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(204, 255, 0, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .glass-input {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: none !important;
+        }
+        .glass-card {
+            background: rgba(28, 27, 27, 0.7);
+            backdrop-filter: blur(24px);
+        }
+        /* Mobile height fix */
+        .min-h-screen-ios {
+            min-height: -webkit-fill-available;
+        }
+        /* Thumb reach optimization: Action area positioning */
+        .safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-black overflow-x-hidden">
+<!-- Header / Brand -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md pt-[env(safe-area-inset-top,0px)]">
+<div class="flex justify-between items-center px-6 py-4">
+<div class="text-lg font-extrabold tracking-tighter text-primary font-headline uppercase">KINETIC ONYX</div>
+<div class="font-headline text-[8px] uppercase tracking-[0.3em] text-white/40">Clinical Edge</div>
+</div>
+</header>
+<main class="relative min-h-screen flex flex-col pt-24 pb-12 overflow-hidden px-6">
+<!-- Background Decor -->
+<div class="absolute inset-0 clinical-grid pointer-events-none opacity-60"></div>
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full -mr-20 -mt-20"></div>
+<div class="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full -ml-20 -mb-20"></div>
+<!-- Content -->
+<div class="relative z-10 w-full max-w-md mx-auto flex flex-col flex-grow">
+<!-- Hero -->
+<div class="mb-8">
+<h1 class="font-headline text-4xl font-extrabold tracking-tighter leading-none mb-3">
+                    ELITE<br/><span class="text-primary uppercase">AUTHENTICATION</span>
+</h1>
+<p class="text-on-surface-variant/80 font-light text-sm max-w-[280px] leading-relaxed">
+                    Initialize your clinical-grade performance session.
+                </p>
+</div>
+<!-- Main Auth Interface -->
+<div class="glass-card rounded-xl p-1 flex-grow flex flex-col shadow-2xl border border-white/5">
+<!-- Toggle Tab -->
+<div class="flex p-1 bg-white/5 rounded-lg mb-6">
+<button class="flex-1 py-3 text-xs font-headline font-bold uppercase tracking-widest bg-primary text-black rounded-md transition-all" id="loginTab">Login</button>
+<button class="flex-1 py-3 text-xs font-headline font-bold uppercase tracking-widest text-on-surface-variant transition-all" id="signupTab">Sign Up</button>
+</div>
+<!-- Form Section -->
+<div class="px-3 flex-grow flex flex-col justify-center">
+<form class="space-y-5" onsubmit="event.preventDefault();">
+<div class="space-y-1.5">
+<label class="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold ml-1">Email Identifier</label>
+<input class="w-full glass-input rounded-xl py-4 px-5 text-on-background placeholder:text-white/20 focus:ring-1 focus:ring-primary/50 transition-all text-sm" placeholder="name@onyx.labs" type="email"/>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between items-center px-1">
+<label class="text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">Security Credential</label>
+<a class="text-[9px] uppercase tracking-widest text-primary/60" href="#">Forgot?</a>
+</div>
+<input class="w-full glass-input rounded-xl py-4 px-5 text-on-background placeholder:text-white/20 focus:ring-1 focus:ring-primary/50 transition-all text-sm" placeholder="••••••••" type="password"/>
+</div>
+<!-- Primary Action: Thumb Reach Optimized -->
+<div class="pt-4">
+<button class="w-full bg-primary hover:brightness-110 active:scale-[0.97] transition-all text-black font-headline font-extrabold py-5 rounded-xl uppercase tracking-widest text-sm shadow-[0_8px_30px_rgba(204,255,0,0.15)]">
+                                Initialize Session
+                            </button>
+</div>
+</form>
+<div class="relative my-8">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-white/5"></div>
+</div>
+<div class="relative flex justify-center text-[8px] uppercase tracking-[0.4em]">
+<span class="bg-[#1c1b1b] px-3 text-on-surface-variant/40">Bio-Sync Link</span>
+</div>
+</div>
+<!-- Social: Visual minimal icons -->
+<div class="grid grid-cols-2 gap-3 mb-6">
+<button class="flex items-center justify-center gap-2 glass-input py-4 rounded-xl active:bg-white/10 transition-colors">
+<svg class="w-4 h-4" viewbox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="white"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="white"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="white"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="white"></path></svg>
+<span class="text-[9px] uppercase font-bold tracking-widest">Google</span>
+</button>
+<button class="flex items-center justify-center gap-2 glass-input py-4 rounded-xl active:bg-white/10 transition-colors">
+<svg class="w-4 h-4" viewbox="0 0 24 24"><path d="M17.05 20.28c-.96.95-2.22 1.44-3.54 1.44-1.32 0-2.31-.41-3.13-.41-.83 0-1.94.41-3.26.41-1.32 0-2.67-.53-3.71-1.63-2.15-2.23-2.15-6.07 0-8.31 1.04-1.1 2.39-1.63 3.71-1.63 1.32 0 2.22.41 3.26.41.83 0 1.81-.41 3.13-.41 1.32 0 2.58.49 3.54 1.44 1.83 1.82 1.83 5.08 0 6.9zM12 7.15c.01-1.94 1.57-3.5 3.51-3.51.01 1.94-1.57 3.5-3.51 3.51z" fill="white"></path></svg>
+<span class="text-[9px] uppercase font-bold tracking-widest">Apple</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Trust / Status Micro-copy -->
+<div class="mt-8 grid grid-cols-2 gap-3 safe-bottom">
+<div class="p-4 glass-card rounded-xl border border-white/5">
+<div class="text-[7px] uppercase tracking-[0.2em] mb-1 text-primary">System Uptime</div>
+<div class="font-headline text-sm font-bold">99.98%</div>
+</div>
+<div class="p-4 glass-card rounded-xl border border-white/5">
+<div class="text-[7px] uppercase tracking-[0.2em] mb-1 text-white/40">Clinical Labs</div>
+<div class="font-headline text-sm font-bold">Global-12</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer: Minimal Mobile -->
+<footer class="pb-8 px-6 pt-4 border-t border-white/5 bg-background">
+<div class="flex flex-col items-center gap-4">
+<div class="flex gap-6">
+<a class="text-[8px] uppercase tracking-widest text-white/30" href="#">Privacy</a>
+<a class="text-[8px] uppercase tracking-widest text-white/30" href="#">Terms</a>
+<a class="text-[8px] uppercase tracking-widest text-white/30" href="#">Science</a>
+</div>
+<div class="text-[7px] uppercase tracking-[0.3em] text-white/20">
+                © 2024 Kinetic Onyx
+            </div>
+</div>
+</footer>
+<!-- Mobile Navigation Bar (Visual Placeholder for PWA feel) -->
+<div class="fixed bottom-0 left-0 w-full h-[env(safe-area-inset-bottom,20px)] bg-background z-[100]"></div>
+<script>
+        // Simple tab toggle visual logic
+        const loginTab = document.getElementById('loginTab');
+        const signupTab = document.getElementById('signupTab');
+
+        loginTab.onclick = () => {
+            loginTab.classList.add('bg-primary', 'text-black');
+            loginTab.classList.remove('text-on-surface-variant');
+            signupTab.classList.remove('bg-primary', 'text-black');
+            signupTab.classList.add('text-on-surface-variant');
+        };
+
+        signupTab.onclick = () => {
+            signupTab.classList.add('bg-primary', 'text-black');
+            signupTab.classList.remove('text-on-surface-variant');
+            loginTab.classList.remove('bg-primary', 'text-black');
+            loginTab.classList.add('text-on-surface-variant');
+        };
+    </script>
+</body></html>

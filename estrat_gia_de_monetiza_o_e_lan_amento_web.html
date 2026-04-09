@@ -1,0 +1,36 @@
+# Estratégia de Monetização e Lançamento Web: Kinetic Onyx
+
+Para um modelo de negócio focado em acesso via Web (sem lojas de apps), a estratégia deve ser centrada em **Recorrência (SaaS)** e **Experiência Progressiva (PWA)**.
+
+## 1. Modelo de Monetização (Estratégia de Planos)
+
+### Plano Silver (Paciente Standard)
+*   **Foco:** Acesso básico a dieta e treino.
+*   **Recursos:** Dieta dinâmica, tabela de substituição, check-in básico.
+*   **Preço Sugerido:** R$ 97 - 147 / mês.
+
+### Plano Gold (Premium Experience)
+*   **Foco:** O acompanhamento clínico de elite.
+*   **Recursos:** **Bio-Digital 3D**, Laboratório de Biometria, Chat Direto, Alertas de Evolução.
+*   **Preço Sugerido:** R$ 197 - 397 / mês.
+
+### Plano Black (Professional/Clinic)
+*   **Foco:** Para outros profissionais ou clínicas usarem sua metodologia.
+*   **Recursos:** Dashboard Profissional, Central de Alertas, Gestão de N pacientes.
+*   **Preço Sugerido:** R$ 997+ / mês (B2B).
+
+## 2. Gateway de Pagamento & Checkout (Web)
+Como o foco é Web, a integração deve ser via **Stripe** ou **Hotmart/Eduzz**:
+*   **Checkout Externo:** O usuário paga na página de vendas e recebe o acesso automaticamente via e-mail (integração via Webhook).
+*   **Área de Membros Nativa:** O próprio app Kinetic Onyx verifica o status da assinatura (`paid`, `overdue`) via banco de dados antes de liberar as funcionalidades premium.
+
+## 3. Desenvolvimento como Web App (PWA)
+Para que o app pareça nativo sem estar na App Store:
+*   **Progressive Web App (PWA):** Permite que o paciente "instale" o site na tela de início do celular.
+*   **Vantagens:** Notificações Push via Web, carregamento offline de dietas, zero comissão para Apple/Google (você fica com 100% do lucro, menos a taxa do gateway).
+
+## 4. Tech Stack de Implementação
+*   **Backend:** Node.js (NestJS) + PostgreSQL.
+*   **Frontend:** React.js com Tailwind CSS (Desktop/Admin) + Next.js (Mobile Web).
+*   **3D Engine:** Three.js ou React Three Fiber para renderizar o modelo holográfico no navegador com alta performance.
+*   **Segurança:** Autenticação JWT e infraestrutura na AWS.

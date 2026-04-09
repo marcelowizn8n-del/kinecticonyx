@@ -312,7 +312,10 @@ export default function PatientProfilePage() {
           </Link>
           <h1 className="flex-1 text-xl font-headline font-bold">{patient.name}</h1>
           <div className="flex gap-3">
-            <button className="px-4 py-2 border border-primary/30 text-primary font-bold rounded-lg hover:bg-primary/5 transition-colors flex items-center gap-2 text-sm">
+            <button
+              onClick={() => router.push(`/pacientes/novo?edit=${patientId}`)}
+              className="px-4 py-2 border border-primary/30 text-primary font-bold rounded-lg hover:bg-primary/5 transition-colors flex items-center gap-2 text-sm"
+            >
               <span className="material-symbols-outlined text-lg">edit</span>
               Editar
             </button>
@@ -333,9 +336,9 @@ export default function PatientProfilePage() {
         {/* Hero Section */}
         <section className="mb-8">
           <div className="glass-card rounded-2xl p-8 border border-on-surface-variant/10">
-            <div className="flex items-start gap-6 mb-6">
-              <div className="w-20 h-20 rounded-full bg-primary/20 border-2 border-primary/40 flex items-center justify-center flex-shrink-0">
-                <span className="text-2xl font-headline font-bold text-primary">
+            <div className="flex items-start gap-8 mb-6">
+              <div className="w-32 h-32 rounded-full bg-accent flex items-center justify-center flex-shrink-0 shadow-lg">
+                <span className="text-5xl font-headline font-bold text-background">
                   {patient.avatar}
                 </span>
               </div>

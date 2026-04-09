@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bio-Digital Lab - Patient Portal</title>
+<script type='text/javascript' nonce='kyjAva4TNT8UkEyFEa+cWA==' src='https://contribution.usercontent.google.com/jg0D1PWNKhkjIlHGh8ImzErHekur8h1Eo88gfHRivoqHTlWHuZYiiwt0g72gQLPdO33oilLAnzASUCjLLQZPgJfmg63P9ycfmkkMxSX00n28lgiEQxVQmcW0dpUOrS9kxNOZNoWoInWGJguTGXIzNstxNq62lZ3zO93lP937eRJ65DEmInuAmTVIcqBrf7UimnYZB57jdSmWB28QhLvGM1TmCO-9EYNOrV5hmJJkUXNjtn0vml_80_NKXwpdCiRb13JxSaqAXi8gB6oh8olro2NnIhSALm2ALko7yzx2EX-OC_OxfutTkFG2Dho4wk-b2-wHtepl5mvQ2-0ZyBmYagvFR1j2K079OZe-pIW_mPzm0U3KonD-H8q8uHMdxP2zDqcJf_hDGqrdyQqGsjEUv568uA_lLAmmzWkRt6OGlaFBx1QkYyOcblYdczif59d84aA72ZRKnzgbIOwg2d3P8dqMnZ8xjMs2CqLjlMWMvgDWKWwxs_YC6jK1NeeRlYBiK4NvFczk8oFZOpy10Oorckm3kwdCHeK2O6OEteLIvfSjkwMYVPIjhalXLrfh7RDhoTLX9i8dFMD2uaoqExAyTdMCYj4w_5aaJk6yJPERZ5Uv3Avp-5tAVIQGHD89EkqIKKU46Bj9WMletfCZfFQrzW7uGUKPeYf7tTX3JjE-WJRr5JhIeGMGN1lG8QISkYQMrunTCqK2vewwjB2hUuVyL2gV3nz3ihMs5q40SYp3oGtmApOhrelSzeGM1rZnndsWr6isShdlg_vDASwaJWsovaXtJdp6DP-pfJI6W20s'></script><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-container-highest": "#353534",
+                "background": "#131313",
+                "on-primary": "#283500",
+                "on-surface-variant": "#c4c9ac",
+                "on-surface": "#e5e2e1",
+                "on-secondary-container": "#b6b4b7",
+                "surface-container": "#201f1f",
+                "primary-container": "#c3f400",
+                "primary": "#ffffff",
+                "primary-fixed": "#c3f400",
+                "on-secondary-fixed-variant": "#474649",
+                "on-error": "#690005",
+                "tertiary-container": "#c3f400",
+                "on-error-container": "#ffdad6",
+                "secondary-fixed": "#e4e2e4",
+                "tertiary-fixed-dim": "#abd600",
+                "tertiary-fixed": "#c3f400",
+                "outline-variant": "#444933",
+                "inverse-surface": "#e5e2e1",
+                "on-tertiary-container": "#556d00",
+                "surface-container-lowest": "#0e0e0e",
+                "surface-tint": "#abd600",
+                "secondary": "#c8c6c8",
+                "outline": "#8e9379",
+                "on-tertiary-fixed-variant": "#3c4d00",
+                "on-tertiary-fixed": "#161e00",
+                "inverse-primary": "#506600",
+                "error-container": "#93000a",
+                "surface-dim": "#131313",
+                "surface-bright": "#3a3939",
+                "secondary-container": "#474649",
+                "on-secondary-fixed": "#1b1b1d",
+                "primary-fixed-dim": "#abd600",
+                "on-background": "#e5e2e1",
+                "tertiary": "#ffffff",
+                "surface-container-low": "#1c1b1b",
+                "surface-variant": "#353534",
+                "surface": "#131313",
+                "secondary-fixed-dim": "#c8c6c8",
+                "inverse-on-surface": "#313030",
+                "surface-container-high": "#2a2a2a",
+                "on-primary-fixed": "#161e00",
+                "on-primary-fixed-variant": "#3c4d00",
+                "on-secondary": "#303032",
+                "on-primary-container": "#556d00",
+                "error": "#ffb4ab",
+                "on-tertiary": "#283500"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "fontFamily": {
+                "headline": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(53, 53, 52, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .neon-glow {
+            text-shadow: 0 0 10px rgba(204, 255, 0, 0.5);
+        }
+        .grid-bg {
+            background-image: radial-gradient(circle at 2px 2px, #201f1f 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#131313] dark:bg-[#131313] flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="Patient Profile" class="w-full h-full object-cover" data-alt="Professional studio headshot of a young male athlete with clean lighting and neutral grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUJ9ZjICuwKaq0JtfPIPMbDJi8U7p8d2ojJ_CSUqceqeqsx8npMkQtpVVVwtCm1vSkTgNbqXxdBOOut21vYuCzPmrF4U9o5mj_ESAx8QYPVbe5MP-lIleK0Zsur-pBf1MDLnDxFZzlMw0YKYxkoDfGS5MEjW4UNVMnl7TzHtczGF0qHOAVHyldQhFQEmhnpaScQyUhisBZR2znUvZmWml5qbXwarbX2259XwCbxlQEiuAJjlh9W51RFSXlaWrhc4n_uHKAJ0aH4Qej"/>
+</div>
+</div>
+<h1 class="text-lg font-black tracking-widest text-[#CCFF00] uppercase font-[&#39;Manrope&#39;]">BIO-DIGITAL LAB</h1>
+<button class="hover:opacity-80 transition-opacity text-[#CCFF00]">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="relative pt-16 pb-24 min-h-screen grid-bg overflow-hidden">
+<!-- 3D Digital Twin Visual Area -->
+<div class="relative w-full h-[530px] flex items-center justify-center">
+<!-- Central Holographic Model -->
+<div class="relative w-full h-full flex items-center justify-center">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-surface z-10"></div>
+<!-- Scanner Effect Lines -->
+<div class="absolute w-full h-[1px] bg-[#CCFF00]/30 top-1/3 animate-pulse shadow-[0_0_15px_#CCFF00]"></div>
+<!-- Main Character Model (Placeholder for 3D Render) -->
+<img alt="3D Body Scan" class="h-full object-contain mix-blend-screen opacity-80 filter grayscale brightness-125 contrast-125" data-alt="Holographic 3D male human body model in wireframe style with glowing neon green highlights on a dark black background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNVMsxDLsVc_xpYPKjjdFmlfnijtPRAksWaHOEtzH9q6obniGp_NaZFiGRWmiqyQQckiLBfkDcMFYGZnmxkHk7Lub8UKVnXVL-m4PBOH3FVmNuR5hLtj668JMYqpwqu3G2V7KxMf5m-9Qjp4vt8iGVNqtKm0FPuj4Zt1pZfBJFIq6xlg5xb8CzsGwuf7flURpqni8mqvBs2ZkHVc03ZOt9_nsEZpJzqfkg1La8dVFTQ7t6C4rhrtBGYCNDW8umvUsRGu49ZEELu-Yx"/>
+</div>
+<!-- Floating Glassmorphism Cards -->
+<div class="absolute top-12 left-6 glass-panel p-4 rounded-xl border border-white/5 shadow-2xl z-20 w-36">
+<p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest mb-1">Body Fat</p>
+<div class="flex items-baseline gap-1">
+<span class="text-2xl font-black font-headline text-[#CCFF00]">14.2</span>
+<span class="text-xs font-bold text-[#CCFF00]/60">%</span>
+</div>
+<div class="w-full h-1 bg-surface-container mt-2 rounded-full overflow-hidden">
+<div class="h-full bg-[#CCFF00] w-[14.2%] shadow-[0_0_8px_#CCFF00]"></div>
+</div>
+</div>
+<div class="absolute bottom-20 right-6 glass-panel p-4 rounded-xl border border-white/5 shadow-2xl z-20 w-40">
+<p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest mb-1">Muscle Mass</p>
+<div class="flex items-baseline gap-1">
+<span class="text-2xl font-black font-headline text-[#CCFF00]">72.8</span>
+<span class="text-xs font-bold text-[#CCFF00]/60">kg</span>
+</div>
+<p class="text-[10px] text-primary-fixed-dim mt-1 font-medium">+1.2kg this month</p>
+</div>
+<div class="absolute top-1/2 -translate-y-1/2 right-4 glass-panel p-3 rounded-full border border-white/5 shadow-2xl z-20 flex flex-col items-center gap-4">
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-[#CCFF00] text-sm mb-1">scale</span>
+<span class="text-xs font-bold text-on-surface">82.4</span>
+</div>
+<div class="w-px h-8 bg-outline-variant/30"></div>
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-gray-400 text-sm mb-1">height</span>
+<span class="text-xs font-bold text-on-surface">184</span>
+</div>
+</div>
+</div>
+<!-- Metric Details Grid (Bento Style) -->
+<section class="px-6 space-y-4 -mt-8 relative z-30">
+<div class="grid grid-cols-2 gap-4">
+<!-- Primary Macro Highlight (Asymmetric Grid Rule) -->
+<div class="col-span-2 bg-surface-container-low p-5 rounded-xl border border-outline-variant/10">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline font-bold text-lg">Metabolic Health Score</h3>
+<span class="bg-[#CCFF00] text-on-primary px-2 py-0.5 rounded text-[10px] font-black uppercase">Elite</span>
+</div>
+<div class="flex items-end gap-4">
+<div class="flex-1">
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-black font-headline">94</span>
+<span class="text-sm text-on-surface-variant">/100</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-2 leading-relaxed">Your cellular recovery rate is 12% higher than the average for your age group.</p>
+</div>
+<div class="w-20 h-20 relative">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-[#CCFF00]" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-dasharray="226" stroke-dashoffset="14" stroke-width="4" style="filter: drop-shadow(0 0 4px #CCFF00);"></circle>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center material-symbols-outlined text-[#CCFF00]">bolt</span>
+</div>
+</div>
+</div>
+<!-- Secondary Stats -->
+<div class="bg-surface-container-high p-4 rounded-xl flex flex-col justify-between">
+<span class="material-symbols-outlined text-[#CCFF00] mb-2">water_drop</span>
+<div>
+<p class="text-[10px] uppercase font-bold text-on-surface-variant">Hydration</p>
+<p class="text-xl font-bold">68%</p>
+</div>
+</div>
+<div class="bg-surface-container-high p-4 rounded-xl flex flex-col justify-between">
+<span class="material-symbols-outlined text-[#CCFF00] mb-2">vital_signs</span>
+<div>
+<p class="text-[10px] uppercase font-bold text-on-surface-variant">HRV</p>
+<p class="text-xl font-bold">72 ms</p>
+</div>
+</div>
+</div>
+<!-- Performance Macro-Grid (Signature Component) -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden flex h-24 border border-outline-variant/10">
+<div class="w-[60%] p-4 bg-surface-container-high/50 flex flex-col justify-between border-r border-outline-variant/10">
+<p class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Protein Goal</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-black text-[#CCFF00]">185</span>
+<span class="text-xs font-bold text-on-surface-variant">/ 210g</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col">
+<div class="h-1/2 p-2 px-4 flex items-center justify-between border-b border-outline-variant/10">
+<span class="text-[10px] font-bold text-on-surface-variant">CARBS</span>
+<span class="text-xs font-black">240g</span>
+</div>
+<div class="h-1/2 p-2 px-4 flex items-center justify-between">
+<span class="text-[10px] font-bold text-on-surface-variant">FATS</span>
+<span class="text-xs font-black">65g</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 pb-safe bg-[#131313]/80 backdrop-blur-xl z-50 rounded-t-xl shadow-[0_-4px_40px_-5px_rgba(0,0,0,0.6)]">
+<a class="flex flex-col items-center justify-center text-gray-500 hover:text-[#CCFF00]/70 transition-colors" href="#">
+<span class="material-symbols-outlined">view_in_ar</span>
+<span class="font-[&#39;Inter&#39;] text-[10px] uppercase font-bold mt-1">Twin</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#CCFF00] scale-110" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &#39;FILL&#39; 1;">monitoring</span>
+<span class="font-[&#39;Inter&#39;] text-[10px] uppercase font-bold mt-1">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-500 hover:text-[#CCFF00]/70 transition-colors" href="#">
+<span class="material-symbols-outlined">nutrition</span>
+<span class="font-[&#39;Inter&#39;] text-[10px] uppercase font-bold mt-1">Fuel</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-500 hover:text-[#CCFF00]/70 transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-[&#39;Inter&#39;] text-[10px] uppercase font-bold mt-1">Me</span>
+</a>
+</nav>
+</body></html>

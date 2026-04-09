@@ -65,6 +65,8 @@ const usuariosData: User[] = [
 
 interface ModalState {
   isOpen: boolean;
+  mode: 'add' | 'edit';
+  editingUserId: string | null;
   formData: {
     nome: string;
     email: string;
@@ -84,6 +86,8 @@ export default function UsuariosPage() {
   const [usuarios, setUsuarios] = useState<User[]>(usuariosData);
   const [modal, setModal] = useState<ModalState>({
     isOpen: false,
+    mode: 'add',
+    editingUserId: null,
     formData: {
       nome: '',
       email: '',
@@ -103,6 +107,24 @@ export default function UsuariosPage() {
   const ultimoAcessoRecente = usuarios
     .filter((u) => u.ultimoAcesso !== 'ontem')
     .length;
+
+  const resetModalForm = () => ({
+    isOpen: false,
+    mode: 'add' as const,
+    editingUserId: null,
+    formData: {
+      nome: '',
+      email: '',
+      cargo: 'Nutricionista' as const,
+      senha: '',
+      permissoes: {
+        gerenciarUsuarios: false,
+        gerenciarTemplates: false,
+        verRelatorios: false,
+        gerenciarFinanceiro: false,
+      },
+    },
+  });
 
   const handleAddUser = () => {
     if (
@@ -126,21 +148,50 @@ export default function UsuariosPage() {
         isOnline: true,
       };
       setUsuarios([...usuarios, newUser]);
-      setModal({
-        isOpen: false,
-        formData: {
-          nome: '',
-          email: '',
-          cargo: 'Nutricionista',
-          senha: '',
-          permissoes: {
-            gerenciarUsuarios: false,
-            gerenciarTemplates: false,
-            verRelatorios: false,
-            gerenciarFinanceiro: false,
-          },
+      setModal(resetModalForm());
+    }
+  };
+
+  const handleEditUser = (usuario: User) => {
+    setModal({
+      isOpen: true,
+      mode: 'edit',
+      editingUserId: usuario.id,
+      formData: {
+        nome: usuario.nome,
+        email: usuario.email,
+        cargo: usuario.cargo,
+        senha: '',
+        permissoes: {
+          gerenciarUsuarios: false,
+          gerenciarTemplates: false,
+          verRelatorios: false,
+          gerenciarFinanceiro: false,
         },
-      });
+      },
+    });
+  };
+
+  const handleSaveEditUser = () => {
+    if (modal.formData.nome && modal.formData.email && modal.editingUserId) {
+      setUsuarios(
+        usuarios.map((u) =>
+          u.id === modal.editingUserId
+            ? {
+                ...u,
+                nome: modal.formData.nome,
+                email: modal.formData.email,
+                cargo: modal.formData.cargo,
+                avatar: modal.formData.nome
+                  .split(' ')
+                  .map((n) => n[0])
+                  .join('')
+                  .toUpperCase(),
+              }
+            : u
+        )
+      );
+      setModal(resetModalForm());
     }
   };
 
@@ -174,6 +225,13 @@ export default function UsuariosPage() {
     Recepcionista: 'bg-purple-500/10 text-purple-400',
   };
 
+  const avatarColors: Record<string, string> = {
+    Admin: 'bg-[#CCFF00] text-[#131313]',
+    Nutricionista: 'bg-blue-500/60 text-blue-50',
+    Treinador: 'bg-green-500/60 text-green-50',
+    Recepcionista: 'bg-purple-500/60 text-purple-50',
+  };
+
   return (
     <main className="min-h-screen pb-24" style={{ backgroundColor: '#131313' }}>
       {/* Header */}
@@ -188,7 +246,7 @@ export default function UsuariosPage() {
             </p>
           </div>
           <button
-            onClick={() => setModal({ ...modal, isOpen: true })}
+            onClick={() => setModal({ ...modal, isOpen: true, mode: 'add', editingUserId: null })}
             className="glass-card-high px-6 py-2 rounded-lg font-medium text-[#131313] bg-[#CCFF00] hover:bg-[#D4FF1A] transition-colors flex items-center gap-2"
           >
             <span className="material-symbols-outlined text-xl">add</span>
@@ -231,15 +289,13 @@ export default function UsuariosPage() {
                 <div className="flex items-center gap-4 flex-1">
                   {/* Avatar */}
                   <div
-                    className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm relative ${
-                      usuario.cargo === 'Admin'
-                        ? 'bg-[#CCFF00] text-[#131313]'
-                        : 'bg-[#2A2A2A] text-[#CCFF00]'
+                    className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm relative font-manrope ${
+                      avatarColors[usuario.cargo]
                     }`}
                   >
                     {usuario.avatar}
                     {usuario.isOnline && (
-                      <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border 2 border-[#131313]" />
+                      <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border border-[#131313]" />
                     )}
                   </div>
 
@@ -281,7 +337,11 @@ export default function UsuariosPage() {
                   <p className="text-xs text-[#C4C9AC] mb-3">pacientes</p>
 
                   <div className="flex gap-2">
-                    <button className="p-2 rounded-lg hover:bg-[#2A2A2A] transition-colors text-[#CCFF00]">
+                    <button
+                      onClick={() => handleEditUser(usuario)}
+                      className="p-2 rounded-lg hover:bg-[#2A2A2A] transition-colors text-[#CCFF00]"
+                      title="Editar usuário"
+                    >
                       <span className="material-symbols-outlined text-lg">
                         edit
                       </span>
@@ -290,6 +350,7 @@ export default function UsuariosPage() {
                       <button
                         onClick={() => handleDesativar(usuario.id)}
                         className="p-2 rounded-lg hover:bg-[#FFB4AB]/20 transition-colors text-[#FFB4AB]"
+                        title="Desativar usuário"
                       >
                         <span className="material-symbols-outlined text-lg">
                           disable_on
@@ -385,12 +446,12 @@ export default function UsuariosPage() {
         </div>
       </div>
 
-      {/* Modal - Add User */}
+      {/* Modal - Add/Edit User */}
       {modal.isOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="glass-card rounded-lg border border-[#353534] max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
             <h2 className="font-manrope text-2xl font-bold text-[#E5E2E1] mb-6">
-              Adicionar Novo Usuário
+              {modal.mode === 'add' ? 'Adicionar Novo Usuário' : 'Editar Usuário'}
             </h2>
 
             <div className="space-y-4">
@@ -454,23 +515,25 @@ export default function UsuariosPage() {
                 </select>
               </div>
 
-              <div>
-                <label className="text-[#E5E2E1] text-sm font-medium block mb-2">
-                  Senha Temporária
-                </label>
-                <input
-                  type="password"
-                  value={modal.formData.senha}
-                  onChange={(e) =>
-                    setModal({
-                      ...modal,
-                      formData: { ...modal.formData, senha: e.target.value },
-                    })
-                  }
-                  className="w-full bg-[#2A2A2A] border border-[#353534] rounded-lg px-4 py-2 text-[#E5E2E1] placeholder-[#C4C9AC] focus:outline-none focus:border-[#CCFF00]"
-                  placeholder="Senha temporária"
-                />
-              </div>
+              {modal.mode === 'add' && (
+                <div>
+                  <label className="text-[#E5E2E1] text-sm font-medium block mb-2">
+                    Senha Temporária
+                  </label>
+                  <input
+                    type="password"
+                    value={modal.formData.senha}
+                    onChange={(e) =>
+                      setModal({
+                        ...modal,
+                        formData: { ...modal.formData, senha: e.target.value },
+                      })
+                    }
+                    className="w-full bg-[#2A2A2A] border border-[#353534] rounded-lg px-4 py-2 text-[#E5E2E1] placeholder-[#C4C9AC] focus:outline-none focus:border-[#CCFF00]"
+                    placeholder="Senha temporária"
+                  />
+                </div>
+              )}
 
               <div>
                 <label className="text-[#E5E2E1] text-sm font-medium block mb-3">
@@ -521,33 +584,16 @@ export default function UsuariosPage() {
 
             <div className="flex gap-3 mt-8">
               <button
-                onClick={() =>
-                  setModal({
-                    ...modal,
-                    isOpen: false,
-                    formData: {
-                      nome: '',
-                      email: '',
-                      cargo: 'Nutricionista',
-                      senha: '',
-                      permissoes: {
-                        gerenciarUsuarios: false,
-                        gerenciarTemplates: false,
-                        verRelatorios: false,
-                        gerenciarFinanceiro: false,
-                      },
-                    },
-                  })
-                }
+                onClick={() => setModal(resetModalForm())}
                 className="flex-1 px-4 py-2 rounded-lg border border-[#353534] text-[#E5E2E1] hover:bg-[#2A2A2A] transition-colors"
               >
                 Cancelar
               </button>
               <button
-                onClick={handleAddUser}
+                onClick={modal.mode === 'add' ? handleAddUser : handleSaveEditUser}
                 className="flex-1 px-4 py-2 rounded-lg bg-[#CCFF00] text-[#131313] font-medium hover:bg-[#D4FF1A] transition-colors"
               >
-                Adicionar
+                {modal.mode === 'add' ? 'Adicionar' : 'Salvar Alterações'}
               </button>
             </div>
           </div>

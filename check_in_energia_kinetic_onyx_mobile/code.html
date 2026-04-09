@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Performance Check-in | Kinetic Onyx</title>
+<script type='text/javascript' nonce='Lb7RNgRWGWfaIj2BevSkyw==' src='https://contribution.usercontent.google.com/mNMyNoagNpeT54b-v74mCEcoIkcHJ4oXJ5E9HWYoKNQccpGqD9VzX8wn6DwKg5YAS1ld81vW3qi6s3QZX0giWKlTzaVU6FR5onFlz_nlQyGEHve5oN241CmHUoldHKhhejaYfEHpi1FK2xQiBjaob5SeaVwgi3DEWz_BVVawKtyBFw2LGpUP4RGsjWZE1mix-5Ej--_B0ffZKIP7e8vMuDe1Bt6lY03GcsyVHxrOlGL4zvM2oNO1W4SP7V1A_gkyXWvxoA7sM4OCABEdI3JSSkOOAqajhbsEgE9drTo6Ut7uZ_CMEoKm3e8TBYUD4s-m_T2ckDcQmYQOEQVTxvXMGyAx5zp7G3EK8Q7xXbIFyXjP5nztRrlLzZgtviuRL_kdzgPqxYaUjmJ4M-5npMmtXLYG99xT-6lgyFllsVErxZZ-YP5pElJnWKrNx2eaAddXB9KqB75npwjw6rTwA1hr3VTAu3tFxUBZgWpFCUd5bQK5nyd1sef_HefdIKJaaJWeTUnUWLLkVTr-S_mKOcdeBwkqTUC9L5LVYRHuZlIVzJ8sBNY-6asmNkW7eo2UHpINKEQ7nh7j_Gxqnj1uO8EvZWCwRDhruIol8dl48rOQ73Lh0_Z6owQMAEgbdXMrxHRPO_v2fBAb2XJz_SlsOv3-vMueWTeo1_e6TdLPmqLTFtGke91h38tSqqhK4K6NP95SGvyxxs-lG7qXDSvyMIviR4u4sCZiVtvYdgp1ki5DJ9ZVGcea6Ch9ilIIur7wUU-KC-P-SR2ngeMZVtDNsDGTsFMQ0d4MIhI3a6mLvI3S'></script><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#131313",
+              "neon-green": "#CCFF00",
+              "surface-container-low": "#1c1c1c",
+              "surface-container-high": "#282828",
+              "on-surface": "#F2F2F2",
+              "on-surface-variant": "#A8A8A8",
+              "outline-variant": "rgba(255, 255, 255, 0.1)",
+            },
+            fontFamily: {
+              "headline": ["Manrope", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              "DEFAULT": "0px",
+              "lg": "4px",
+              "xl": "8px",
+              "2xl": "12px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(40, 40, 40, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #CCFF00;
+            border-radius: 2px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(204, 255, 0, 0.4);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-neon-green selection:text-black hide-scrollbar">
+<!-- TopAppBar -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-surface/80 backdrop-blur-xl flex justify-between items-center px-6 py-5">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-white/10 transition-colors rounded-lg active:scale-95 duration-150">
+<span class="material-symbols-outlined text-neon-green">close</span>
+</button>
+<h1 class="text-lg font-extrabold font-headline uppercase tracking-widest text-on-surface">Phase 01 / 04</h1>
+</div>
+<button class="text-neon-green font-bold font-body text-xs tracking-widest uppercase hover:bg-white/5 px-4 py-2 rounded-lg transition-colors active:scale-95 duration-150">
+        Save
+    </button>
+</nav>
+<main class="pt-28 pb-32 px-6 max-w-2xl mx-auto space-y-12">
+<!-- Header Section -->
+<section class="space-y-6">
+<div class="flex gap-1">
+<div class="h-1 flex-1 bg-neon-green"></div>
+<div class="h-1 flex-1 bg-surface-container-high"></div>
+<div class="h-1 flex-1 bg-surface-container-high"></div>
+<div class="h-1 flex-1 bg-surface-container-high"></div>
+</div>
+<h2 class="text-4xl md:text-5xl font-extrabold font-headline leading-[1.1] tracking-tight">
+            Good morning, Victor.<br/>
+<span class="text-on-surface-variant">How is your energy?</span>
+</h2>
+</section>
+<!-- Adaptive Feedback (Clinical Insights) -->
+<section class="glass-panel p-6 rounded-2xl border-none flex gap-4 items-start shadow-2xl">
+<div class="w-12 h-12 rounded bg-neon-green/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-neon-green text-3xl" style="font-variation-settings: &#39;FILL&#39; 1;">analytics</span>
+</div>
+<div class="space-y-3">
+<p class="text-sm font-medium leading-relaxed text-on-surface/90">
+                Performance Insight: <span class="text-neon-green font-bold">15% surge</span> in protein absorption detected. Satiety levels expected to peak.
+            </p>
+<div class="flex gap-2">
+<button class="text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded bg-surface-container-high text-on-surface/70 hover:bg-white/10 transition-colors">Confirmed</button>
+<button class="text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded bg-surface-container-high text-on-surface/70 hover:bg-white/10 transition-colors">Neutral</button>
+</div>
+</div>
+</section>
+<!-- Energy Slider -->
+<section class="space-y-8">
+<div class="flex justify-between items-end">
+<label class="text-[11px] font-black tracking-[0.2em] uppercase text-on-surface-variant">Metabolic Energy</label>
+<span class="text-5xl font-black font-headline text-neon-green">08</span>
+</div>
+<div class="relative px-1">
+<input class="w-full h-1 bg-surface-container-high rounded-none appearance-none cursor-pointer" max="10" min="1" type="range" value="8"/>
+<div class="flex justify-between mt-4 text-[10px] font-bold text-on-surface-variant/40 uppercase tracking-widest">
+<span>Minimal</span>
+<span>Optimal</span>
+</div>
+</div>
+<!-- Qualitative Check -->
+<div class="p-6 bg-surface-container-low/50 rounded-2xl space-y-4">
+<p class="text-xs text-on-surface-variant font-bold uppercase tracking-widest">Specific Fatigue Moments</p>
+<textarea class="w-full bg-surface-container-high border-none rounded-xl text-sm p-4 focus:ring-1 focus:ring-neon-green placeholder:text-on-surface/20 min-h-[100px] transition-all" placeholder="Input specific timeframes or triggers..."></textarea>
+</div>
+</section>
+<!-- Qualitative Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Hunger Card -->
+<div class="glass-panel p-6 rounded-2xl space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-neon-green text-xl">restaurant</span>
+<span class="text-[11px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Daily Hunger</span>
+</div>
+<div class="flex flex-col gap-2">
+<button class="w-full py-4 px-4 rounded-xl bg-surface-container-high text-xs font-bold flex justify-between items-center hover:bg-neon-green hover:text-black transition-all group">
+                    HIGH INTENSITY
+                    <span class="material-symbols-outlined text-sm opacity-50 group-hover:opacity-100">priority_high</span>
+</button>
+<button class="w-full py-4 px-4 rounded-xl bg-neon-green text-black text-xs font-black flex justify-between items-center">
+                    BALANCED / CONTROLLED
+                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: &#39;FILL&#39; 1;">check_circle</span>
+</button>
+<button class="w-full py-4 px-4 rounded-xl bg-surface-container-high text-xs font-bold flex justify-between items-center hover:bg-neon-green hover:text-black transition-all group">
+                    SUPPRESSED
+                    <span class="material-symbols-outlined text-sm opacity-50 group-hover:opacity-100">low_priority</span>
+</button>
+</div>
+</div>
+<!-- Soreness Card -->
+<div class="glass-panel p-6 rounded-2xl space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-neon-green text-xl">fitness_center</span>
+<span class="text-[11px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Muscle Recovery</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="aspect-square bg-surface-container-high rounded-xl flex flex-col items-center justify-center p-4 text-center cursor-pointer hover:bg-neon-green hover:text-black group transition-all">
+<span class="text-xl mb-1 font-black font-headline">01</span>
+<span class="text-[10px] font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100">Fresh</span>
+</div>
+<div class="aspect-square bg-neon-green text-black rounded-xl flex flex-col items-center justify-center p-4 text-center cursor-pointer shadow-[0_0_30px_rgba(204,255,0,0.25)]">
+<span class="text-xl mb-1 font-black font-headline">02</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Moderate</span>
+</div>
+<div class="aspect-square bg-surface-container-high rounded-xl flex flex-col items-center justify-center p-4 text-center cursor-pointer hover:bg-neon-green hover:text-black group transition-all">
+<span class="text-xl mb-1 font-black font-headline">03</span>
+<span class="text-[10px] font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100">Acute</span>
+</div>
+<div class="aspect-square bg-surface-container-high rounded-xl flex flex-col items-center justify-center p-4 text-center cursor-pointer hover:bg-neon-green hover:text-black group transition-all">
+<span class="text-xl mb-1 font-black font-headline">04</span>
+<span class="text-[10px] font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100">Severe</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Button -->
+<section class="pt-8">
+<button class="w-full py-5 rounded-2xl bg-neon-green text-black font-black font-headline text-lg tracking-tight flex items-center justify-center gap-4 active:scale-[0.98] transition-all hover:brightness-110 shadow-[0_20px_40px_rgba(204,255,0,0.15)]">
+            NEXT: PHYSICAL METRICS
+            <span class="material-symbols-outlined font-black">arrow_forward</span>
+</button>
+<p class="text-center mt-8 text-[9px] font-black uppercase tracking-[0.3em] text-on-surface-variant/30">
+            Automated Protocol Adjustment Protocol Active
+        </p>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface/95 backdrop-blur-2xl flex justify-around items-center pt-4 pb-10 px-4 border-t border-white/5">
+<div class="flex flex-col items-center justify-center text-on-surface-variant/40 gap-1 transition-all hover:text-neon-green cursor-pointer">
+<span class="material-symbols-outlined text-2xl">analytics</span>
+<span class="font-body text-[9px] font-bold uppercase tracking-widest">Stats</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant/40 gap-1 transition-all hover:text-neon-green cursor-pointer">
+<span class="material-symbols-outlined text-2xl">nutrition</span>
+<span class="font-body text-[9px] font-bold uppercase tracking-widest">Fuel</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant/40 gap-1 transition-all hover:text-neon-green cursor-pointer">
+<span class="material-symbols-outlined text-2xl">fitness_center</span>
+<span class="font-body text-[9px] font-bold uppercase tracking-widest">Build</span>
+</div>
+<div class="flex flex-col items-center justify-center text-neon-green gap-1 transition-all scale-110">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: &#39;FILL&#39; 1;">clinical_notes</span>
+<span class="font-body text-[9px] font-black uppercase tracking-widest">Coach</span>
+</div>
+</nav>
+<!-- Background Accents -->
+<div class="fixed top-0 right-0 -z-10 w-[600px] h-[600px] bg-neon-green/5 blur-[150px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+<div class="fixed bottom-0 left-0 -z-10 w-[500px] h-[500px] bg-neon-green/5 blur-[120px] rounded-full -translate-x-1/4 translate-y-1/4 pointer-events-none"></div>
+</body></html>

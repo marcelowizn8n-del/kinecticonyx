@@ -103,6 +103,9 @@ export default function ChatPage() {
             <button className="text-on-surface hover:opacity-70 transition-opacity active:scale-90 duration-200">
               <span className="material-symbols-outlined text-xl">notifications</span>
             </button>
+            <Link href="/dashboard" className="text-on-surface hover:opacity-70 transition-opacity active:scale-90 duration-200">
+              <span className="material-symbols-outlined text-xl">home</span>
+            </Link>
           </div>
         </div>
       </header>
