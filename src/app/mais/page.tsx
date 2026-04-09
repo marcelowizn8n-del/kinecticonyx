@@ -2,11 +2,13 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { useState } from 'react';
 
 interface NavLink {
   label: string;
   path: string;
   icon: string;
+  isSpecial?: boolean;
 }
 
 interface NavSection {
@@ -45,7 +47,7 @@ const navSections: NavSection[] = [
       },
       {
         label: 'Relatórios',
-        path: '#',
+        path: '/financeiro',
         icon: 'assessment',
       },
     ],
@@ -55,18 +57,19 @@ const navSections: NavSection[] = [
     links: [
       {
         label: 'Perfil',
-        path: '#',
+        path: '/dashboard',
         icon: 'person',
       },
       {
         label: 'Notificações',
-        path: '#',
+        path: '/alertas',
         icon: 'notifications',
       },
       {
         label: 'Sobre o App',
         path: '#',
         icon: 'info',
+        isSpecial: true,
       },
       {
         label: 'Sair',
@@ -79,9 +82,25 @@ const navSections: NavSection[] = [
 
 export default function MaisPage() {
   const pathname = usePathname();
+  const [toast, setToast] = useState<{ message: string } | null>(null);
+
+  const showToast = (message: string) => {
+    setToast({ message });
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const handleAboutApp = () => {
+    showToast("Kinetic Onyx v1.0");
+  };
 
   return (
     <main className="min-h-screen pb-24" style={{ backgroundColor: '#131313' }}>
+      {/* Toast Notification */}
+      {toast && (
+        <div className="fixed top-4 right-4 z-[100] px-6 py-3 rounded-lg bg-[#1C1B1B]/80 backdrop-blur-md border border-[#CCFF00]/40 text-[#CCFF00] text-sm font-medium animate-in fade-in duration-300">
+          {toast.message}
+        </div>
+      )}
       {/* Header */}
       <div className="border-b border-[#353534] p-6">
         <h1 className="font-manrope text-3xl font-bold text-[#E5E2E1]">
@@ -100,41 +119,59 @@ export default function MaisPage() {
               {section.titulo}
             </h2>
             <div className="space-y-2">
-              {section.links.map((link) => (
-                <Link
-                  key={link.path}
-                  href={link.path}
-                  className={`glass-card rounded-lg p-4 border transition-all flex items-center gap-4 group ${
-                    pathname === link.path
-                      ? 'border-[#CCFF00] bg-[#CCFF00]/5'
-                      : 'border-[#353534] hover:border-[#2A2A2A]'
-                  }`}
-                >
-                  <span
-                    className={`material-symbols-outlined text-2xl transition-colors ${
+              {section.links.map((link) => {
+                if (link.isSpecial) {
+                  return (
+                    <button
+                      key={link.label}
+                      onClick={handleAboutApp}
+                      className="w-full glass-card rounded-lg p-4 border transition-all flex items-center gap-4 group border-[#353534] hover:border-[#2A2A2A]"
+                    >
+                      <span className="material-symbols-outlined text-2xl transition-colors text-[#C4C9AC] group-hover:text-[#CCFF00]">
+                        {link.icon}
+                      </span>
+                      <span className="font-medium transition-colors text-[#E5E2E1] group-hover:text-[#CCFF00]">
+                        {link.label}
+                      </span>
+                    </button>
+                  );
+                }
+                return (
+                  <Link
+                    key={link.path}
+                    href={link.path}
+                    className={`glass-card rounded-lg p-4 border transition-all flex items-center gap-4 group ${
                       pathname === link.path
-                        ? 'text-[#CCFF00]'
-                        : 'text-[#C4C9AC] group-hover:text-[#CCFF00]'
+                        ? 'border-[#CCFF00] bg-[#CCFF00]/5'
+                        : 'border-[#353534] hover:border-[#2A2A2A]'
                     }`}
                   >
-                    {link.icon}
-                  </span>
-                  <span
-                    className={`font-medium transition-colors ${
-                      pathname === link.path
-                        ? 'text-[#CCFF00]'
-                        : 'text-[#E5E2E1] group-hover:text-[#CCFF00]'
-                    }`}
-                  >
-                    {link.label}
-                  </span>
-                  {pathname === link.path && (
-                    <span className="material-symbols-outlined text-lg text-[#CCFF00] ml-auto">
-                      check_circle
+                    <span
+                      className={`material-symbols-outlined text-2xl transition-colors ${
+                        pathname === link.path
+                          ? 'text-[#CCFF00]'
+                          : 'text-[#C4C9AC] group-hover:text-[#CCFF00]'
+                      }`}
+                    >
+                      {link.icon}
                     </span>
-                  )}
-                </Link>
-              ))}
+                    <span
+                      className={`font-medium transition-colors ${
+                        pathname === link.path
+                          ? 'text-[#CCFF00]'
+                          : 'text-[#E5E2E1] group-hover:text-[#CCFF00]'
+                      }`}
+                    >
+                      {link.label}
+                    </span>
+                    {pathname === link.path && (
+                      <span className="material-symbols-outlined text-lg text-[#CCFF00] ml-auto">
+                        check_circle
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         ))}

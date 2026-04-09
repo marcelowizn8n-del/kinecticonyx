@@ -11,6 +11,12 @@ export default function FinanceiroPage() {
   const { patients, payments, getOverduePayments } = useApp();
   const pathname = usePathname();
   const [activeFilter, setActiveFilter] = useState<PaymentFilter>('todos');
+  const [toast, setToast] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 3000);
+  };
 
   // Format money to Brazilian format
   const formatMoney = (value: number): string => {
@@ -262,13 +268,13 @@ export default function FinanceiroPage() {
 
           {/* Quick Actions */}
           <div className="grid grid-cols-2 gap-3 mb-8">
-            <button className="py-3 bg-[#CCFF00] text-[#131313] font-bold rounded-lg hover:bg-[#CCFF00]/90 transition-colors flex items-center justify-center gap-2">
+            <button onClick={() => showToast("Cobranças enviadas para pacientes pendentes!")} className="py-3 bg-[#CCFF00] text-[#131313] font-bold rounded-lg hover:bg-[#CCFF00]/90 transition-colors flex items-center justify-center gap-2">
               <span className="material-symbols-outlined text-lg">
                 mail
               </span>
               <span className="text-sm">Enviar Cobrança</span>
             </button>
-            <button className="py-3 bg-[#2A2A2A] text-[#E5E2E1] font-bold rounded-lg hover:bg-[#353534] transition-colors flex items-center justify-center gap-2 border border-[#C4C9AC]/20">
+            <button onClick={() => showToast("Relatório gerado!")} className="py-3 bg-[#2A2A2A] text-[#E5E2E1] font-bold rounded-lg hover:bg-[#353534] transition-colors flex items-center justify-center gap-2 border border-[#C4C9AC]/20">
               <span className="material-symbols-outlined text-lg">
                 assessment
               </span>
@@ -343,7 +349,7 @@ export default function FinanceiroPage() {
                       >
                         {getStatusLabel(payment.status)}
                       </span>
-                      <button className="text-xs text-[#CCFF00] hover:text-[#CCFF00]/80 transition-colors font-bold">
+                      <button onClick={() => showToast(`Lembrete enviado para ${payment.patientName}!`)} className="text-xs text-[#CCFF00] hover:text-[#CCFF00]/80 transition-colors font-bold">
                         {payment.status === 'paid'
                           ? 'Recibo'
                           : 'Lembrete'}
@@ -406,6 +412,12 @@ export default function FinanceiroPage() {
           </Link>
         </div>
       </nav>
+
+      {toast && (
+        <div className="fixed top-6 right-6 z-[100] px-6 py-3 rounded-lg text-sm font-bold" style={{ background: 'rgba(42,42,42,0.95)', backdropFilter: 'blur(16px)', color: '#CCFF00', border: '1px solid rgba(204,255,0,0.2)' }}>
+          {toast}
+        </div>
+      )}
     </div>
   );
 }

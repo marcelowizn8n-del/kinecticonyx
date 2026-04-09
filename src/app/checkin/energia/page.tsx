@@ -1,26 +1,42 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import BottomNav from "@/components/BottomNav";
 
 export default function CheckinEnergiaPage() {
+  const router = useRouter();
   const [energy, setEnergy] = useState(8);
   const [hungerState, setHungerState] = useState("balanced_controlled");
   const [muscleRecovery, setMuscleRecovery] = useState("02_moderate");
   const [fatigueNotes, setFatigueNotes] = useState("");
+  const [toast, setToast] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const handleSave = () => {
+    showToast("Check-in salvo!");
+    setTimeout(() => router.push("/dashboard"), 1000);
+  };
+
+  const handleClose = () => {
+    router.back();
+  };
 
   return (
     <>
       <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-[#131313] pb-24">
         {/* Fixed Header */}
         <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-5 py-4 bg-[#131313]/80 backdrop-blur-[16px] border-b border-[#444933] max-w-md mx-auto">
-          <button className="flex h-10 w-10 items-center justify-center hover:bg-[#2A2A2A] transition-colors rounded-lg">
+          <button onClick={handleClose} className="flex h-10 w-10 items-center justify-center hover:bg-[#2A2A2A] transition-colors rounded-lg">
             <span className="material-symbols-outlined text-[#E5E2E1]">close</span>
           </button>
           <h1 className="text-base font-['Manrope'] font-bold text-[#E5E2E1]">PHASE 01 / 04</h1>
-          <button className="flex h-10 w-10 items-center justify-center bg-[#CCFF00] hover:bg-[#ABD600] transition-colors rounded-lg">
+          <button onClick={handleSave} className="flex h-10 w-10 items-center justify-center bg-[#CCFF00] hover:bg-[#ABD600] transition-colors rounded-lg">
             <span className="material-symbols-outlined text-[#283500]">save</span>
           </button>
         </header>
@@ -180,6 +196,12 @@ export default function CheckinEnergiaPage() {
       </div>
 
       <BottomNav />
+
+      {toast && (
+        <div className="fixed top-6 right-6 z-[100] px-6 py-3 rounded-lg text-sm font-bold" style={{ background: 'rgba(42,42,42,0.95)', backdropFilter: 'blur(16px)', color: '#CCFF00', border: '1px solid rgba(204,255,0,0.2)' }}>
+          {toast}
+        </div>
+      )}
     </>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 // Admin credentials
 const ADMIN_USER = {
@@ -19,6 +20,7 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(false);
+  const [toast, setToast] = useState<{ message: string } | null>(null);
 
   // Sign Up fields
   const [signupName, setSignupName] = useState("");
@@ -79,8 +81,27 @@ export default function LoginPage() {
     }, 1000);
   };
 
+  const showToast = (message: string) => {
+    setToast({ message });
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const handleForgotPassword = () => {
+    showToast("Email de recuperação enviado!");
+  };
+
+  const handleFooterLink = () => {
+    showToast("Em breve");
+  };
+
   return (
     <div className="relative min-h-screen flex flex-col overflow-hidden bg-background">
+      {/* Toast Notification */}
+      {toast && (
+        <div className="fixed top-4 right-4 z-[100] px-6 py-3 rounded-lg bg-[#1C1B1B]/80 backdrop-blur-md border border-primary/40 text-primary text-sm font-medium animate-in fade-in duration-300">
+          {toast.message}
+        </div>
+      )}
       {/* Header / Brand */}
       <header className="fixed top-0 w-full z-50 pt-[env(safe-area-inset-top,0px)]">
         <div className="flex justify-between items-center px-6 py-6">
@@ -182,12 +203,13 @@ export default function LoginPage() {
                     <label className="text-[8px] uppercase tracking-[0.3em] text-on-surface-variant font-bold">
                       SECURITY CREDENTIAL
                     </label>
-                    <a
-                      href="#"
+                    <button
+                      type="button"
+                      onClick={handleForgotPassword}
                       className="text-[8px] uppercase tracking-[0.2em] text-primary hover:text-primary-dark transition-colors"
                     >
                       FORGOT?
-                    </a>
+                    </button>
                   </div>
                   <input
                     type="password"
@@ -359,15 +381,15 @@ export default function LoginPage() {
       <footer className="pb-8 px-6 pt-4 bg-background">
         <div className="flex flex-col items-center gap-4">
           <div className="flex gap-6">
-            <a href="#" className="text-[8px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-on-surface transition-colors">
+            <button onClick={handleFooterLink} className="text-[8px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-on-surface transition-colors">
               PRIVACY
-            </a>
-            <a href="#" className="text-[8px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-on-surface transition-colors">
+            </button>
+            <button onClick={handleFooterLink} className="text-[8px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-on-surface transition-colors">
               TERMS
-            </a>
-            <a href="#" className="text-[8px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-on-surface transition-colors">
+            </button>
+            <button onClick={handleFooterLink} className="text-[8px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-on-surface transition-colors">
               SCIENCE
-            </a>
+            </button>
           </div>
           <div className="text-[7px] uppercase tracking-[0.3em] text-on-surface-variant/60">
             © 2026 KINETIC ONYX

@@ -51,7 +51,13 @@ const patients: PatientCard[] = [
 
 export default function ChatPage() {
   const [activeFilter, setActiveFilter] = useState<FilterChip>("all");
+  const [toast, setToast] = useState<string | null>(null);
   const pathname = usePathname();
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 3000);
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -235,6 +241,7 @@ export default function ChatPage() {
 
       {/* FAB Button */}
       <button
+        onClick={() => showToast("Em breve: envio de mensagens")}
         className="fixed bottom-24 right-6 w-14 h-14 bg-primary rounded flex items-center justify-center text-on-primary transition-transform active:scale-90 z-50 font-bold"
         style={{ boxShadow: "0 8px 32px rgba(204, 255, 0, 0.3)" }}
       >
@@ -299,6 +306,12 @@ export default function ChatPage() {
           </span>
         </Link>
       </nav>
+
+      {toast && (
+        <div className="fixed top-6 right-6 z-[100] px-6 py-3 rounded-lg text-sm font-bold" style={{ background: 'rgba(42,42,42,0.95)', backdropFilter: 'blur(16px)', color: '#CCFF00', border: '1px solid rgba(204,255,0,0.2)' }}>
+          {toast}
+        </div>
+      )}
     </div>
   );
 }

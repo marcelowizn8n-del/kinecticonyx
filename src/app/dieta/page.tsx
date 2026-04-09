@@ -452,10 +452,13 @@ export default function DietaPage() {
             <span className="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">fitness_center</span>
             <span className="text-[8px] uppercase tracking-widest font-bold mt-1">TREINO</span>
           </Link>
-          <button className="flex-1 flex flex-col items-center justify-center py-4 text-on-surface-variant hover:text-on-surface transition-colors group">
+          <Link
+            href="/chat"
+            className="flex-1 flex flex-col items-center justify-center py-4 text-on-surface-variant hover:text-on-surface transition-colors group"
+          >
             <span className="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">person</span>
             <span className="text-[8px] uppercase tracking-widest font-bold mt-1">COACH</span>
-          </button>
+          </Link>
         </div>
       </nav>
 

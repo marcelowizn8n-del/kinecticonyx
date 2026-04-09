@@ -246,9 +246,11 @@ export default function PacientesPage() {
 
       {/* Floating Action Button */}
       <div className="fixed bottom-32 right-6 group">
-        <button className="w-14 h-14 bg-primary text-on-primary rounded-full flex items-center justify-center font-headline font-bold text-lg hover:scale-110 transition-transform shadow-lg neon-glow">
-          <span className="material-symbols-outlined">add</span>
-        </button>
+        <Link href="/pacientes/novo">
+          <button className="w-14 h-14 bg-primary text-on-primary rounded-full flex items-center justify-center font-headline font-bold text-lg hover:scale-110 transition-transform shadow-lg neon-glow">
+            <span className="material-symbols-outlined">add</span>
+          </button>
+        </Link>
         <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
           <div className="bg-surface-highest/95 backdrop-blur px-4 py-2 rounded-lg whitespace-nowrap text-sm font-bold text-on-surface border border-primary/20">
             Adicionar Paciente

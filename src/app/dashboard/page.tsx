@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 const CURRENT_USER = {
@@ -68,7 +68,14 @@ const ATHLETES = [
 
 export default function DashboardPage() {
   const pathname = usePathname();
+  const router = useRouter();
   const [timePeriod, setTimePeriod] = useState('3MESES');
+  const [toast, setToast] = useState<{ message: string } | null>(null);
+
+  const showToast = (message: string) => {
+    setToast({ message });
+    setTimeout(() => setToast(null), 3000);
+  };
 
   const generateBiometricSVG = () => {
     const width = 300;
@@ -118,6 +125,12 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-[#131313] text-[#E5E2E1] pb-32 lg:pb-0">
+      {/* Toast Notification */}
+      {toast && (
+        <div className="fixed top-4 right-4 z-[100] px-6 py-3 rounded-lg bg-[#1C1B1B]/80 backdrop-blur-md border border-[#CCFF00]/40 text-[#CCFF00] text-sm font-medium animate-in fade-in duration-300">
+          {toast.message}
+        </div>
+      )}
       {/* MOBILE HEADER */}
       <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-[#131313]/95 backdrop-blur-lg pt-safe px-6 py-4">
         <div className="flex items-center justify-between">
@@ -143,10 +156,10 @@ export default function DashboardPage() {
       <header className="hidden lg:flex fixed top-0 left-0 right-0 z-50 bg-[#131313]/95 backdrop-blur-lg px-8 py-4 items-center justify-between border-b border-[#2A2A2A]">
         <div className="text-lg font-bold text-[#CCFF00] tracking-wider">KINĒTIC ONYX</div>
         <nav className="flex gap-8">
-          <button className="text-[#CCFF00] font-medium text-sm">Dashboard</button>
-          <button className="text-[#A8A6A5] hover:text-[#E5E2E1] font-medium text-sm transition-colors">Clients</button>
-          <button className="text-[#A8A6A5] hover:text-[#E5E2E1] font-medium text-sm transition-colors">Analytics</button>
-          <button className="text-[#A8A6A5] hover:text-[#E5E2E1] font-medium text-sm transition-colors">Protocol</button>
+          <Link href="/dashboard" className="text-[#CCFF00] font-medium text-sm">Dashboard</Link>
+          <Link href="/pacientes" className="text-[#A8A6A5] hover:text-[#E5E2E1] font-medium text-sm transition-colors">Clients</Link>
+          <Link href="/biometria" className="text-[#A8A6A5] hover:text-[#E5E2E1] font-medium text-sm transition-colors">Analytics</Link>
+          <Link href="/dieta" className="text-[#A8A6A5] hover:text-[#E5E2E1] font-medium text-sm transition-colors">Protocol</Link>
         </nav>
         <div className="flex items-center gap-4">
           <button className="w-10 h-10 rounded-full bg-[#2A2A2A] flex items-center justify-center hover:bg-[#353534]">
@@ -172,20 +185,21 @@ export default function DashboardPage() {
 
         <nav className="space-y-1 flex-1">
           {[
-            { label: 'Overview', icon: 'dashboard' },
-            { label: 'Biometrics', icon: 'favorite' },
-            { label: 'Nutrition', icon: 'restaurant' },
-            { label: 'Recovery', icon: 'health_and_safety' },
-            { label: 'Alerts', icon: 'notifications_active' },
-            { label: 'Reports', icon: 'assessment' },
+            { label: 'Overview', icon: 'dashboard', route: '/dashboard' },
+            { label: 'Biometrics', icon: 'favorite', route: '/biometria' },
+            { label: 'Nutrition', icon: 'restaurant', route: '/dieta' },
+            { label: 'Recovery', icon: 'health_and_safety', route: '/treino' },
+            { label: 'Alerts', icon: 'notifications_active', route: '/alertas' },
+            { label: 'Reports', icon: 'assessment', route: '/financeiro' },
           ].map((item) => (
-            <button
+            <Link
               key={item.label}
+              href={item.route}
               className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-[#E5E2E1] hover:bg-[#2A2A2A] transition-colors text-sm font-medium"
             >
               <span className="material-symbols-outlined text-lg">{item.icon}</span>
               {item.label}
-            </button>
+            </Link>
           ))}
         </nav>
       </aside>
@@ -194,16 +208,24 @@ export default function DashboardPage() {
       <main className="lg:ml-80 pt-20 lg:pt-24 px-6 lg:px-8">
         {/* ALERTAS PREDITIVOS */}
         <section className="mb-20 lg:mb-24">
-          <div className="mb-2">
-            <h2 className="text-4xl lg:text-5xl font-bold text-[#E5E2E1] mb-2" style={{ fontFamily: 'Manrope' }}>
-              Alertas Preditivos
-            </h2>
-            <div className="flex items-center gap-3">
-              <p className="text-sm text-[#A8A6A5]">Sinais vitais e adesão do ecossistema.</p>
-              <span className="px-3 py-1 bg-[#CCFF00]/20 text-[#CCFF00] text-xs font-bold rounded-full border border-[#CCFF00]/40">
-                REAL-TIME DATA
-              </span>
+          <div className="mb-2 flex items-start justify-between">
+            <div className="flex-1">
+              <h2 className="text-4xl lg:text-5xl font-bold text-[#E5E2E1] mb-2" style={{ fontFamily: 'Manrope' }}>
+                Alertas Preditivos
+              </h2>
+              <div className="flex items-center gap-3">
+                <p className="text-sm text-[#A8A6A5]">Sinais vitais e adesão do ecossistema.</p>
+                <span className="px-3 py-1 bg-[#CCFF00]/20 text-[#CCFF00] text-xs font-bold rounded-full border border-[#CCFF00]/40">
+                  REAL-TIME DATA
+                </span>
+              </div>
             </div>
+            <button
+              onClick={() => showToast('Confirmações enviadas!')}
+              className="px-4 py-2 bg-[#2A2A2A] hover:bg-[#353534] text-[#CCFF00] font-semibold text-xs rounded-lg transition-colors whitespace-nowrap"
+            >
+              Enviar confirmação para todos
+            </button>
           </div>
 
           <div className="space-y-4 mt-8">
@@ -242,15 +264,28 @@ export default function DashboardPage() {
 
                     <p className="text-sm text-[#A8A6A5] mb-4">{alert.description}</p>
 
-                    <button
-                      className={`text-sm font-bold transition-opacity hover:opacity-80 ${
-                        alert.type === 'critical'
-                          ? 'text-red-400'
-                          : 'text-[#CCFF00]'
-                      }`}
-                    >
-                      {alert.action}
-                    </button>
+                    {alert.patientId === '#4921' ? (
+                      <Link
+                        href="/pacientes/pat-005"
+                        className={`text-sm font-bold transition-opacity hover:opacity-80 ${
+                          alert.type === 'critical'
+                            ? 'text-red-400'
+                            : 'text-[#CCFF00]'
+                        }`}
+                      >
+                        {alert.action}
+                      </Link>
+                    ) : (
+                      <button
+                        className={`text-sm font-bold transition-opacity hover:opacity-80 ${
+                          alert.type === 'critical'
+                            ? 'text-red-400'
+                            : 'text-[#CCFF00]'
+                        }`}
+                      >
+                        {alert.action}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -359,13 +394,13 @@ export default function DashboardPage() {
             ))}
           </div>
 
-          <button className="w-full mt-6 py-3 rounded-lg bg-[#CCFF00] text-[#131313] font-bold hover:bg-[#CCFF00]/90 transition-colors text-sm">
+          <Link href="/pacientes" className="w-full mt-6 py-3 rounded-lg bg-[#CCFF00] text-[#131313] font-bold hover:bg-[#CCFF00]/90 transition-colors text-sm inline-block text-center">
             VISUALIZAR TODOS →
-          </button>
+          </Link>
 
-          <button className="fixed bottom-24 lg:bottom-8 right-6 w-16 h-16 rounded-full bg-[#CCFF00] text-[#131313] flex items-center justify-center font-bold text-2xl hover:bg-[#CCFF00]/90 transition-colors shadow-lg">
+          <Link href="/pacientes/novo" className="fixed bottom-24 lg:bottom-8 right-6 w-16 h-16 rounded-full bg-[#CCFF00] text-[#131313] flex items-center justify-center font-bold text-2xl hover:bg-[#CCFF00]/90 transition-colors shadow-lg">
             +
-          </button>
+          </Link>
         </section>
       </main>
 

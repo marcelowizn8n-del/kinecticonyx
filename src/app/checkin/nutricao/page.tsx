@@ -2,12 +2,33 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import BottomNav from "@/components/BottomNav";
 
 export default function CheckinNutricaoPage() {
+  const router = useRouter();
   const [adherence, setAdherence] = useState(75);
   const [selectedFriction, setSelectedFriction] = useState("taste");
+  const [toast, setToast] = useState<string | null>(null);
   const fileInputRefDifficult = useRef<HTMLInputElement>(null);
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const handleClose = () => {
+    router.push("/dashboard");
+  };
+
+  const handleBack = () => {
+    router.push("/checkin/energia");
+  };
+
+  const handleContinueOrSave = () => {
+    showToast("Check-in salvo!");
+    setTimeout(() => router.push("/dashboard"), 1000);
+  };
 
   const frictionPoints = [
     { id: "cravings", label: "CRAVINGS", icon: "restaurant" },
@@ -36,11 +57,11 @@ export default function CheckinNutricaoPage() {
       <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-[#131313] pb-24">
         {/* Fixed Header */}
         <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-5 py-4 bg-[#131313]/80 backdrop-blur-[16px] border-b border-[#444933] max-w-md mx-auto">
-          <button className="flex h-10 w-10 items-center justify-center hover:bg-[#2A2A2A] transition-colors rounded-lg">
+          <button onClick={handleClose} className="flex h-10 w-10 items-center justify-center hover:bg-[#2A2A2A] transition-colors rounded-lg">
             <span className="material-symbols-outlined text-[#E5E2E1]">close</span>
           </button>
           <h1 className="text-base font-['Inter'] font-bold text-[#E5E2E1]">Performance Check-in</h1>
-          <button className="flex h-10 w-10 items-center justify-center bg-[#CCFF00] hover:bg-[#ABD600] transition-colors rounded-lg">
+          <button onClick={handleContinueOrSave} className="flex h-10 w-10 items-center justify-center bg-[#CCFF00] hover:bg-[#ABD600] transition-colors rounded-lg">
             <span className="material-symbols-outlined text-[#283500]">save</span>
           </button>
         </header>
@@ -200,10 +221,10 @@ export default function CheckinNutricaoPage() {
 
           {/* Action Buttons */}
           <div className="flex gap-3 mb-4">
-            <button className="flex-1 py-3 px-5 rounded-lg bg-[#1C1B1B] text-[#E5E2E1] font-['Inter'] font-bold text-sm transition-transform hover:scale-105 active:scale-95 border border-[#444933]">
+            <button onClick={handleBack} className="flex-1 py-3 px-5 rounded-lg bg-[#1C1B1B] text-[#E5E2E1] font-['Inter'] font-bold text-sm transition-transform hover:scale-105 active:scale-95 border border-[#444933]">
               ← BACK
             </button>
-            <button className="flex-1 py-3 px-5 rounded-lg bg-[#CCFF00] text-[#283500] font-['Inter'] font-bold text-sm transition-transform hover:scale-105 active:scale-95">
+            <button onClick={handleContinueOrSave} className="flex-1 py-3 px-5 rounded-lg bg-[#CCFF00] text-[#283500] font-['Inter'] font-bold text-sm transition-transform hover:scale-105 active:scale-95">
               CONTINUE CHECK-IN
             </button>
           </div>
@@ -211,6 +232,12 @@ export default function CheckinNutricaoPage() {
       </div>
 
       <BottomNav />
+
+      {toast && (
+        <div className="fixed top-6 right-6 z-[100] px-6 py-3 rounded-lg text-sm font-bold" style={{ background: 'rgba(42,42,42,0.95)', backdropFilter: 'blur(16px)', color: '#CCFF00', border: '1px solid rgba(204,255,0,0.2)' }}>
+          {toast}
+        </div>
+      )}
     </>
   );
 }

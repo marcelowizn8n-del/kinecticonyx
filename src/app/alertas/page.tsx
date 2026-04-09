@@ -86,10 +86,12 @@ export default function AlertasPage() {
 
         {/* Add New Client Button */}
         <div className="px-6 mt-8 absolute bottom-6 left-0 right-0">
-          <button className="w-full py-3 bg-primary text-on-primary font-bold rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
-            <span className="material-symbols-outlined">add</span>
-            Add New Client
-          </button>
+          <Link href="/pacientes/novo">
+            <button className="w-full py-3 bg-primary text-on-primary font-bold rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+              <span className="material-symbols-outlined">add</span>
+              Add New Client
+            </button>
+          </Link>
         </div>
       </aside>
 

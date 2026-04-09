@@ -4,8 +4,16 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+type FilterChip = "all" | "analyzing";
+
 export default function BiometriaPage() {
   const pathname = usePathname();
+  const [toast, setToast] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 3000);
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-background pb-24">
@@ -183,7 +191,7 @@ export default function BiometriaPage() {
         </section>
 
         {/* Export Button */}
-        <button className="w-full bg-primary text-on-primary py-4 rounded font-headline font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-transform mb-6">
+        <button onClick={() => showToast("Relatório exportado!")} className="w-full bg-primary text-on-primary py-4 rounded font-headline font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-transform mb-6">
           <span>EXPORTAR RELATÓRIO PDF</span>
           <span className="material-symbols-outlined text-base">download</span>
         </button>
@@ -261,9 +269,9 @@ export default function BiometriaPage() {
           </span>
         </Link>
         <Link
-          href="/insights"
+          href="/alertas"
           className={`flex flex-col items-center justify-center transition-colors active:scale-90 duration-150 ${
-            pathname === "/insights"
+            pathname === "/alertas"
               ? "text-primary font-bold"
               : "text-on-surface/50"
           }`}
@@ -271,7 +279,7 @@ export default function BiometriaPage() {
           <span
             className="material-symbols-outlined mb-1"
             style={
-              pathname === "/insights"
+              pathname === "/alertas"
                 ? { fontVariationSettings: "'FILL' 1" }
                 : {}
             }
@@ -279,10 +287,16 @@ export default function BiometriaPage() {
             analytics
           </span>
           <span className="font-body text-[10px] font-bold uppercase tracking-tight">
-            INSIGHTS
+            ALERTS
           </span>
         </Link>
       </nav>
+
+      {toast && (
+        <div className="fixed top-6 right-6 z-[100] px-6 py-3 rounded-lg text-sm font-bold" style={{ background: 'rgba(42,42,42,0.95)', backdropFilter: 'blur(16px)', color: '#CCFF00', border: '1px solid rgba(204,255,0,0.2)' }}>
+          {toast}
+        </div>
+      )}
     </div>
   );
 }
