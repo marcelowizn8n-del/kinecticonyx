@@ -3,6 +3,7 @@ export interface Patient {
   name: string;
   email: string;
   phone: string;
+  cpf: string;
   avatar: string; // initials like "RM"
   age: number;
   gender: 'M' | 'F';
@@ -16,9 +17,27 @@ export interface Patient {
   weight: number; // current kg
   height: number; // cm
   bodyFat: number; // percentage
-  dietType: 'mathematical' | 'intuitive' | 'behavioral'; // from meeting discussion
+  dietType: 'mathematical' | 'intuitive' | 'behavioral';
   startDate: string; // ISO date
   notes: string;
+  // Personal data
+  address: string;
+  profession: string;
+  maritalStatus: string;
+  birthDate: string; // ISO date
+  // Circumferences (cm)
+  waistCircumference: number;
+  hipCircumference: number;
+  armCircumference: number;
+  thighCircumference: number;
+  calfCircumference: number;
+  // Health
+  healthHistory: string;
+  allergies: string[];
+  restrictions: string[];
+  activityLevel: 'sedentary' | 'light' | 'moderate' | 'intense' | 'very_intense';
+  sleepHours: number;
+  consultationFrequency: 'weekly' | 'biweekly' | 'monthly';
   // Evolution data
   weightHistory: { date: string; value: number }[];
   bodyFatHistory: { date: string; value: number }[];
@@ -27,6 +46,10 @@ export interface Patient {
   waterPercentage: number; // %
   visceralFat: number; // level 1-20
   bmr: number; // basal metabolic rate kcal
+  // Optional extended data
+  exams?: { id: string; type: string; date: string; status: string }[];
+  paymentHistory?: { date: string; amount: number; status: 'paid' | 'pending' | 'overdue' }[];
+  dietPlan?: { name: string; template: string; adherence: number; targetCalories: number };
 }
 
 export interface Meal {
