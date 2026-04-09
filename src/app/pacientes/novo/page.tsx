@@ -126,8 +126,12 @@ function NewPatientPageInner() {
     professionalNotes: '',
   });
 
-  // Load patient data if in edit mode
+  // Load patient data if in edit mode — reset everything when editPatientId changes
   useEffect(() => {
+    // Always reset avatar preview when patient changes
+    setAvatarPreview(null);
+    setShowAvatarToast(false);
+
     if (editPatientId) {
       setIsEditMode(true);
       const patient = getPatientById(editPatientId);
@@ -187,6 +191,50 @@ function NewPatientPageInner() {
           setAvatarPreview(patient.avatarUrl);
         }
       }
+    } else {
+      // Reset to new patient mode
+      setIsEditMode(false);
+      setFormData({
+        fullName: '',
+        cpf: '',
+        birthDate: '',
+        gender: 'M',
+        email: '',
+        phone: '',
+        address: '',
+        profession: '',
+        maritalStatus: '',
+        photo: null,
+        weight: 0,
+        height: 0,
+        waistCircumference: 0,
+        hipCircumference: 0,
+        armCircumference: 0,
+        thighCircumference: 0,
+        calfCircumference: 0,
+        bodyFatSkinfolds: 0,
+        bodyFatBioimpedance: 0,
+        muscleMass: 0,
+        waterPercentage: 0,
+        visceralFat: 0,
+        basalMetabolicRate: 0,
+        mainGoal: 'Saúde',
+        approachType: 'mathematical',
+        healthHistory: '',
+        allergies: [],
+        dietaryRestrictions: [],
+        physicalActivityLevel: 'Leve',
+        sleepHours: 7,
+        uploadedExams: [],
+        monthlyValue: 0,
+        dueDay: 1,
+        paymentMethod: 'PIX',
+        paymentStatus: 'pending',
+        startDate: new Date().toISOString().split('T')[0],
+        consultationFrequency: 'Semanal',
+        nextConsultation: '',
+        professionalNotes: '',
+      });
     }
   }, [editPatientId, getPatientById]);
 
